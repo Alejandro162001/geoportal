@@ -14,6 +14,6 @@ router.post('/publicar-shp', upload.single('shapefile'), geoserverController.pub
 
 // Nuevas rutas
 router.get('/enlistar-db', geoserverController.enlistingCapasDB);
-router.get('/geoserver-layers', geoserverController.obtenerCapasGeoserver);
+router.get('/llamar-capas', geoserverController.obtenerCapasGeoserver);
 
 module.exports = router;

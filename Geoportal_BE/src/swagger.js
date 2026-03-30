@@ -54,7 +54,7 @@ const options = {
           }
         }
       },
-      '/api/geoserver-layers': {
+      '/api/llamar-capas': {
         get: {
           tags: ['GeoServer'],
           summary: 'Jalar capas directamente de GeoServer',
