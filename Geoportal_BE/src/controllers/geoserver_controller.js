@@ -6,6 +6,7 @@ const { PrismaPg } = require('@prisma/adapter-pg');
 const { PrismaClient } = require('@prisma/client');
 require('dotenv').config();
 const { setupGeoserver } = require('../services/geoserver_service');
+const path = require('path');
 
 // --- CONFIGURACIÓN DE PRISMA ---
 const connectionString = process.env.DATABASE_URL;
@@ -159,8 +160,126 @@ const obtenerCapasGeoserver = async (req, res) => {
     }
 };
 
+// Descargar capa en formato GeoJSON o Shapefile
+const descargarCapa = async (req, res) => {
+    const { nombreCapa } = req.params;
+    const formato = (req.query.formato || 'geojson').toLowerCase();
+    
+    if (!nombreCapa) {
+        return res.status(400).json({ error: "Nombre de capa requerido" });
+    }
+    
+    const esquema = 'geoespacial';
+    const workspace = 'geoportal';
+    const tableName = nombreCapa.toLowerCase().replace(/\s+/g, '_');
+    
+    try {
+        const datos = await prisma.$queryRawUnsafe(`
+            SELECT 
+                json_build_object(
+                    'type', 'FeatureCollection',
+                    'features', json_agg(
+                        json_build_object(
+                            'type', 'Feature',
+                            'geometry', ST_AsGeoJSON(geom)::json,
+                            'properties', COALESCE(properties, '{}')
+                        )
+                    )
+                ) AS geojson
+            FROM "${esquema}"."${tableName}"
+        `);
+        
+        if (!datos || datos.length === 0 || !datos[0].geojson) {
+            return res.status(404).json({ error: "Capa no encontrada o vacía" });
+        }
+        
+        if (formato === 'geojson') {
+            res.setHeader('Content-Type', 'application/vnd.geo+json');
+            res.setHeader('Content-Disposition', `attachment; filename="${tableName}.geojson"`);
+            return res.send(datos[0].geojson);
+        }
+        
+        if (formato === 'shp') {
+            const features = datos[0].geojson.features || [];
+            
+            if (features.length === 0) {
+                return res.status(404).json({ error: "La capa no tiene geometrías" });
+            }
+            
+            const geoserverUrl = `http://localhost:8081/geoserver/wfs?request=GetFeature&version=1.0.0&typeName=${workspace}:${tableName}&outputFormat=shape-zip`;
+            
+            const response = await axios.get(geoserverUrl, {
+                auth: { username: 'admin', password: 'geoserver' },
+                responseType: 'arraybuffer'
+            });
+            
+            res.setHeader('Content-Type', 'application/zip');
+            res.setHeader('Content-Disposition', `attachment; filename="${tableName}.zip"`);
+            return res.send(Buffer.from(response.data));
+        }
+        
+        return res.status(400).json({ error: "Formato no soportado. Use: geojson o shp" });
+        
+    } catch (error) {
+        console.error("Error al descargar capa:", error);
+        res.status(500).json({ error: "Error al descargar capa", detalle: error.message });
+    }
+};
+
+// Publicar raster (TIFF, GeoTIFF, SID)
+const publicarRaster = async (req, res) => {
+    const workspace = req.body.workspace ? req.body.workspace.trim() : 'geoportal';
+    const nombreCapa = req.body.nombreCapa ? req.body.nombreCapa.trim() : 'raster_sin_nombre';
+
+    if (!req.file) {
+        return res.status(400).json({ error: "No se subió ningún archivo raster" });
+    }
+
+    const ext = path.extname(req.file.originalname).toLowerCase();
+    const mimeTypes = ['.tiff', '.tif', '.sid', '.img', '.geotiff'];
+    
+    if (!mimeTypes.includes(ext)) {
+        return res.status(400).json({ 
+            error: "Formato no soportado", 
+            detalle: `Extensiones válidas: ${mimeTypes.join(', ')}`
+        });
+    }
+
+    const coberturaStore = nombreCapa.replace(/\s+/g, '_').toLowerCase();
+
+    try {
+        await setupGeoserver(workspace, coberturaStore, 'coveragestore');
+
+        const uploadUrl = `http://localhost:8081/geoserver/rest/workspaces/${workspace}/coveragestores/${coberturaStore}/file.geotiff`;
+        
+        await axios.put(uploadUrl, req.file.buffer, {
+            auth: { username: 'admin', password: 'geoserver' },
+            headers: { 
+                'Content-Type': req.file.mimetype,
+                'Coverage-name': nombreCapa
+            }
+        });
+
+        res.json({ 
+            mensaje: `Raster publicado con éxito`,
+            nombre: nombreCapa,
+            workspace: workspace,
+            coberturaStore: coberturaStore
+        });
+
+    } catch (error) {
+        console.error("Error al publicar raster:", error.response ? error.response.data : error.message);
+        res.status(500).json({ 
+            error: "Error al publicar raster", 
+            detalle: error.message 
+        });
+    }
+};
+
 module.exports = {
     publicarShapefile,
+    publicarRaster,
     enlistingCapasDB,
-    obtenerCapasGeoserver
+    obtenerCapasGeoserver,
+    descargarCapa
 };

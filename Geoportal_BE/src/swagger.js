@@ -54,12 +54,63 @@ const options = {
           }
         }
       },
+      '/api/publicar-raster': {
+        post: {
+          tags: ['GeoServer'],
+          summary: 'Publicar un archivo raster (TIFF, GeoTIFF, SID)',
+          requestBody: {
+            content: {
+              'multipart/form-data': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    nombreCapa: { type: 'string' },
+                    workspace: { type: 'string' },
+                    raster: { type: 'string', format: 'binary' }
+                  }
+                }
+              }
+            }
+          },
+          responses: {
+            200: { description: 'Raster publicado con éxito' },
+            400: { description: 'Archivo no válido o formato no soportado' }
+          }
+        }
+      },
       '/api/llamar-capas': {
         get: {
           tags: ['GeoServer'],
           summary: 'Jalar capas directamente de GeoServer',
           responses: {
             200: { description: 'Lista de capas en GeoServer' }
+          }
+        }
+      },
+      '/api/descargar-capa/{nombreCapa}': {
+        get: {
+          tags: ['GeoServer'],
+          summary: 'Descargar una capa en formato GeoJSON o Shapefile',
+          parameters: [
+            {
+              name: 'nombreCapa',
+              in: 'path',
+              required: true,
+              schema: { type: 'string' },
+              description: 'Nombre de la capa a descargar'
+            },
+            {
+              name: 'formato',
+              in: 'query',
+              required: false,
+              schema: { type: 'string', enum: ['geojson', 'shp'], default: 'geojson' },
+              description: 'Formato de descarga: geojson o shp'
+            }
+          ],
+          responses: {
+            200: { description: 'Archivo de capa descargado' },
+            400: { description: 'Parámetros inválidos' },
+            404: { description: 'Capa no encontrada' }
           }
         }
       }
