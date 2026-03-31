@@ -1,19 +1,18 @@
 const express = require('express');
 const swaggerUi = require('swagger-ui-express');
-const swaggerSpec = require('./src/swagger'); // Importa tu config de Swagger
-const geoserverRoutes = require('./src/routes/geoserver_routes'); // Importa tus rutas
+const swaggerSpec = require('./src/swagger');
+const geoserverRoutes = require('./src/routes/geoserver_routes');
+const userRoutes = require('./src/routes/user_routes');
 
 const app = express();
 const PORT = 3000;
 
-// Middleware para entender JSON (importante para POST/PUT/PATCH)
 app.use(express.json());
 
-// 1. Ruta para la Documentación (Interfaz Visual)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-// 2. Rutas de tu API
 app.use('/api', geoserverRoutes);
+app.use('/api', userRoutes);
 
 // Ruta de bienvenida simple
 app.get('/', (req, res) => {

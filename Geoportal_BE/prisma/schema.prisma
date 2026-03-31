@@ -8,3 +8,47 @@ datasource db {
   extensions = [postgis]
   schemas    = ["public", "geoespacial"]
 }
+
+model Usuario {
+  id        Int      @id @default(autoincrement())
+  nombre    String   @db.VarChar(100)
+  apellidos String?  @db.VarChar(150)
+  email     String   @unique @db.VarChar(150)
+  password  String   @db.VarChar(255)
+  rol       String   @default("user") @db.VarChar(20)
+  telefono  String?  @db.VarChar(20)
+  activo    Boolean  @default(true)
+  eliminado Boolean  @default(false)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@schema("public")
+  @@map("usuarios")
+}
+
+model CapaGeoespacial {
+  id        Int      @id @default(autoincrement())
+  nombre    String   @unique @db.VarChar(200)
+  tableName String   @db.VarChar(200)
+  workspace String   @default("geoportal") @db.VarChar(100)
+  esquema   String   @default("geoespacial") @db.VarChar(100)
+  activo    Boolean  @default(true)
+  eliminado Boolean  @default(false)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@schema("geoespacial")
+  @@map("capas_geoespaciales")
+}
+
+model RasterGeoespacial {
+  id               Int      @id @default(autoincrement())
+  nombre           String   @unique @db.VarChar(200)
+  coberturaStore   String   @db.VarChar(200)
+  workspace        String   @default("geoportal") @db.VarChar(100)
+  archivo          String   @db.VarChar(500)
+  activo           Boolean  @default(true)
+  eliminado        Boolean  @default(false)
+  createdAt        DateTime @default(now()) @map("created_at")
+
+  @@schema("geoespacial")
+  @@map("rasters_geoespaciales")
+}

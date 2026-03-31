@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 const GEOSERVER_URL = 'http://localhost:8080/geoserver/rest';
-const AUTH = { username: 'admin', password: 'geoserver' };
+const AUTH =  { username: 'admin', password: 'mi_password_seguro' }; //reemplaza con geoserver la contraseña todo depende de como corre goeserver
 
 const setupGeoserver = async (workspace, store, tipo = 'datastore') => {
     try {
