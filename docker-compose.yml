@@ -1,0 +1,67 @@
+services:
+  db:
+    image: kartoza/postgis:15
+    environment:
+      - POSTGRES_DB=gis_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASS=postgres
+      - ALLOW_IP_RANGE=0.0.0.0/0
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    networks:
+      - geoportal-net
+
+  geoserver:
+    image: kartoza/geoserver:2.24.1
+    environment:
+      - GEOSERVER_ADMIN_PASSWORD=geoserver
+      - GEOSERVER_ADMIN_USER=admin
+      - CORS_ENABLED=true
+    ports:
+      - "8081:8080"
+    volumes:
+      - geoserver_data:/opt/geoserver/data_dir
+    depends_on:
+      - db
+    networks:
+      - geoportal-net
+
+  backend:
+    build: 
+      context: ./Geoportal_BE
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/gis_db?schema=public
+      - GEOSERVER_URL=http://geoserver:8080/geoserver
+      - DB_HOST=db
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./Geoportal_BE:/app
+      - /app/node_modules
+    depends_on:
+      - db
+    networks:
+      - geoportal-net
+
+  frontend:
+    build:
+      context: ./Geoportal_FE/Geoportal_FE
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./Geoportal_FE/Geoportal_FE:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - geoportal-net
+
+volumes:
+  postgres_data:
+  geoserver_data:
+
+networks:
+  geoportal-net:
+    driver: bridge

@@ -1,11 +1,16 @@
 const axios = require('axios');
+require('dotenv').config();
 
-const GEOSERVER_URL = 'http://localhost:8080/geoserver/rest';
-const AUTH = { username: 'admin', password: 'geoserver' };
+const GEOSERVER_URL = process.env.GEOSERVER_URL || 'http://localhost:8080/geoserver';
+const REST_URL = `${GEOSERVER_URL}/rest`;
+const AUTH = { 
+    username: process.env.GEOSERVER_USER || 'admin', 
+    password: process.env.GEOSERVER_PASS || 'geoserver' 
+};
 
 const setupGeoserver = async (workspace, store, tipo = 'datastore') => {
     try {
-        await axios.post(`${GEOSERVER_URL}/workspaces`, 
+        await axios.post(`${REST_URL}/workspaces`, 
             { workspace: { name: workspace } }, 
             { auth: AUTH }).catch(() => console.log("Workspace ya existe."));
 
@@ -15,7 +20,7 @@ const setupGeoserver = async (workspace, store, tipo = 'datastore') => {
                     name: store,
                     connectionParameters: {
                         entry: [
-                            { "@key": "host", "$": "localhost" },
+                            { "@key": "host", "$": process.env.DB_HOST || "localhost" },
                             { "@key": "port", "$": "5432" },
                             { "@key": "database", "$": "gis_db" },
                             { "@key": "user", "$": "postgres" },
@@ -25,7 +30,7 @@ const setupGeoserver = async (workspace, store, tipo = 'datastore') => {
                     }
                 }
             };
-            await axios.post(`${GEOSERVER_URL}/workspaces/${workspace}/datastores`, 
+            await axios.post(`${REST_URL}/workspaces/${workspace}/datastores`, 
                 dsConfig, { auth: AUTH }).catch(() => console.log("Datastore ya existe."));
         } else if (tipo === 'coveragestore') {
             const csConfig = {
@@ -35,7 +40,7 @@ const setupGeoserver = async (workspace, store, tipo = 'datastore') => {
                     url: "file:data/" + workspace
                 }
             };
-            await axios.post(`${GEOSERVER_URL}/workspaces/${workspace}/coveragestores`, 
+            await axios.post(`${REST_URL}/workspaces/${workspace}/coveragestores`, 
                 csConfig, { auth: AUTH }).catch(() => console.log("CoverageStore ya existe."));
         }
 

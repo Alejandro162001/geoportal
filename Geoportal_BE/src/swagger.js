@@ -12,6 +12,10 @@ const options = {
         {
             name : 'GeoServer',
             description : 'Operaciones relacionadas con GeoServer y la gestión de capas.'
+        },
+        {
+            name : 'USUARIOS',
+            description : 'Gestión de usuarios y autenticación.'
         }
     ],
         
@@ -111,6 +115,61 @@ const options = {
             200: { description: 'Archivo de capa descargado' },
             400: { description: 'Parámetros inválidos' },
             404: { description: 'Capa no encontrada' }
+          }
+        }
+      },
+      '/api/usuarios': {
+        post: {
+          tags: ['USUARIOS'],
+          summary: 'Registrar un nuevo usuario',
+          requestBody: {
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    nombreCompleto: { type: 'string' },
+                    direccion: { type: 'string' },
+                    correo: { type: 'string' },
+                    contrasena: { type: 'string' },
+                    rol: { type: 'string' }
+                  }
+                }
+              }
+            }
+          },
+          responses: {
+            201: { description: 'Usuario creado' }
+          }
+        },
+        get: {
+          tags: ['USUARIOS'],
+          summary: 'Listar todos los usuarios',
+          responses: {
+            200: { description: 'Lista de usuarios' }
+          }
+        }
+      },
+      '/api/login': {
+        post: {
+          tags: ['USUARIOS'],
+          summary: 'Iniciar sesión',
+          requestBody: {
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    correo: { type: 'string' },
+                    contrasena: { type: 'string' }
+                  }
+                }
+              }
+            }
+          },
+          responses: {
+            200: { description: 'Login exitoso' },
+            401: { description: 'Credenciales inválidas' }
           }
         }
       }

@@ -1,18 +1,12 @@
 const shp = require('shpjs');
 const AdmZip = require('adm-zip');
 const axios = require('axios');
-const { Pool } = require('pg');
-const { PrismaPg } = require('@prisma/adapter-pg');
-const { PrismaClient } = require('@prisma/client');
-require('dotenv').config();
+const prisma = require('../db');
 const { setupGeoserver } = require('../services/geoserver_service');
 const path = require('path');
+require('dotenv').config();
 
-// --- CONFIGURACIÓN DE PRISMA ---
-const connectionString = process.env.DATABASE_URL;
-const pool = new Pool({ connectionString });
-const adapter = new PrismaPg(pool);
-const prisma = new PrismaClient({ adapter });
+const GEOSERVER_URL = process.env.GEOSERVER_URL || 'http://localhost:8080/geoserver';
 
 const publicarShapefile = async (req, res) => {
     // 1. Limpieza de variables de entrada
@@ -80,7 +74,7 @@ const publicarShapefile = async (req, res) => {
         }
 
         // 5. Publicación en GeoServer (Puerto 8081)
-        const geoserverRestUrl = `http://localhost:8081/geoserver/rest/workspaces/${workspace}/datastores/${datastore}/featuretypes`;
+        const geoserverRestUrl = `${GEOSERVER_URL}/rest/workspaces/${workspace}/datastores/${datastore}/featuretypes`;
         
         await axios.post(geoserverRestUrl, {
             featureType: {
@@ -146,7 +140,7 @@ const enlistingCapasDB = async (req, res) => {
 // Obtener capas desde GeoServer (Puerto 8081)
 const obtenerCapasGeoserver = async (req, res) => {
     try {
-        const url = 'http://localhost:8081/geoserver/rest/layers.json';
+        const url = `${GEOSERVER_URL}/rest/layers.json`;
         const response = await axios.get(url, {
             auth: { username: 'admin', password: 'geoserver' }
         });
@@ -206,7 +200,7 @@ const descargarCapa = async (req, res) => {
                 return res.status(404).json({ error: "La capa no tiene geometrías" });
             }
             
-            const geoserverUrl = `http://localhost:8081/geoserver/wfs?request=GetFeature&version=1.0.0&typeName=${workspace}:${tableName}&outputFormat=shape-zip`;
+            const geoserverUrl = `${GEOSERVER_URL}/wfs?request=GetFeature&version=1.0.0&typeName=${workspace}:${tableName}&outputFormat=shape-zip`;
             
             const response = await axios.get(geoserverUrl, {
                 auth: { username: 'admin', password: 'geoserver' },
@@ -250,7 +244,7 @@ const publicarRaster = async (req, res) => {
     try {
         await setupGeoserver(workspace, coberturaStore, 'coveragestore');
 
-        const uploadUrl = `http://localhost:8081/geoserver/rest/workspaces/${workspace}/coveragestores/${coberturaStore}/file.geotiff`;
+        const uploadUrl = `${GEOSERVER_URL}/rest/workspaces/${workspace}/coveragestores/${coberturaStore}/file.geotiff`;
         
         await axios.put(uploadUrl, req.file.buffer, {
             auth: { username: 'admin', password: 'geoserver' },
