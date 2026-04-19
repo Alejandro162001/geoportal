@@ -36,3 +36,16 @@ npm run dev
 ```sh
 npm run build
 ```
+
+🌐 Interfaz de Usuario
+Panel Administrativo (Frontend): http://localhost:5173
+Aquí es donde gestionas Usuarios, Capas y el Dashboard.
+Visor de Mapas (Geoportal): http://localhost:5173/geoportal
+Acceso directo al mapa interactivo.
+🛠️ Herramientas de Desarrollo y Datos
+Documentación de la API (Swagger): http://localhost:3000/api-docs
+Para probar los endpoints de Usuarios, Auditoría y Capas.
+Consola de GeoServer: http://localhost:8081/geoserver
+Usuario: admin | Contraseña: geoserver
+Base de Datos (PostgreSQL/PostGIS): localhost:5432
+Base de datos: gis_db | Usuario: postgres | Contraseña: postgres

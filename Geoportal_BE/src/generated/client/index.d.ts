@@ -14,6 +14,26 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
+ * Model Usuario
+ * 
+ */
+export type Usuario = $Result.DefaultSelection<Prisma.$UsuarioPayload>
+/**
+ * Model Log
+ * 
+ */
+export type Log = $Result.DefaultSelection<Prisma.$LogPayload>
+/**
+ * Model CapaGeoespacial
+ * 
+ */
+export type CapaGeoespacial = $Result.DefaultSelection<Prisma.$CapaGeoespacialPayload>
+/**
+ * Model RasterGeoespacial
+ * 
+ */
+export type RasterGeoespacial = $Result.DefaultSelection<Prisma.$RasterGeoespacialPayload>
+/**
  * Model choloma
  * 
  */
@@ -25,19 +45,9 @@ export type choloma = $Result.DefaultSelection<Prisma.$cholomaPayload>
 export type shp_urrutias = $Result.DefaultSelection<Prisma.$shp_urrutiasPayload>
 /**
  * Model spatial_ref_sys
- * This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+ * 
  */
 export type spatial_ref_sys = $Result.DefaultSelection<Prisma.$spatial_ref_sysPayload>
-/**
- * Model Usuario
- * 
- */
-export type Usuario = $Result.DefaultSelection<Prisma.$UsuarioPayload>
-/**
- * Model Log
- * 
- */
-export type Log = $Result.DefaultSelection<Prisma.$LogPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -48,8 +58,8 @@ export type Log = $Result.DefaultSelection<Prisma.$LogPayload>
  * const prisma = new PrismaClient({
  *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
  * })
- * // Fetch zero or more Cholomas
- * const cholomas = await prisma.choloma.findMany()
+ * // Fetch zero or more Usuarios
+ * const usuarios = await prisma.usuario.findMany()
  * ```
  *
  *
@@ -71,8 +81,8 @@ export class PrismaClient<
    * const prisma = new PrismaClient({
    *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
    * })
-   * // Fetch zero or more Cholomas
-   * const cholomas = await prisma.choloma.findMany()
+   * // Fetch zero or more Usuarios
+   * const usuarios = await prisma.usuario.findMany()
    * ```
    *
    *
@@ -161,6 +171,46 @@ export class PrismaClient<
   }>>
 
       /**
+   * `prisma.usuario`: Exposes CRUD operations for the **Usuario** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Usuarios
+    * const usuarios = await prisma.usuario.findMany()
+    * ```
+    */
+  get usuario(): Prisma.UsuarioDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.log`: Exposes CRUD operations for the **Log** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Logs
+    * const logs = await prisma.log.findMany()
+    * ```
+    */
+  get log(): Prisma.LogDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.capaGeoespacial`: Exposes CRUD operations for the **CapaGeoespacial** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CapaGeoespacials
+    * const capaGeoespacials = await prisma.capaGeoespacial.findMany()
+    * ```
+    */
+  get capaGeoespacial(): Prisma.CapaGeoespacialDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.rasterGeoespacial`: Exposes CRUD operations for the **RasterGeoespacial** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RasterGeoespacials
+    * const rasterGeoespacials = await prisma.rasterGeoespacial.findMany()
+    * ```
+    */
+  get rasterGeoespacial(): Prisma.RasterGeoespacialDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.choloma`: Exposes CRUD operations for the **choloma** model.
     * Example usage:
     * ```ts
@@ -189,26 +239,6 @@ export class PrismaClient<
     * ```
     */
   get spatial_ref_sys(): Prisma.spatial_ref_sysDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.usuario`: Exposes CRUD operations for the **Usuario** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Usuarios
-    * const usuarios = await prisma.usuario.findMany()
-    * ```
-    */
-  get usuario(): Prisma.UsuarioDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.log`: Exposes CRUD operations for the **Log** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Logs
-    * const logs = await prisma.log.findMany()
-    * ```
-    */
-  get log(): Prisma.LogDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -643,11 +673,13 @@ export namespace Prisma {
 
 
   export const ModelName: {
+    Usuario: 'Usuario',
+    Log: 'Log',
+    CapaGeoespacial: 'CapaGeoespacial',
+    RasterGeoespacial: 'RasterGeoespacial',
     choloma: 'choloma',
     shp_urrutias: 'shp_urrutias',
-    spatial_ref_sys: 'spatial_ref_sys',
-    Usuario: 'Usuario',
-    Log: 'Log'
+    spatial_ref_sys: 'spatial_ref_sys'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -663,10 +695,306 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "choloma" | "shp_urrutias" | "spatial_ref_sys" | "usuario" | "log"
+      modelProps: "usuario" | "log" | "capaGeoespacial" | "rasterGeoespacial" | "choloma" | "shp_urrutias" | "spatial_ref_sys"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
+      Usuario: {
+        payload: Prisma.$UsuarioPayload<ExtArgs>
+        fields: Prisma.UsuarioFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UsuarioFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UsuarioFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload>
+          }
+          findFirst: {
+            args: Prisma.UsuarioFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UsuarioFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload>
+          }
+          findMany: {
+            args: Prisma.UsuarioFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload>[]
+          }
+          create: {
+            args: Prisma.UsuarioCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload>
+          }
+          createMany: {
+            args: Prisma.UsuarioCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UsuarioCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload>[]
+          }
+          delete: {
+            args: Prisma.UsuarioDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload>
+          }
+          update: {
+            args: Prisma.UsuarioUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload>
+          }
+          deleteMany: {
+            args: Prisma.UsuarioDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UsuarioUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UsuarioUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload>[]
+          }
+          upsert: {
+            args: Prisma.UsuarioUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload>
+          }
+          aggregate: {
+            args: Prisma.UsuarioAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUsuario>
+          }
+          groupBy: {
+            args: Prisma.UsuarioGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UsuarioGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UsuarioCountArgs<ExtArgs>
+            result: $Utils.Optional<UsuarioCountAggregateOutputType> | number
+          }
+        }
+      }
+      Log: {
+        payload: Prisma.$LogPayload<ExtArgs>
+        fields: Prisma.LogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogPayload>
+          }
+          findFirst: {
+            args: Prisma.LogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogPayload>
+          }
+          findMany: {
+            args: Prisma.LogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogPayload>[]
+          }
+          create: {
+            args: Prisma.LogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogPayload>
+          }
+          createMany: {
+            args: Prisma.LogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogPayload>[]
+          }
+          delete: {
+            args: Prisma.LogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogPayload>
+          }
+          update: {
+            args: Prisma.LogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogPayload>
+          }
+          deleteMany: {
+            args: Prisma.LogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LogUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogPayload>[]
+          }
+          upsert: {
+            args: Prisma.LogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogPayload>
+          }
+          aggregate: {
+            args: Prisma.LogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLog>
+          }
+          groupBy: {
+            args: Prisma.LogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LogCountArgs<ExtArgs>
+            result: $Utils.Optional<LogCountAggregateOutputType> | number
+          }
+        }
+      }
+      CapaGeoespacial: {
+        payload: Prisma.$CapaGeoespacialPayload<ExtArgs>
+        fields: Prisma.CapaGeoespacialFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CapaGeoespacialFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CapaGeoespacialPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CapaGeoespacialFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CapaGeoespacialPayload>
+          }
+          findFirst: {
+            args: Prisma.CapaGeoespacialFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CapaGeoespacialPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CapaGeoespacialFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CapaGeoespacialPayload>
+          }
+          findMany: {
+            args: Prisma.CapaGeoespacialFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CapaGeoespacialPayload>[]
+          }
+          create: {
+            args: Prisma.CapaGeoespacialCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CapaGeoespacialPayload>
+          }
+          createMany: {
+            args: Prisma.CapaGeoespacialCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CapaGeoespacialCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CapaGeoespacialPayload>[]
+          }
+          delete: {
+            args: Prisma.CapaGeoespacialDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CapaGeoespacialPayload>
+          }
+          update: {
+            args: Prisma.CapaGeoespacialUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CapaGeoespacialPayload>
+          }
+          deleteMany: {
+            args: Prisma.CapaGeoespacialDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CapaGeoespacialUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CapaGeoespacialUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CapaGeoespacialPayload>[]
+          }
+          upsert: {
+            args: Prisma.CapaGeoespacialUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CapaGeoespacialPayload>
+          }
+          aggregate: {
+            args: Prisma.CapaGeoespacialAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCapaGeoespacial>
+          }
+          groupBy: {
+            args: Prisma.CapaGeoespacialGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CapaGeoespacialGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CapaGeoespacialCountArgs<ExtArgs>
+            result: $Utils.Optional<CapaGeoespacialCountAggregateOutputType> | number
+          }
+        }
+      }
+      RasterGeoespacial: {
+        payload: Prisma.$RasterGeoespacialPayload<ExtArgs>
+        fields: Prisma.RasterGeoespacialFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RasterGeoespacialFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RasterGeoespacialPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RasterGeoespacialFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RasterGeoespacialPayload>
+          }
+          findFirst: {
+            args: Prisma.RasterGeoespacialFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RasterGeoespacialPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RasterGeoespacialFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RasterGeoespacialPayload>
+          }
+          findMany: {
+            args: Prisma.RasterGeoespacialFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RasterGeoespacialPayload>[]
+          }
+          create: {
+            args: Prisma.RasterGeoespacialCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RasterGeoespacialPayload>
+          }
+          createMany: {
+            args: Prisma.RasterGeoespacialCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RasterGeoespacialCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RasterGeoespacialPayload>[]
+          }
+          delete: {
+            args: Prisma.RasterGeoespacialDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RasterGeoespacialPayload>
+          }
+          update: {
+            args: Prisma.RasterGeoespacialUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RasterGeoespacialPayload>
+          }
+          deleteMany: {
+            args: Prisma.RasterGeoespacialDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RasterGeoespacialUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RasterGeoespacialUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RasterGeoespacialPayload>[]
+          }
+          upsert: {
+            args: Prisma.RasterGeoespacialUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RasterGeoespacialPayload>
+          }
+          aggregate: {
+            args: Prisma.RasterGeoespacialAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRasterGeoespacial>
+          }
+          groupBy: {
+            args: Prisma.RasterGeoespacialGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RasterGeoespacialGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RasterGeoespacialCountArgs<ExtArgs>
+            result: $Utils.Optional<RasterGeoespacialCountAggregateOutputType> | number
+          }
+        }
+      }
       choloma: {
         payload: Prisma.$cholomaPayload<ExtArgs>
         fields: Prisma.cholomaFieldRefs
@@ -889,154 +1217,6 @@ export namespace Prisma {
           }
         }
       }
-      Usuario: {
-        payload: Prisma.$UsuarioPayload<ExtArgs>
-        fields: Prisma.UsuarioFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.UsuarioFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.UsuarioFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload>
-          }
-          findFirst: {
-            args: Prisma.UsuarioFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.UsuarioFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload>
-          }
-          findMany: {
-            args: Prisma.UsuarioFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload>[]
-          }
-          create: {
-            args: Prisma.UsuarioCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload>
-          }
-          createMany: {
-            args: Prisma.UsuarioCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.UsuarioCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload>[]
-          }
-          delete: {
-            args: Prisma.UsuarioDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload>
-          }
-          update: {
-            args: Prisma.UsuarioUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload>
-          }
-          deleteMany: {
-            args: Prisma.UsuarioDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.UsuarioUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.UsuarioUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload>[]
-          }
-          upsert: {
-            args: Prisma.UsuarioUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UsuarioPayload>
-          }
-          aggregate: {
-            args: Prisma.UsuarioAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateUsuario>
-          }
-          groupBy: {
-            args: Prisma.UsuarioGroupByArgs<ExtArgs>
-            result: $Utils.Optional<UsuarioGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.UsuarioCountArgs<ExtArgs>
-            result: $Utils.Optional<UsuarioCountAggregateOutputType> | number
-          }
-        }
-      }
-      Log: {
-        payload: Prisma.$LogPayload<ExtArgs>
-        fields: Prisma.LogFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.LogFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LogPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.LogFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LogPayload>
-          }
-          findFirst: {
-            args: Prisma.LogFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LogPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.LogFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LogPayload>
-          }
-          findMany: {
-            args: Prisma.LogFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LogPayload>[]
-          }
-          create: {
-            args: Prisma.LogCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LogPayload>
-          }
-          createMany: {
-            args: Prisma.LogCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.LogCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LogPayload>[]
-          }
-          delete: {
-            args: Prisma.LogDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LogPayload>
-          }
-          update: {
-            args: Prisma.LogUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LogPayload>
-          }
-          deleteMany: {
-            args: Prisma.LogDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.LogUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.LogUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LogPayload>[]
-          }
-          upsert: {
-            args: Prisma.LogUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LogPayload>
-          }
-          aggregate: {
-            args: Prisma.LogAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateLog>
-          }
-          groupBy: {
-            args: Prisma.LogGroupByArgs<ExtArgs>
-            result: $Utils.Optional<LogGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.LogCountArgs<ExtArgs>
-            result: $Utils.Optional<LogCountAggregateOutputType> | number
-          }
-        }
-      }
     }
   } & {
     other: {
@@ -1145,11 +1325,13 @@ export namespace Prisma {
     comments?: runtime.SqlCommenterPlugin[]
   }
   export type GlobalOmitConfig = {
+    usuario?: UsuarioOmit
+    log?: LogOmit
+    capaGeoespacial?: CapaGeoespacialOmit
+    rasterGeoespacial?: RasterGeoespacialOmit
     choloma?: cholomaOmit
     shp_urrutias?: shp_urrutiasOmit
     spatial_ref_sys?: spatial_ref_sysOmit
-    usuario?: UsuarioOmit
-    log?: LogOmit
   }
 
   /* Types for Logging */
@@ -1229,6 +1411,4303 @@ export namespace Prisma {
   /**
    * Models
    */
+
+  /**
+   * Model Usuario
+   */
+
+  export type AggregateUsuario = {
+    _count: UsuarioCountAggregateOutputType | null
+    _min: UsuarioMinAggregateOutputType | null
+    _max: UsuarioMaxAggregateOutputType | null
+  }
+
+  export type UsuarioMinAggregateOutputType = {
+    id: string | null
+    nombre: string | null
+    apellidos: string | null
+    nombreCompleto: string | null
+    direccion: string | null
+    correo: string | null
+    contrasena: string | null
+    rol: string | null
+    telefono: string | null
+    activo: boolean | null
+    softDelete: boolean | null
+    createdAt: Date | null
+  }
+
+  export type UsuarioMaxAggregateOutputType = {
+    id: string | null
+    nombre: string | null
+    apellidos: string | null
+    nombreCompleto: string | null
+    direccion: string | null
+    correo: string | null
+    contrasena: string | null
+    rol: string | null
+    telefono: string | null
+    activo: boolean | null
+    softDelete: boolean | null
+    createdAt: Date | null
+  }
+
+  export type UsuarioCountAggregateOutputType = {
+    id: number
+    nombre: number
+    apellidos: number
+    nombreCompleto: number
+    direccion: number
+    correo: number
+    contrasena: number
+    rol: number
+    telefono: number
+    activo: number
+    softDelete: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type UsuarioMinAggregateInputType = {
+    id?: true
+    nombre?: true
+    apellidos?: true
+    nombreCompleto?: true
+    direccion?: true
+    correo?: true
+    contrasena?: true
+    rol?: true
+    telefono?: true
+    activo?: true
+    softDelete?: true
+    createdAt?: true
+  }
+
+  export type UsuarioMaxAggregateInputType = {
+    id?: true
+    nombre?: true
+    apellidos?: true
+    nombreCompleto?: true
+    direccion?: true
+    correo?: true
+    contrasena?: true
+    rol?: true
+    telefono?: true
+    activo?: true
+    softDelete?: true
+    createdAt?: true
+  }
+
+  export type UsuarioCountAggregateInputType = {
+    id?: true
+    nombre?: true
+    apellidos?: true
+    nombreCompleto?: true
+    direccion?: true
+    correo?: true
+    contrasena?: true
+    rol?: true
+    telefono?: true
+    activo?: true
+    softDelete?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type UsuarioAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Usuario to aggregate.
+     */
+    where?: UsuarioWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Usuarios to fetch.
+     */
+    orderBy?: UsuarioOrderByWithRelationInput | UsuarioOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UsuarioWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Usuarios from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Usuarios.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Usuarios
+    **/
+    _count?: true | UsuarioCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UsuarioMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UsuarioMaxAggregateInputType
+  }
+
+  export type GetUsuarioAggregateType<T extends UsuarioAggregateArgs> = {
+        [P in keyof T & keyof AggregateUsuario]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUsuario[P]>
+      : GetScalarType<T[P], AggregateUsuario[P]>
+  }
+
+
+
+
+  export type UsuarioGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UsuarioWhereInput
+    orderBy?: UsuarioOrderByWithAggregationInput | UsuarioOrderByWithAggregationInput[]
+    by: UsuarioScalarFieldEnum[] | UsuarioScalarFieldEnum
+    having?: UsuarioScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UsuarioCountAggregateInputType | true
+    _min?: UsuarioMinAggregateInputType
+    _max?: UsuarioMaxAggregateInputType
+  }
+
+  export type UsuarioGroupByOutputType = {
+    id: string
+    nombre: string | null
+    apellidos: string | null
+    nombreCompleto: string
+    direccion: string | null
+    correo: string
+    contrasena: string
+    rol: string
+    telefono: string | null
+    activo: boolean
+    softDelete: boolean
+    createdAt: Date
+    _count: UsuarioCountAggregateOutputType | null
+    _min: UsuarioMinAggregateOutputType | null
+    _max: UsuarioMaxAggregateOutputType | null
+  }
+
+  type GetUsuarioGroupByPayload<T extends UsuarioGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UsuarioGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UsuarioGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UsuarioGroupByOutputType[P]>
+            : GetScalarType<T[P], UsuarioGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UsuarioSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nombre?: boolean
+    apellidos?: boolean
+    nombreCompleto?: boolean
+    direccion?: boolean
+    correo?: boolean
+    contrasena?: boolean
+    rol?: boolean
+    telefono?: boolean
+    activo?: boolean
+    softDelete?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["usuario"]>
+
+  export type UsuarioSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nombre?: boolean
+    apellidos?: boolean
+    nombreCompleto?: boolean
+    direccion?: boolean
+    correo?: boolean
+    contrasena?: boolean
+    rol?: boolean
+    telefono?: boolean
+    activo?: boolean
+    softDelete?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["usuario"]>
+
+  export type UsuarioSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nombre?: boolean
+    apellidos?: boolean
+    nombreCompleto?: boolean
+    direccion?: boolean
+    correo?: boolean
+    contrasena?: boolean
+    rol?: boolean
+    telefono?: boolean
+    activo?: boolean
+    softDelete?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["usuario"]>
+
+  export type UsuarioSelectScalar = {
+    id?: boolean
+    nombre?: boolean
+    apellidos?: boolean
+    nombreCompleto?: boolean
+    direccion?: boolean
+    correo?: boolean
+    contrasena?: boolean
+    rol?: boolean
+    telefono?: boolean
+    activo?: boolean
+    softDelete?: boolean
+    createdAt?: boolean
+  }
+
+  export type UsuarioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nombre" | "apellidos" | "nombreCompleto" | "direccion" | "correo" | "contrasena" | "rol" | "telefono" | "activo" | "softDelete" | "createdAt", ExtArgs["result"]["usuario"]>
+
+  export type $UsuarioPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Usuario"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      nombre: string | null
+      apellidos: string | null
+      nombreCompleto: string
+      direccion: string | null
+      correo: string
+      contrasena: string
+      rol: string
+      telefono: string | null
+      activo: boolean
+      softDelete: boolean
+      createdAt: Date
+    }, ExtArgs["result"]["usuario"]>
+    composites: {}
+  }
+
+  type UsuarioGetPayload<S extends boolean | null | undefined | UsuarioDefaultArgs> = $Result.GetResult<Prisma.$UsuarioPayload, S>
+
+  type UsuarioCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UsuarioFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UsuarioCountAggregateInputType | true
+    }
+
+  export interface UsuarioDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Usuario'], meta: { name: 'Usuario' } }
+    /**
+     * Find zero or one Usuario that matches the filter.
+     * @param {UsuarioFindUniqueArgs} args - Arguments to find a Usuario
+     * @example
+     * // Get one Usuario
+     * const usuario = await prisma.usuario.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UsuarioFindUniqueArgs>(args: SelectSubset<T, UsuarioFindUniqueArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Usuario that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UsuarioFindUniqueOrThrowArgs} args - Arguments to find a Usuario
+     * @example
+     * // Get one Usuario
+     * const usuario = await prisma.usuario.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UsuarioFindUniqueOrThrowArgs>(args: SelectSubset<T, UsuarioFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Usuario that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UsuarioFindFirstArgs} args - Arguments to find a Usuario
+     * @example
+     * // Get one Usuario
+     * const usuario = await prisma.usuario.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UsuarioFindFirstArgs>(args?: SelectSubset<T, UsuarioFindFirstArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Usuario that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UsuarioFindFirstOrThrowArgs} args - Arguments to find a Usuario
+     * @example
+     * // Get one Usuario
+     * const usuario = await prisma.usuario.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UsuarioFindFirstOrThrowArgs>(args?: SelectSubset<T, UsuarioFindFirstOrThrowArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Usuarios that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UsuarioFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Usuarios
+     * const usuarios = await prisma.usuario.findMany()
+     * 
+     * // Get first 10 Usuarios
+     * const usuarios = await prisma.usuario.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const usuarioWithIdOnly = await prisma.usuario.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UsuarioFindManyArgs>(args?: SelectSubset<T, UsuarioFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Usuario.
+     * @param {UsuarioCreateArgs} args - Arguments to create a Usuario.
+     * @example
+     * // Create one Usuario
+     * const Usuario = await prisma.usuario.create({
+     *   data: {
+     *     // ... data to create a Usuario
+     *   }
+     * })
+     * 
+     */
+    create<T extends UsuarioCreateArgs>(args: SelectSubset<T, UsuarioCreateArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Usuarios.
+     * @param {UsuarioCreateManyArgs} args - Arguments to create many Usuarios.
+     * @example
+     * // Create many Usuarios
+     * const usuario = await prisma.usuario.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UsuarioCreateManyArgs>(args?: SelectSubset<T, UsuarioCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Usuarios and returns the data saved in the database.
+     * @param {UsuarioCreateManyAndReturnArgs} args - Arguments to create many Usuarios.
+     * @example
+     * // Create many Usuarios
+     * const usuario = await prisma.usuario.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Usuarios and only return the `id`
+     * const usuarioWithIdOnly = await prisma.usuario.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UsuarioCreateManyAndReturnArgs>(args?: SelectSubset<T, UsuarioCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Usuario.
+     * @param {UsuarioDeleteArgs} args - Arguments to delete one Usuario.
+     * @example
+     * // Delete one Usuario
+     * const Usuario = await prisma.usuario.delete({
+     *   where: {
+     *     // ... filter to delete one Usuario
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UsuarioDeleteArgs>(args: SelectSubset<T, UsuarioDeleteArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Usuario.
+     * @param {UsuarioUpdateArgs} args - Arguments to update one Usuario.
+     * @example
+     * // Update one Usuario
+     * const usuario = await prisma.usuario.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UsuarioUpdateArgs>(args: SelectSubset<T, UsuarioUpdateArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Usuarios.
+     * @param {UsuarioDeleteManyArgs} args - Arguments to filter Usuarios to delete.
+     * @example
+     * // Delete a few Usuarios
+     * const { count } = await prisma.usuario.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UsuarioDeleteManyArgs>(args?: SelectSubset<T, UsuarioDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Usuarios.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UsuarioUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Usuarios
+     * const usuario = await prisma.usuario.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UsuarioUpdateManyArgs>(args: SelectSubset<T, UsuarioUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Usuarios and returns the data updated in the database.
+     * @param {UsuarioUpdateManyAndReturnArgs} args - Arguments to update many Usuarios.
+     * @example
+     * // Update many Usuarios
+     * const usuario = await prisma.usuario.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Usuarios and only return the `id`
+     * const usuarioWithIdOnly = await prisma.usuario.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UsuarioUpdateManyAndReturnArgs>(args: SelectSubset<T, UsuarioUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Usuario.
+     * @param {UsuarioUpsertArgs} args - Arguments to update or create a Usuario.
+     * @example
+     * // Update or create a Usuario
+     * const usuario = await prisma.usuario.upsert({
+     *   create: {
+     *     // ... data to create a Usuario
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Usuario we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UsuarioUpsertArgs>(args: SelectSubset<T, UsuarioUpsertArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Usuarios.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UsuarioCountArgs} args - Arguments to filter Usuarios to count.
+     * @example
+     * // Count the number of Usuarios
+     * const count = await prisma.usuario.count({
+     *   where: {
+     *     // ... the filter for the Usuarios we want to count
+     *   }
+     * })
+    **/
+    count<T extends UsuarioCountArgs>(
+      args?: Subset<T, UsuarioCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UsuarioCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Usuario.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UsuarioAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UsuarioAggregateArgs>(args: Subset<T, UsuarioAggregateArgs>): Prisma.PrismaPromise<GetUsuarioAggregateType<T>>
+
+    /**
+     * Group by Usuario.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UsuarioGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UsuarioGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UsuarioGroupByArgs['orderBy'] }
+        : { orderBy?: UsuarioGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UsuarioGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUsuarioGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Usuario model
+   */
+  readonly fields: UsuarioFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Usuario.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UsuarioClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Usuario model
+   */
+  interface UsuarioFieldRefs {
+    readonly id: FieldRef<"Usuario", 'String'>
+    readonly nombre: FieldRef<"Usuario", 'String'>
+    readonly apellidos: FieldRef<"Usuario", 'String'>
+    readonly nombreCompleto: FieldRef<"Usuario", 'String'>
+    readonly direccion: FieldRef<"Usuario", 'String'>
+    readonly correo: FieldRef<"Usuario", 'String'>
+    readonly contrasena: FieldRef<"Usuario", 'String'>
+    readonly rol: FieldRef<"Usuario", 'String'>
+    readonly telefono: FieldRef<"Usuario", 'String'>
+    readonly activo: FieldRef<"Usuario", 'Boolean'>
+    readonly softDelete: FieldRef<"Usuario", 'Boolean'>
+    readonly createdAt: FieldRef<"Usuario", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Usuario findUnique
+   */
+  export type UsuarioFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Usuario
+     */
+    select?: UsuarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Usuario
+     */
+    omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * Filter, which Usuario to fetch.
+     */
+    where: UsuarioWhereUniqueInput
+  }
+
+  /**
+   * Usuario findUniqueOrThrow
+   */
+  export type UsuarioFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Usuario
+     */
+    select?: UsuarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Usuario
+     */
+    omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * Filter, which Usuario to fetch.
+     */
+    where: UsuarioWhereUniqueInput
+  }
+
+  /**
+   * Usuario findFirst
+   */
+  export type UsuarioFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Usuario
+     */
+    select?: UsuarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Usuario
+     */
+    omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * Filter, which Usuario to fetch.
+     */
+    where?: UsuarioWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Usuarios to fetch.
+     */
+    orderBy?: UsuarioOrderByWithRelationInput | UsuarioOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Usuarios.
+     */
+    cursor?: UsuarioWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Usuarios from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Usuarios.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Usuarios.
+     */
+    distinct?: UsuarioScalarFieldEnum | UsuarioScalarFieldEnum[]
+  }
+
+  /**
+   * Usuario findFirstOrThrow
+   */
+  export type UsuarioFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Usuario
+     */
+    select?: UsuarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Usuario
+     */
+    omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * Filter, which Usuario to fetch.
+     */
+    where?: UsuarioWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Usuarios to fetch.
+     */
+    orderBy?: UsuarioOrderByWithRelationInput | UsuarioOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Usuarios.
+     */
+    cursor?: UsuarioWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Usuarios from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Usuarios.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Usuarios.
+     */
+    distinct?: UsuarioScalarFieldEnum | UsuarioScalarFieldEnum[]
+  }
+
+  /**
+   * Usuario findMany
+   */
+  export type UsuarioFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Usuario
+     */
+    select?: UsuarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Usuario
+     */
+    omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * Filter, which Usuarios to fetch.
+     */
+    where?: UsuarioWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Usuarios to fetch.
+     */
+    orderBy?: UsuarioOrderByWithRelationInput | UsuarioOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Usuarios.
+     */
+    cursor?: UsuarioWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Usuarios from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Usuarios.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Usuarios.
+     */
+    distinct?: UsuarioScalarFieldEnum | UsuarioScalarFieldEnum[]
+  }
+
+  /**
+   * Usuario create
+   */
+  export type UsuarioCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Usuario
+     */
+    select?: UsuarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Usuario
+     */
+    omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Usuario.
+     */
+    data: XOR<UsuarioCreateInput, UsuarioUncheckedCreateInput>
+  }
+
+  /**
+   * Usuario createMany
+   */
+  export type UsuarioCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Usuarios.
+     */
+    data: UsuarioCreateManyInput | UsuarioCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Usuario createManyAndReturn
+   */
+  export type UsuarioCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Usuario
+     */
+    select?: UsuarioSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Usuario
+     */
+    omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * The data used to create many Usuarios.
+     */
+    data: UsuarioCreateManyInput | UsuarioCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Usuario update
+   */
+  export type UsuarioUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Usuario
+     */
+    select?: UsuarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Usuario
+     */
+    omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Usuario.
+     */
+    data: XOR<UsuarioUpdateInput, UsuarioUncheckedUpdateInput>
+    /**
+     * Choose, which Usuario to update.
+     */
+    where: UsuarioWhereUniqueInput
+  }
+
+  /**
+   * Usuario updateMany
+   */
+  export type UsuarioUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Usuarios.
+     */
+    data: XOR<UsuarioUpdateManyMutationInput, UsuarioUncheckedUpdateManyInput>
+    /**
+     * Filter which Usuarios to update
+     */
+    where?: UsuarioWhereInput
+    /**
+     * Limit how many Usuarios to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Usuario updateManyAndReturn
+   */
+  export type UsuarioUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Usuario
+     */
+    select?: UsuarioSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Usuario
+     */
+    omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * The data used to update Usuarios.
+     */
+    data: XOR<UsuarioUpdateManyMutationInput, UsuarioUncheckedUpdateManyInput>
+    /**
+     * Filter which Usuarios to update
+     */
+    where?: UsuarioWhereInput
+    /**
+     * Limit how many Usuarios to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Usuario upsert
+   */
+  export type UsuarioUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Usuario
+     */
+    select?: UsuarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Usuario
+     */
+    omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Usuario to update in case it exists.
+     */
+    where: UsuarioWhereUniqueInput
+    /**
+     * In case the Usuario found by the `where` argument doesn't exist, create a new Usuario with this data.
+     */
+    create: XOR<UsuarioCreateInput, UsuarioUncheckedCreateInput>
+    /**
+     * In case the Usuario was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UsuarioUpdateInput, UsuarioUncheckedUpdateInput>
+  }
+
+  /**
+   * Usuario delete
+   */
+  export type UsuarioDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Usuario
+     */
+    select?: UsuarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Usuario
+     */
+    omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * Filter which Usuario to delete.
+     */
+    where: UsuarioWhereUniqueInput
+  }
+
+  /**
+   * Usuario deleteMany
+   */
+  export type UsuarioDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Usuarios to delete
+     */
+    where?: UsuarioWhereInput
+    /**
+     * Limit how many Usuarios to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Usuario without action
+   */
+  export type UsuarioDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Usuario
+     */
+    select?: UsuarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Usuario
+     */
+    omit?: UsuarioOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Log
+   */
+
+  export type AggregateLog = {
+    _count: LogCountAggregateOutputType | null
+    _avg: LogAvgAggregateOutputType | null
+    _sum: LogSumAggregateOutputType | null
+    _min: LogMinAggregateOutputType | null
+    _max: LogMaxAggregateOutputType | null
+  }
+
+  export type LogAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type LogSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type LogMinAggregateOutputType = {
+    id: number | null
+    timestamp: Date | null
+    usuario: string | null
+    accion: string | null
+    entidad: string | null
+    ip: string | null
+    detalles: string | null
+  }
+
+  export type LogMaxAggregateOutputType = {
+    id: number | null
+    timestamp: Date | null
+    usuario: string | null
+    accion: string | null
+    entidad: string | null
+    ip: string | null
+    detalles: string | null
+  }
+
+  export type LogCountAggregateOutputType = {
+    id: number
+    timestamp: number
+    usuario: number
+    accion: number
+    entidad: number
+    ip: number
+    detalles: number
+    _all: number
+  }
+
+
+  export type LogAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type LogSumAggregateInputType = {
+    id?: true
+  }
+
+  export type LogMinAggregateInputType = {
+    id?: true
+    timestamp?: true
+    usuario?: true
+    accion?: true
+    entidad?: true
+    ip?: true
+    detalles?: true
+  }
+
+  export type LogMaxAggregateInputType = {
+    id?: true
+    timestamp?: true
+    usuario?: true
+    accion?: true
+    entidad?: true
+    ip?: true
+    detalles?: true
+  }
+
+  export type LogCountAggregateInputType = {
+    id?: true
+    timestamp?: true
+    usuario?: true
+    accion?: true
+    entidad?: true
+    ip?: true
+    detalles?: true
+    _all?: true
+  }
+
+  export type LogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Log to aggregate.
+     */
+    where?: LogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Logs to fetch.
+     */
+    orderBy?: LogOrderByWithRelationInput | LogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Logs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Logs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Logs
+    **/
+    _count?: true | LogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LogAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LogSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LogMaxAggregateInputType
+  }
+
+  export type GetLogAggregateType<T extends LogAggregateArgs> = {
+        [P in keyof T & keyof AggregateLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLog[P]>
+      : GetScalarType<T[P], AggregateLog[P]>
+  }
+
+
+
+
+  export type LogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LogWhereInput
+    orderBy?: LogOrderByWithAggregationInput | LogOrderByWithAggregationInput[]
+    by: LogScalarFieldEnum[] | LogScalarFieldEnum
+    having?: LogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LogCountAggregateInputType | true
+    _avg?: LogAvgAggregateInputType
+    _sum?: LogSumAggregateInputType
+    _min?: LogMinAggregateInputType
+    _max?: LogMaxAggregateInputType
+  }
+
+  export type LogGroupByOutputType = {
+    id: number
+    timestamp: Date
+    usuario: string | null
+    accion: string
+    entidad: string | null
+    ip: string | null
+    detalles: string | null
+    _count: LogCountAggregateOutputType | null
+    _avg: LogAvgAggregateOutputType | null
+    _sum: LogSumAggregateOutputType | null
+    _min: LogMinAggregateOutputType | null
+    _max: LogMaxAggregateOutputType | null
+  }
+
+  type GetLogGroupByPayload<T extends LogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LogGroupByOutputType[P]>
+            : GetScalarType<T[P], LogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    timestamp?: boolean
+    usuario?: boolean
+    accion?: boolean
+    entidad?: boolean
+    ip?: boolean
+    detalles?: boolean
+  }, ExtArgs["result"]["log"]>
+
+  export type LogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    timestamp?: boolean
+    usuario?: boolean
+    accion?: boolean
+    entidad?: boolean
+    ip?: boolean
+    detalles?: boolean
+  }, ExtArgs["result"]["log"]>
+
+  export type LogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    timestamp?: boolean
+    usuario?: boolean
+    accion?: boolean
+    entidad?: boolean
+    ip?: boolean
+    detalles?: boolean
+  }, ExtArgs["result"]["log"]>
+
+  export type LogSelectScalar = {
+    id?: boolean
+    timestamp?: boolean
+    usuario?: boolean
+    accion?: boolean
+    entidad?: boolean
+    ip?: boolean
+    detalles?: boolean
+  }
+
+  export type LogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "timestamp" | "usuario" | "accion" | "entidad" | "ip" | "detalles", ExtArgs["result"]["log"]>
+
+  export type $LogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Log"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      timestamp: Date
+      usuario: string | null
+      accion: string
+      entidad: string | null
+      ip: string | null
+      detalles: string | null
+    }, ExtArgs["result"]["log"]>
+    composites: {}
+  }
+
+  type LogGetPayload<S extends boolean | null | undefined | LogDefaultArgs> = $Result.GetResult<Prisma.$LogPayload, S>
+
+  type LogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LogCountAggregateInputType | true
+    }
+
+  export interface LogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Log'], meta: { name: 'Log' } }
+    /**
+     * Find zero or one Log that matches the filter.
+     * @param {LogFindUniqueArgs} args - Arguments to find a Log
+     * @example
+     * // Get one Log
+     * const log = await prisma.log.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LogFindUniqueArgs>(args: SelectSubset<T, LogFindUniqueArgs<ExtArgs>>): Prisma__LogClient<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Log that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LogFindUniqueOrThrowArgs} args - Arguments to find a Log
+     * @example
+     * // Get one Log
+     * const log = await prisma.log.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LogFindUniqueOrThrowArgs>(args: SelectSubset<T, LogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LogClient<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Log that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LogFindFirstArgs} args - Arguments to find a Log
+     * @example
+     * // Get one Log
+     * const log = await prisma.log.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LogFindFirstArgs>(args?: SelectSubset<T, LogFindFirstArgs<ExtArgs>>): Prisma__LogClient<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Log that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LogFindFirstOrThrowArgs} args - Arguments to find a Log
+     * @example
+     * // Get one Log
+     * const log = await prisma.log.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LogFindFirstOrThrowArgs>(args?: SelectSubset<T, LogFindFirstOrThrowArgs<ExtArgs>>): Prisma__LogClient<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Logs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Logs
+     * const logs = await prisma.log.findMany()
+     * 
+     * // Get first 10 Logs
+     * const logs = await prisma.log.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const logWithIdOnly = await prisma.log.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LogFindManyArgs>(args?: SelectSubset<T, LogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Log.
+     * @param {LogCreateArgs} args - Arguments to create a Log.
+     * @example
+     * // Create one Log
+     * const Log = await prisma.log.create({
+     *   data: {
+     *     // ... data to create a Log
+     *   }
+     * })
+     * 
+     */
+    create<T extends LogCreateArgs>(args: SelectSubset<T, LogCreateArgs<ExtArgs>>): Prisma__LogClient<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Logs.
+     * @param {LogCreateManyArgs} args - Arguments to create many Logs.
+     * @example
+     * // Create many Logs
+     * const log = await prisma.log.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LogCreateManyArgs>(args?: SelectSubset<T, LogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Logs and returns the data saved in the database.
+     * @param {LogCreateManyAndReturnArgs} args - Arguments to create many Logs.
+     * @example
+     * // Create many Logs
+     * const log = await prisma.log.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Logs and only return the `id`
+     * const logWithIdOnly = await prisma.log.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LogCreateManyAndReturnArgs>(args?: SelectSubset<T, LogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Log.
+     * @param {LogDeleteArgs} args - Arguments to delete one Log.
+     * @example
+     * // Delete one Log
+     * const Log = await prisma.log.delete({
+     *   where: {
+     *     // ... filter to delete one Log
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LogDeleteArgs>(args: SelectSubset<T, LogDeleteArgs<ExtArgs>>): Prisma__LogClient<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Log.
+     * @param {LogUpdateArgs} args - Arguments to update one Log.
+     * @example
+     * // Update one Log
+     * const log = await prisma.log.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LogUpdateArgs>(args: SelectSubset<T, LogUpdateArgs<ExtArgs>>): Prisma__LogClient<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Logs.
+     * @param {LogDeleteManyArgs} args - Arguments to filter Logs to delete.
+     * @example
+     * // Delete a few Logs
+     * const { count } = await prisma.log.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LogDeleteManyArgs>(args?: SelectSubset<T, LogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Logs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Logs
+     * const log = await prisma.log.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LogUpdateManyArgs>(args: SelectSubset<T, LogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Logs and returns the data updated in the database.
+     * @param {LogUpdateManyAndReturnArgs} args - Arguments to update many Logs.
+     * @example
+     * // Update many Logs
+     * const log = await prisma.log.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Logs and only return the `id`
+     * const logWithIdOnly = await prisma.log.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LogUpdateManyAndReturnArgs>(args: SelectSubset<T, LogUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Log.
+     * @param {LogUpsertArgs} args - Arguments to update or create a Log.
+     * @example
+     * // Update or create a Log
+     * const log = await prisma.log.upsert({
+     *   create: {
+     *     // ... data to create a Log
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Log we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LogUpsertArgs>(args: SelectSubset<T, LogUpsertArgs<ExtArgs>>): Prisma__LogClient<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Logs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LogCountArgs} args - Arguments to filter Logs to count.
+     * @example
+     * // Count the number of Logs
+     * const count = await prisma.log.count({
+     *   where: {
+     *     // ... the filter for the Logs we want to count
+     *   }
+     * })
+    **/
+    count<T extends LogCountArgs>(
+      args?: Subset<T, LogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Log.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LogAggregateArgs>(args: Subset<T, LogAggregateArgs>): Prisma.PrismaPromise<GetLogAggregateType<T>>
+
+    /**
+     * Group by Log.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LogGroupByArgs['orderBy'] }
+        : { orderBy?: LogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Log model
+   */
+  readonly fields: LogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Log.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Log model
+   */
+  interface LogFieldRefs {
+    readonly id: FieldRef<"Log", 'Int'>
+    readonly timestamp: FieldRef<"Log", 'DateTime'>
+    readonly usuario: FieldRef<"Log", 'String'>
+    readonly accion: FieldRef<"Log", 'String'>
+    readonly entidad: FieldRef<"Log", 'String'>
+    readonly ip: FieldRef<"Log", 'String'>
+    readonly detalles: FieldRef<"Log", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Log findUnique
+   */
+  export type LogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Log
+     */
+    select?: LogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Log
+     */
+    omit?: LogOmit<ExtArgs> | null
+    /**
+     * Filter, which Log to fetch.
+     */
+    where: LogWhereUniqueInput
+  }
+
+  /**
+   * Log findUniqueOrThrow
+   */
+  export type LogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Log
+     */
+    select?: LogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Log
+     */
+    omit?: LogOmit<ExtArgs> | null
+    /**
+     * Filter, which Log to fetch.
+     */
+    where: LogWhereUniqueInput
+  }
+
+  /**
+   * Log findFirst
+   */
+  export type LogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Log
+     */
+    select?: LogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Log
+     */
+    omit?: LogOmit<ExtArgs> | null
+    /**
+     * Filter, which Log to fetch.
+     */
+    where?: LogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Logs to fetch.
+     */
+    orderBy?: LogOrderByWithRelationInput | LogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Logs.
+     */
+    cursor?: LogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Logs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Logs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Logs.
+     */
+    distinct?: LogScalarFieldEnum | LogScalarFieldEnum[]
+  }
+
+  /**
+   * Log findFirstOrThrow
+   */
+  export type LogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Log
+     */
+    select?: LogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Log
+     */
+    omit?: LogOmit<ExtArgs> | null
+    /**
+     * Filter, which Log to fetch.
+     */
+    where?: LogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Logs to fetch.
+     */
+    orderBy?: LogOrderByWithRelationInput | LogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Logs.
+     */
+    cursor?: LogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Logs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Logs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Logs.
+     */
+    distinct?: LogScalarFieldEnum | LogScalarFieldEnum[]
+  }
+
+  /**
+   * Log findMany
+   */
+  export type LogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Log
+     */
+    select?: LogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Log
+     */
+    omit?: LogOmit<ExtArgs> | null
+    /**
+     * Filter, which Logs to fetch.
+     */
+    where?: LogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Logs to fetch.
+     */
+    orderBy?: LogOrderByWithRelationInput | LogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Logs.
+     */
+    cursor?: LogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Logs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Logs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Logs.
+     */
+    distinct?: LogScalarFieldEnum | LogScalarFieldEnum[]
+  }
+
+  /**
+   * Log create
+   */
+  export type LogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Log
+     */
+    select?: LogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Log
+     */
+    omit?: LogOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Log.
+     */
+    data: XOR<LogCreateInput, LogUncheckedCreateInput>
+  }
+
+  /**
+   * Log createMany
+   */
+  export type LogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Logs.
+     */
+    data: LogCreateManyInput | LogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Log createManyAndReturn
+   */
+  export type LogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Log
+     */
+    select?: LogSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Log
+     */
+    omit?: LogOmit<ExtArgs> | null
+    /**
+     * The data used to create many Logs.
+     */
+    data: LogCreateManyInput | LogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Log update
+   */
+  export type LogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Log
+     */
+    select?: LogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Log
+     */
+    omit?: LogOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Log.
+     */
+    data: XOR<LogUpdateInput, LogUncheckedUpdateInput>
+    /**
+     * Choose, which Log to update.
+     */
+    where: LogWhereUniqueInput
+  }
+
+  /**
+   * Log updateMany
+   */
+  export type LogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Logs.
+     */
+    data: XOR<LogUpdateManyMutationInput, LogUncheckedUpdateManyInput>
+    /**
+     * Filter which Logs to update
+     */
+    where?: LogWhereInput
+    /**
+     * Limit how many Logs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Log updateManyAndReturn
+   */
+  export type LogUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Log
+     */
+    select?: LogSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Log
+     */
+    omit?: LogOmit<ExtArgs> | null
+    /**
+     * The data used to update Logs.
+     */
+    data: XOR<LogUpdateManyMutationInput, LogUncheckedUpdateManyInput>
+    /**
+     * Filter which Logs to update
+     */
+    where?: LogWhereInput
+    /**
+     * Limit how many Logs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Log upsert
+   */
+  export type LogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Log
+     */
+    select?: LogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Log
+     */
+    omit?: LogOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Log to update in case it exists.
+     */
+    where: LogWhereUniqueInput
+    /**
+     * In case the Log found by the `where` argument doesn't exist, create a new Log with this data.
+     */
+    create: XOR<LogCreateInput, LogUncheckedCreateInput>
+    /**
+     * In case the Log was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LogUpdateInput, LogUncheckedUpdateInput>
+  }
+
+  /**
+   * Log delete
+   */
+  export type LogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Log
+     */
+    select?: LogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Log
+     */
+    omit?: LogOmit<ExtArgs> | null
+    /**
+     * Filter which Log to delete.
+     */
+    where: LogWhereUniqueInput
+  }
+
+  /**
+   * Log deleteMany
+   */
+  export type LogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Logs to delete
+     */
+    where?: LogWhereInput
+    /**
+     * Limit how many Logs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Log without action
+   */
+  export type LogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Log
+     */
+    select?: LogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Log
+     */
+    omit?: LogOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CapaGeoespacial
+   */
+
+  export type AggregateCapaGeoespacial = {
+    _count: CapaGeoespacialCountAggregateOutputType | null
+    _avg: CapaGeoespacialAvgAggregateOutputType | null
+    _sum: CapaGeoespacialSumAggregateOutputType | null
+    _min: CapaGeoespacialMinAggregateOutputType | null
+    _max: CapaGeoespacialMaxAggregateOutputType | null
+  }
+
+  export type CapaGeoespacialAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type CapaGeoespacialSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type CapaGeoespacialMinAggregateOutputType = {
+    id: number | null
+    nombre: string | null
+    tableName: string | null
+    workspace: string | null
+    esquema: string | null
+    activo: boolean | null
+    eliminado: boolean | null
+    createdAt: Date | null
+  }
+
+  export type CapaGeoespacialMaxAggregateOutputType = {
+    id: number | null
+    nombre: string | null
+    tableName: string | null
+    workspace: string | null
+    esquema: string | null
+    activo: boolean | null
+    eliminado: boolean | null
+    createdAt: Date | null
+  }
+
+  export type CapaGeoespacialCountAggregateOutputType = {
+    id: number
+    nombre: number
+    tableName: number
+    workspace: number
+    esquema: number
+    activo: number
+    eliminado: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type CapaGeoespacialAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type CapaGeoespacialSumAggregateInputType = {
+    id?: true
+  }
+
+  export type CapaGeoespacialMinAggregateInputType = {
+    id?: true
+    nombre?: true
+    tableName?: true
+    workspace?: true
+    esquema?: true
+    activo?: true
+    eliminado?: true
+    createdAt?: true
+  }
+
+  export type CapaGeoespacialMaxAggregateInputType = {
+    id?: true
+    nombre?: true
+    tableName?: true
+    workspace?: true
+    esquema?: true
+    activo?: true
+    eliminado?: true
+    createdAt?: true
+  }
+
+  export type CapaGeoespacialCountAggregateInputType = {
+    id?: true
+    nombre?: true
+    tableName?: true
+    workspace?: true
+    esquema?: true
+    activo?: true
+    eliminado?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type CapaGeoespacialAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CapaGeoespacial to aggregate.
+     */
+    where?: CapaGeoespacialWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CapaGeoespacials to fetch.
+     */
+    orderBy?: CapaGeoespacialOrderByWithRelationInput | CapaGeoespacialOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CapaGeoespacialWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CapaGeoespacials from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CapaGeoespacials.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CapaGeoespacials
+    **/
+    _count?: true | CapaGeoespacialCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CapaGeoespacialAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CapaGeoespacialSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CapaGeoespacialMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CapaGeoespacialMaxAggregateInputType
+  }
+
+  export type GetCapaGeoespacialAggregateType<T extends CapaGeoespacialAggregateArgs> = {
+        [P in keyof T & keyof AggregateCapaGeoespacial]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCapaGeoespacial[P]>
+      : GetScalarType<T[P], AggregateCapaGeoespacial[P]>
+  }
+
+
+
+
+  export type CapaGeoespacialGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CapaGeoespacialWhereInput
+    orderBy?: CapaGeoespacialOrderByWithAggregationInput | CapaGeoespacialOrderByWithAggregationInput[]
+    by: CapaGeoespacialScalarFieldEnum[] | CapaGeoespacialScalarFieldEnum
+    having?: CapaGeoespacialScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CapaGeoespacialCountAggregateInputType | true
+    _avg?: CapaGeoespacialAvgAggregateInputType
+    _sum?: CapaGeoespacialSumAggregateInputType
+    _min?: CapaGeoespacialMinAggregateInputType
+    _max?: CapaGeoespacialMaxAggregateInputType
+  }
+
+  export type CapaGeoespacialGroupByOutputType = {
+    id: number
+    nombre: string
+    tableName: string
+    workspace: string
+    esquema: string
+    activo: boolean
+    eliminado: boolean
+    createdAt: Date
+    _count: CapaGeoespacialCountAggregateOutputType | null
+    _avg: CapaGeoespacialAvgAggregateOutputType | null
+    _sum: CapaGeoespacialSumAggregateOutputType | null
+    _min: CapaGeoespacialMinAggregateOutputType | null
+    _max: CapaGeoespacialMaxAggregateOutputType | null
+  }
+
+  type GetCapaGeoespacialGroupByPayload<T extends CapaGeoespacialGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CapaGeoespacialGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CapaGeoespacialGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CapaGeoespacialGroupByOutputType[P]>
+            : GetScalarType<T[P], CapaGeoespacialGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CapaGeoespacialSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nombre?: boolean
+    tableName?: boolean
+    workspace?: boolean
+    esquema?: boolean
+    activo?: boolean
+    eliminado?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["capaGeoespacial"]>
+
+  export type CapaGeoespacialSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nombre?: boolean
+    tableName?: boolean
+    workspace?: boolean
+    esquema?: boolean
+    activo?: boolean
+    eliminado?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["capaGeoespacial"]>
+
+  export type CapaGeoespacialSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nombre?: boolean
+    tableName?: boolean
+    workspace?: boolean
+    esquema?: boolean
+    activo?: boolean
+    eliminado?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["capaGeoespacial"]>
+
+  export type CapaGeoespacialSelectScalar = {
+    id?: boolean
+    nombre?: boolean
+    tableName?: boolean
+    workspace?: boolean
+    esquema?: boolean
+    activo?: boolean
+    eliminado?: boolean
+    createdAt?: boolean
+  }
+
+  export type CapaGeoespacialOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nombre" | "tableName" | "workspace" | "esquema" | "activo" | "eliminado" | "createdAt", ExtArgs["result"]["capaGeoespacial"]>
+
+  export type $CapaGeoespacialPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CapaGeoespacial"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      nombre: string
+      tableName: string
+      workspace: string
+      esquema: string
+      activo: boolean
+      eliminado: boolean
+      createdAt: Date
+    }, ExtArgs["result"]["capaGeoespacial"]>
+    composites: {}
+  }
+
+  type CapaGeoespacialGetPayload<S extends boolean | null | undefined | CapaGeoespacialDefaultArgs> = $Result.GetResult<Prisma.$CapaGeoespacialPayload, S>
+
+  type CapaGeoespacialCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CapaGeoespacialFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CapaGeoespacialCountAggregateInputType | true
+    }
+
+  export interface CapaGeoespacialDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CapaGeoespacial'], meta: { name: 'CapaGeoespacial' } }
+    /**
+     * Find zero or one CapaGeoespacial that matches the filter.
+     * @param {CapaGeoespacialFindUniqueArgs} args - Arguments to find a CapaGeoespacial
+     * @example
+     * // Get one CapaGeoespacial
+     * const capaGeoespacial = await prisma.capaGeoespacial.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CapaGeoespacialFindUniqueArgs>(args: SelectSubset<T, CapaGeoespacialFindUniqueArgs<ExtArgs>>): Prisma__CapaGeoespacialClient<$Result.GetResult<Prisma.$CapaGeoespacialPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CapaGeoespacial that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CapaGeoespacialFindUniqueOrThrowArgs} args - Arguments to find a CapaGeoespacial
+     * @example
+     * // Get one CapaGeoespacial
+     * const capaGeoespacial = await prisma.capaGeoespacial.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CapaGeoespacialFindUniqueOrThrowArgs>(args: SelectSubset<T, CapaGeoespacialFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CapaGeoespacialClient<$Result.GetResult<Prisma.$CapaGeoespacialPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CapaGeoespacial that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CapaGeoespacialFindFirstArgs} args - Arguments to find a CapaGeoespacial
+     * @example
+     * // Get one CapaGeoespacial
+     * const capaGeoespacial = await prisma.capaGeoespacial.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CapaGeoespacialFindFirstArgs>(args?: SelectSubset<T, CapaGeoespacialFindFirstArgs<ExtArgs>>): Prisma__CapaGeoespacialClient<$Result.GetResult<Prisma.$CapaGeoespacialPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CapaGeoespacial that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CapaGeoespacialFindFirstOrThrowArgs} args - Arguments to find a CapaGeoespacial
+     * @example
+     * // Get one CapaGeoespacial
+     * const capaGeoespacial = await prisma.capaGeoespacial.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CapaGeoespacialFindFirstOrThrowArgs>(args?: SelectSubset<T, CapaGeoespacialFindFirstOrThrowArgs<ExtArgs>>): Prisma__CapaGeoespacialClient<$Result.GetResult<Prisma.$CapaGeoespacialPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CapaGeoespacials that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CapaGeoespacialFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CapaGeoespacials
+     * const capaGeoespacials = await prisma.capaGeoespacial.findMany()
+     * 
+     * // Get first 10 CapaGeoespacials
+     * const capaGeoespacials = await prisma.capaGeoespacial.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const capaGeoespacialWithIdOnly = await prisma.capaGeoespacial.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CapaGeoespacialFindManyArgs>(args?: SelectSubset<T, CapaGeoespacialFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CapaGeoespacialPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CapaGeoespacial.
+     * @param {CapaGeoespacialCreateArgs} args - Arguments to create a CapaGeoespacial.
+     * @example
+     * // Create one CapaGeoespacial
+     * const CapaGeoespacial = await prisma.capaGeoespacial.create({
+     *   data: {
+     *     // ... data to create a CapaGeoespacial
+     *   }
+     * })
+     * 
+     */
+    create<T extends CapaGeoespacialCreateArgs>(args: SelectSubset<T, CapaGeoespacialCreateArgs<ExtArgs>>): Prisma__CapaGeoespacialClient<$Result.GetResult<Prisma.$CapaGeoespacialPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CapaGeoespacials.
+     * @param {CapaGeoespacialCreateManyArgs} args - Arguments to create many CapaGeoespacials.
+     * @example
+     * // Create many CapaGeoespacials
+     * const capaGeoespacial = await prisma.capaGeoespacial.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CapaGeoespacialCreateManyArgs>(args?: SelectSubset<T, CapaGeoespacialCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CapaGeoespacials and returns the data saved in the database.
+     * @param {CapaGeoespacialCreateManyAndReturnArgs} args - Arguments to create many CapaGeoespacials.
+     * @example
+     * // Create many CapaGeoespacials
+     * const capaGeoespacial = await prisma.capaGeoespacial.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CapaGeoespacials and only return the `id`
+     * const capaGeoespacialWithIdOnly = await prisma.capaGeoespacial.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CapaGeoespacialCreateManyAndReturnArgs>(args?: SelectSubset<T, CapaGeoespacialCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CapaGeoespacialPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CapaGeoespacial.
+     * @param {CapaGeoespacialDeleteArgs} args - Arguments to delete one CapaGeoespacial.
+     * @example
+     * // Delete one CapaGeoespacial
+     * const CapaGeoespacial = await prisma.capaGeoespacial.delete({
+     *   where: {
+     *     // ... filter to delete one CapaGeoespacial
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CapaGeoespacialDeleteArgs>(args: SelectSubset<T, CapaGeoespacialDeleteArgs<ExtArgs>>): Prisma__CapaGeoespacialClient<$Result.GetResult<Prisma.$CapaGeoespacialPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CapaGeoespacial.
+     * @param {CapaGeoespacialUpdateArgs} args - Arguments to update one CapaGeoespacial.
+     * @example
+     * // Update one CapaGeoespacial
+     * const capaGeoespacial = await prisma.capaGeoespacial.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CapaGeoespacialUpdateArgs>(args: SelectSubset<T, CapaGeoespacialUpdateArgs<ExtArgs>>): Prisma__CapaGeoespacialClient<$Result.GetResult<Prisma.$CapaGeoespacialPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CapaGeoespacials.
+     * @param {CapaGeoespacialDeleteManyArgs} args - Arguments to filter CapaGeoespacials to delete.
+     * @example
+     * // Delete a few CapaGeoespacials
+     * const { count } = await prisma.capaGeoespacial.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CapaGeoespacialDeleteManyArgs>(args?: SelectSubset<T, CapaGeoespacialDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CapaGeoespacials.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CapaGeoespacialUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CapaGeoespacials
+     * const capaGeoespacial = await prisma.capaGeoespacial.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CapaGeoespacialUpdateManyArgs>(args: SelectSubset<T, CapaGeoespacialUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CapaGeoespacials and returns the data updated in the database.
+     * @param {CapaGeoespacialUpdateManyAndReturnArgs} args - Arguments to update many CapaGeoespacials.
+     * @example
+     * // Update many CapaGeoespacials
+     * const capaGeoespacial = await prisma.capaGeoespacial.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CapaGeoespacials and only return the `id`
+     * const capaGeoespacialWithIdOnly = await prisma.capaGeoespacial.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CapaGeoespacialUpdateManyAndReturnArgs>(args: SelectSubset<T, CapaGeoespacialUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CapaGeoespacialPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CapaGeoespacial.
+     * @param {CapaGeoespacialUpsertArgs} args - Arguments to update or create a CapaGeoespacial.
+     * @example
+     * // Update or create a CapaGeoespacial
+     * const capaGeoespacial = await prisma.capaGeoespacial.upsert({
+     *   create: {
+     *     // ... data to create a CapaGeoespacial
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CapaGeoespacial we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CapaGeoespacialUpsertArgs>(args: SelectSubset<T, CapaGeoespacialUpsertArgs<ExtArgs>>): Prisma__CapaGeoespacialClient<$Result.GetResult<Prisma.$CapaGeoespacialPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CapaGeoespacials.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CapaGeoespacialCountArgs} args - Arguments to filter CapaGeoespacials to count.
+     * @example
+     * // Count the number of CapaGeoespacials
+     * const count = await prisma.capaGeoespacial.count({
+     *   where: {
+     *     // ... the filter for the CapaGeoespacials we want to count
+     *   }
+     * })
+    **/
+    count<T extends CapaGeoespacialCountArgs>(
+      args?: Subset<T, CapaGeoespacialCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CapaGeoespacialCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CapaGeoespacial.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CapaGeoespacialAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CapaGeoespacialAggregateArgs>(args: Subset<T, CapaGeoespacialAggregateArgs>): Prisma.PrismaPromise<GetCapaGeoespacialAggregateType<T>>
+
+    /**
+     * Group by CapaGeoespacial.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CapaGeoespacialGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CapaGeoespacialGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CapaGeoespacialGroupByArgs['orderBy'] }
+        : { orderBy?: CapaGeoespacialGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CapaGeoespacialGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCapaGeoespacialGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CapaGeoespacial model
+   */
+  readonly fields: CapaGeoespacialFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CapaGeoespacial.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CapaGeoespacialClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CapaGeoespacial model
+   */
+  interface CapaGeoespacialFieldRefs {
+    readonly id: FieldRef<"CapaGeoespacial", 'Int'>
+    readonly nombre: FieldRef<"CapaGeoespacial", 'String'>
+    readonly tableName: FieldRef<"CapaGeoespacial", 'String'>
+    readonly workspace: FieldRef<"CapaGeoespacial", 'String'>
+    readonly esquema: FieldRef<"CapaGeoespacial", 'String'>
+    readonly activo: FieldRef<"CapaGeoespacial", 'Boolean'>
+    readonly eliminado: FieldRef<"CapaGeoespacial", 'Boolean'>
+    readonly createdAt: FieldRef<"CapaGeoespacial", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CapaGeoespacial findUnique
+   */
+  export type CapaGeoespacialFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CapaGeoespacial
+     */
+    select?: CapaGeoespacialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CapaGeoespacial
+     */
+    omit?: CapaGeoespacialOmit<ExtArgs> | null
+    /**
+     * Filter, which CapaGeoespacial to fetch.
+     */
+    where: CapaGeoespacialWhereUniqueInput
+  }
+
+  /**
+   * CapaGeoespacial findUniqueOrThrow
+   */
+  export type CapaGeoespacialFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CapaGeoespacial
+     */
+    select?: CapaGeoespacialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CapaGeoespacial
+     */
+    omit?: CapaGeoespacialOmit<ExtArgs> | null
+    /**
+     * Filter, which CapaGeoespacial to fetch.
+     */
+    where: CapaGeoespacialWhereUniqueInput
+  }
+
+  /**
+   * CapaGeoespacial findFirst
+   */
+  export type CapaGeoespacialFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CapaGeoespacial
+     */
+    select?: CapaGeoespacialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CapaGeoespacial
+     */
+    omit?: CapaGeoespacialOmit<ExtArgs> | null
+    /**
+     * Filter, which CapaGeoespacial to fetch.
+     */
+    where?: CapaGeoespacialWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CapaGeoespacials to fetch.
+     */
+    orderBy?: CapaGeoespacialOrderByWithRelationInput | CapaGeoespacialOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CapaGeoespacials.
+     */
+    cursor?: CapaGeoespacialWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CapaGeoespacials from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CapaGeoespacials.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CapaGeoespacials.
+     */
+    distinct?: CapaGeoespacialScalarFieldEnum | CapaGeoespacialScalarFieldEnum[]
+  }
+
+  /**
+   * CapaGeoespacial findFirstOrThrow
+   */
+  export type CapaGeoespacialFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CapaGeoespacial
+     */
+    select?: CapaGeoespacialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CapaGeoespacial
+     */
+    omit?: CapaGeoespacialOmit<ExtArgs> | null
+    /**
+     * Filter, which CapaGeoespacial to fetch.
+     */
+    where?: CapaGeoespacialWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CapaGeoespacials to fetch.
+     */
+    orderBy?: CapaGeoespacialOrderByWithRelationInput | CapaGeoespacialOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CapaGeoespacials.
+     */
+    cursor?: CapaGeoespacialWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CapaGeoespacials from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CapaGeoespacials.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CapaGeoespacials.
+     */
+    distinct?: CapaGeoespacialScalarFieldEnum | CapaGeoespacialScalarFieldEnum[]
+  }
+
+  /**
+   * CapaGeoespacial findMany
+   */
+  export type CapaGeoespacialFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CapaGeoespacial
+     */
+    select?: CapaGeoespacialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CapaGeoespacial
+     */
+    omit?: CapaGeoespacialOmit<ExtArgs> | null
+    /**
+     * Filter, which CapaGeoespacials to fetch.
+     */
+    where?: CapaGeoespacialWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CapaGeoespacials to fetch.
+     */
+    orderBy?: CapaGeoespacialOrderByWithRelationInput | CapaGeoespacialOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CapaGeoespacials.
+     */
+    cursor?: CapaGeoespacialWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CapaGeoespacials from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CapaGeoespacials.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CapaGeoespacials.
+     */
+    distinct?: CapaGeoespacialScalarFieldEnum | CapaGeoespacialScalarFieldEnum[]
+  }
+
+  /**
+   * CapaGeoespacial create
+   */
+  export type CapaGeoespacialCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CapaGeoespacial
+     */
+    select?: CapaGeoespacialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CapaGeoespacial
+     */
+    omit?: CapaGeoespacialOmit<ExtArgs> | null
+    /**
+     * The data needed to create a CapaGeoespacial.
+     */
+    data: XOR<CapaGeoespacialCreateInput, CapaGeoespacialUncheckedCreateInput>
+  }
+
+  /**
+   * CapaGeoespacial createMany
+   */
+  export type CapaGeoespacialCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CapaGeoespacials.
+     */
+    data: CapaGeoespacialCreateManyInput | CapaGeoespacialCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CapaGeoespacial createManyAndReturn
+   */
+  export type CapaGeoespacialCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CapaGeoespacial
+     */
+    select?: CapaGeoespacialSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CapaGeoespacial
+     */
+    omit?: CapaGeoespacialOmit<ExtArgs> | null
+    /**
+     * The data used to create many CapaGeoespacials.
+     */
+    data: CapaGeoespacialCreateManyInput | CapaGeoespacialCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CapaGeoespacial update
+   */
+  export type CapaGeoespacialUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CapaGeoespacial
+     */
+    select?: CapaGeoespacialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CapaGeoespacial
+     */
+    omit?: CapaGeoespacialOmit<ExtArgs> | null
+    /**
+     * The data needed to update a CapaGeoespacial.
+     */
+    data: XOR<CapaGeoespacialUpdateInput, CapaGeoespacialUncheckedUpdateInput>
+    /**
+     * Choose, which CapaGeoespacial to update.
+     */
+    where: CapaGeoespacialWhereUniqueInput
+  }
+
+  /**
+   * CapaGeoespacial updateMany
+   */
+  export type CapaGeoespacialUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CapaGeoespacials.
+     */
+    data: XOR<CapaGeoespacialUpdateManyMutationInput, CapaGeoespacialUncheckedUpdateManyInput>
+    /**
+     * Filter which CapaGeoespacials to update
+     */
+    where?: CapaGeoespacialWhereInput
+    /**
+     * Limit how many CapaGeoespacials to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CapaGeoespacial updateManyAndReturn
+   */
+  export type CapaGeoespacialUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CapaGeoespacial
+     */
+    select?: CapaGeoespacialSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CapaGeoespacial
+     */
+    omit?: CapaGeoespacialOmit<ExtArgs> | null
+    /**
+     * The data used to update CapaGeoespacials.
+     */
+    data: XOR<CapaGeoespacialUpdateManyMutationInput, CapaGeoespacialUncheckedUpdateManyInput>
+    /**
+     * Filter which CapaGeoespacials to update
+     */
+    where?: CapaGeoespacialWhereInput
+    /**
+     * Limit how many CapaGeoespacials to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CapaGeoespacial upsert
+   */
+  export type CapaGeoespacialUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CapaGeoespacial
+     */
+    select?: CapaGeoespacialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CapaGeoespacial
+     */
+    omit?: CapaGeoespacialOmit<ExtArgs> | null
+    /**
+     * The filter to search for the CapaGeoespacial to update in case it exists.
+     */
+    where: CapaGeoespacialWhereUniqueInput
+    /**
+     * In case the CapaGeoespacial found by the `where` argument doesn't exist, create a new CapaGeoespacial with this data.
+     */
+    create: XOR<CapaGeoespacialCreateInput, CapaGeoespacialUncheckedCreateInput>
+    /**
+     * In case the CapaGeoespacial was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CapaGeoespacialUpdateInput, CapaGeoespacialUncheckedUpdateInput>
+  }
+
+  /**
+   * CapaGeoespacial delete
+   */
+  export type CapaGeoespacialDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CapaGeoespacial
+     */
+    select?: CapaGeoespacialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CapaGeoespacial
+     */
+    omit?: CapaGeoespacialOmit<ExtArgs> | null
+    /**
+     * Filter which CapaGeoespacial to delete.
+     */
+    where: CapaGeoespacialWhereUniqueInput
+  }
+
+  /**
+   * CapaGeoespacial deleteMany
+   */
+  export type CapaGeoespacialDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CapaGeoespacials to delete
+     */
+    where?: CapaGeoespacialWhereInput
+    /**
+     * Limit how many CapaGeoespacials to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CapaGeoespacial without action
+   */
+  export type CapaGeoespacialDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CapaGeoespacial
+     */
+    select?: CapaGeoespacialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CapaGeoespacial
+     */
+    omit?: CapaGeoespacialOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model RasterGeoespacial
+   */
+
+  export type AggregateRasterGeoespacial = {
+    _count: RasterGeoespacialCountAggregateOutputType | null
+    _avg: RasterGeoespacialAvgAggregateOutputType | null
+    _sum: RasterGeoespacialSumAggregateOutputType | null
+    _min: RasterGeoespacialMinAggregateOutputType | null
+    _max: RasterGeoespacialMaxAggregateOutputType | null
+  }
+
+  export type RasterGeoespacialAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type RasterGeoespacialSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type RasterGeoespacialMinAggregateOutputType = {
+    id: number | null
+    nombre: string | null
+    coberturaStore: string | null
+    workspace: string | null
+    archivo: string | null
+    activo: boolean | null
+    eliminado: boolean | null
+    createdAt: Date | null
+  }
+
+  export type RasterGeoespacialMaxAggregateOutputType = {
+    id: number | null
+    nombre: string | null
+    coberturaStore: string | null
+    workspace: string | null
+    archivo: string | null
+    activo: boolean | null
+    eliminado: boolean | null
+    createdAt: Date | null
+  }
+
+  export type RasterGeoespacialCountAggregateOutputType = {
+    id: number
+    nombre: number
+    coberturaStore: number
+    workspace: number
+    archivo: number
+    activo: number
+    eliminado: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type RasterGeoespacialAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type RasterGeoespacialSumAggregateInputType = {
+    id?: true
+  }
+
+  export type RasterGeoespacialMinAggregateInputType = {
+    id?: true
+    nombre?: true
+    coberturaStore?: true
+    workspace?: true
+    archivo?: true
+    activo?: true
+    eliminado?: true
+    createdAt?: true
+  }
+
+  export type RasterGeoespacialMaxAggregateInputType = {
+    id?: true
+    nombre?: true
+    coberturaStore?: true
+    workspace?: true
+    archivo?: true
+    activo?: true
+    eliminado?: true
+    createdAt?: true
+  }
+
+  export type RasterGeoespacialCountAggregateInputType = {
+    id?: true
+    nombre?: true
+    coberturaStore?: true
+    workspace?: true
+    archivo?: true
+    activo?: true
+    eliminado?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type RasterGeoespacialAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RasterGeoespacial to aggregate.
+     */
+    where?: RasterGeoespacialWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RasterGeoespacials to fetch.
+     */
+    orderBy?: RasterGeoespacialOrderByWithRelationInput | RasterGeoespacialOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RasterGeoespacialWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RasterGeoespacials from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RasterGeoespacials.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RasterGeoespacials
+    **/
+    _count?: true | RasterGeoespacialCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RasterGeoespacialAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RasterGeoespacialSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RasterGeoespacialMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RasterGeoespacialMaxAggregateInputType
+  }
+
+  export type GetRasterGeoespacialAggregateType<T extends RasterGeoespacialAggregateArgs> = {
+        [P in keyof T & keyof AggregateRasterGeoespacial]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRasterGeoespacial[P]>
+      : GetScalarType<T[P], AggregateRasterGeoespacial[P]>
+  }
+
+
+
+
+  export type RasterGeoespacialGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RasterGeoespacialWhereInput
+    orderBy?: RasterGeoespacialOrderByWithAggregationInput | RasterGeoespacialOrderByWithAggregationInput[]
+    by: RasterGeoespacialScalarFieldEnum[] | RasterGeoespacialScalarFieldEnum
+    having?: RasterGeoespacialScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RasterGeoespacialCountAggregateInputType | true
+    _avg?: RasterGeoespacialAvgAggregateInputType
+    _sum?: RasterGeoespacialSumAggregateInputType
+    _min?: RasterGeoespacialMinAggregateInputType
+    _max?: RasterGeoespacialMaxAggregateInputType
+  }
+
+  export type RasterGeoespacialGroupByOutputType = {
+    id: number
+    nombre: string
+    coberturaStore: string
+    workspace: string
+    archivo: string
+    activo: boolean
+    eliminado: boolean
+    createdAt: Date
+    _count: RasterGeoespacialCountAggregateOutputType | null
+    _avg: RasterGeoespacialAvgAggregateOutputType | null
+    _sum: RasterGeoespacialSumAggregateOutputType | null
+    _min: RasterGeoespacialMinAggregateOutputType | null
+    _max: RasterGeoespacialMaxAggregateOutputType | null
+  }
+
+  type GetRasterGeoespacialGroupByPayload<T extends RasterGeoespacialGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RasterGeoespacialGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RasterGeoespacialGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RasterGeoespacialGroupByOutputType[P]>
+            : GetScalarType<T[P], RasterGeoespacialGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RasterGeoespacialSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nombre?: boolean
+    coberturaStore?: boolean
+    workspace?: boolean
+    archivo?: boolean
+    activo?: boolean
+    eliminado?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["rasterGeoespacial"]>
+
+  export type RasterGeoespacialSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nombre?: boolean
+    coberturaStore?: boolean
+    workspace?: boolean
+    archivo?: boolean
+    activo?: boolean
+    eliminado?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["rasterGeoespacial"]>
+
+  export type RasterGeoespacialSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nombre?: boolean
+    coberturaStore?: boolean
+    workspace?: boolean
+    archivo?: boolean
+    activo?: boolean
+    eliminado?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["rasterGeoespacial"]>
+
+  export type RasterGeoespacialSelectScalar = {
+    id?: boolean
+    nombre?: boolean
+    coberturaStore?: boolean
+    workspace?: boolean
+    archivo?: boolean
+    activo?: boolean
+    eliminado?: boolean
+    createdAt?: boolean
+  }
+
+  export type RasterGeoespacialOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nombre" | "coberturaStore" | "workspace" | "archivo" | "activo" | "eliminado" | "createdAt", ExtArgs["result"]["rasterGeoespacial"]>
+
+  export type $RasterGeoespacialPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "RasterGeoespacial"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      nombre: string
+      coberturaStore: string
+      workspace: string
+      archivo: string
+      activo: boolean
+      eliminado: boolean
+      createdAt: Date
+    }, ExtArgs["result"]["rasterGeoespacial"]>
+    composites: {}
+  }
+
+  type RasterGeoespacialGetPayload<S extends boolean | null | undefined | RasterGeoespacialDefaultArgs> = $Result.GetResult<Prisma.$RasterGeoespacialPayload, S>
+
+  type RasterGeoespacialCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RasterGeoespacialFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RasterGeoespacialCountAggregateInputType | true
+    }
+
+  export interface RasterGeoespacialDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RasterGeoespacial'], meta: { name: 'RasterGeoespacial' } }
+    /**
+     * Find zero or one RasterGeoespacial that matches the filter.
+     * @param {RasterGeoespacialFindUniqueArgs} args - Arguments to find a RasterGeoespacial
+     * @example
+     * // Get one RasterGeoespacial
+     * const rasterGeoespacial = await prisma.rasterGeoespacial.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RasterGeoespacialFindUniqueArgs>(args: SelectSubset<T, RasterGeoespacialFindUniqueArgs<ExtArgs>>): Prisma__RasterGeoespacialClient<$Result.GetResult<Prisma.$RasterGeoespacialPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one RasterGeoespacial that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RasterGeoespacialFindUniqueOrThrowArgs} args - Arguments to find a RasterGeoespacial
+     * @example
+     * // Get one RasterGeoespacial
+     * const rasterGeoespacial = await prisma.rasterGeoespacial.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RasterGeoespacialFindUniqueOrThrowArgs>(args: SelectSubset<T, RasterGeoespacialFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RasterGeoespacialClient<$Result.GetResult<Prisma.$RasterGeoespacialPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RasterGeoespacial that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RasterGeoespacialFindFirstArgs} args - Arguments to find a RasterGeoespacial
+     * @example
+     * // Get one RasterGeoespacial
+     * const rasterGeoespacial = await prisma.rasterGeoespacial.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RasterGeoespacialFindFirstArgs>(args?: SelectSubset<T, RasterGeoespacialFindFirstArgs<ExtArgs>>): Prisma__RasterGeoespacialClient<$Result.GetResult<Prisma.$RasterGeoespacialPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RasterGeoespacial that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RasterGeoespacialFindFirstOrThrowArgs} args - Arguments to find a RasterGeoespacial
+     * @example
+     * // Get one RasterGeoespacial
+     * const rasterGeoespacial = await prisma.rasterGeoespacial.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RasterGeoespacialFindFirstOrThrowArgs>(args?: SelectSubset<T, RasterGeoespacialFindFirstOrThrowArgs<ExtArgs>>): Prisma__RasterGeoespacialClient<$Result.GetResult<Prisma.$RasterGeoespacialPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more RasterGeoespacials that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RasterGeoespacialFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RasterGeoespacials
+     * const rasterGeoespacials = await prisma.rasterGeoespacial.findMany()
+     * 
+     * // Get first 10 RasterGeoespacials
+     * const rasterGeoespacials = await prisma.rasterGeoespacial.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const rasterGeoespacialWithIdOnly = await prisma.rasterGeoespacial.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RasterGeoespacialFindManyArgs>(args?: SelectSubset<T, RasterGeoespacialFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RasterGeoespacialPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a RasterGeoespacial.
+     * @param {RasterGeoespacialCreateArgs} args - Arguments to create a RasterGeoespacial.
+     * @example
+     * // Create one RasterGeoespacial
+     * const RasterGeoespacial = await prisma.rasterGeoespacial.create({
+     *   data: {
+     *     // ... data to create a RasterGeoespacial
+     *   }
+     * })
+     * 
+     */
+    create<T extends RasterGeoespacialCreateArgs>(args: SelectSubset<T, RasterGeoespacialCreateArgs<ExtArgs>>): Prisma__RasterGeoespacialClient<$Result.GetResult<Prisma.$RasterGeoespacialPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many RasterGeoespacials.
+     * @param {RasterGeoespacialCreateManyArgs} args - Arguments to create many RasterGeoespacials.
+     * @example
+     * // Create many RasterGeoespacials
+     * const rasterGeoespacial = await prisma.rasterGeoespacial.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RasterGeoespacialCreateManyArgs>(args?: SelectSubset<T, RasterGeoespacialCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many RasterGeoespacials and returns the data saved in the database.
+     * @param {RasterGeoespacialCreateManyAndReturnArgs} args - Arguments to create many RasterGeoespacials.
+     * @example
+     * // Create many RasterGeoespacials
+     * const rasterGeoespacial = await prisma.rasterGeoespacial.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many RasterGeoespacials and only return the `id`
+     * const rasterGeoespacialWithIdOnly = await prisma.rasterGeoespacial.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RasterGeoespacialCreateManyAndReturnArgs>(args?: SelectSubset<T, RasterGeoespacialCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RasterGeoespacialPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a RasterGeoespacial.
+     * @param {RasterGeoespacialDeleteArgs} args - Arguments to delete one RasterGeoespacial.
+     * @example
+     * // Delete one RasterGeoespacial
+     * const RasterGeoespacial = await prisma.rasterGeoespacial.delete({
+     *   where: {
+     *     // ... filter to delete one RasterGeoespacial
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RasterGeoespacialDeleteArgs>(args: SelectSubset<T, RasterGeoespacialDeleteArgs<ExtArgs>>): Prisma__RasterGeoespacialClient<$Result.GetResult<Prisma.$RasterGeoespacialPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one RasterGeoespacial.
+     * @param {RasterGeoespacialUpdateArgs} args - Arguments to update one RasterGeoespacial.
+     * @example
+     * // Update one RasterGeoespacial
+     * const rasterGeoespacial = await prisma.rasterGeoespacial.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RasterGeoespacialUpdateArgs>(args: SelectSubset<T, RasterGeoespacialUpdateArgs<ExtArgs>>): Prisma__RasterGeoespacialClient<$Result.GetResult<Prisma.$RasterGeoespacialPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more RasterGeoespacials.
+     * @param {RasterGeoespacialDeleteManyArgs} args - Arguments to filter RasterGeoespacials to delete.
+     * @example
+     * // Delete a few RasterGeoespacials
+     * const { count } = await prisma.rasterGeoespacial.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RasterGeoespacialDeleteManyArgs>(args?: SelectSubset<T, RasterGeoespacialDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RasterGeoespacials.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RasterGeoespacialUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RasterGeoespacials
+     * const rasterGeoespacial = await prisma.rasterGeoespacial.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RasterGeoespacialUpdateManyArgs>(args: SelectSubset<T, RasterGeoespacialUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RasterGeoespacials and returns the data updated in the database.
+     * @param {RasterGeoespacialUpdateManyAndReturnArgs} args - Arguments to update many RasterGeoespacials.
+     * @example
+     * // Update many RasterGeoespacials
+     * const rasterGeoespacial = await prisma.rasterGeoespacial.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more RasterGeoespacials and only return the `id`
+     * const rasterGeoespacialWithIdOnly = await prisma.rasterGeoespacial.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RasterGeoespacialUpdateManyAndReturnArgs>(args: SelectSubset<T, RasterGeoespacialUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RasterGeoespacialPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one RasterGeoespacial.
+     * @param {RasterGeoespacialUpsertArgs} args - Arguments to update or create a RasterGeoespacial.
+     * @example
+     * // Update or create a RasterGeoespacial
+     * const rasterGeoespacial = await prisma.rasterGeoespacial.upsert({
+     *   create: {
+     *     // ... data to create a RasterGeoespacial
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RasterGeoespacial we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RasterGeoespacialUpsertArgs>(args: SelectSubset<T, RasterGeoespacialUpsertArgs<ExtArgs>>): Prisma__RasterGeoespacialClient<$Result.GetResult<Prisma.$RasterGeoespacialPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of RasterGeoespacials.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RasterGeoespacialCountArgs} args - Arguments to filter RasterGeoespacials to count.
+     * @example
+     * // Count the number of RasterGeoespacials
+     * const count = await prisma.rasterGeoespacial.count({
+     *   where: {
+     *     // ... the filter for the RasterGeoespacials we want to count
+     *   }
+     * })
+    **/
+    count<T extends RasterGeoespacialCountArgs>(
+      args?: Subset<T, RasterGeoespacialCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RasterGeoespacialCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RasterGeoespacial.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RasterGeoespacialAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RasterGeoespacialAggregateArgs>(args: Subset<T, RasterGeoespacialAggregateArgs>): Prisma.PrismaPromise<GetRasterGeoespacialAggregateType<T>>
+
+    /**
+     * Group by RasterGeoespacial.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RasterGeoespacialGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RasterGeoespacialGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RasterGeoespacialGroupByArgs['orderBy'] }
+        : { orderBy?: RasterGeoespacialGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RasterGeoespacialGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRasterGeoespacialGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the RasterGeoespacial model
+   */
+  readonly fields: RasterGeoespacialFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RasterGeoespacial.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RasterGeoespacialClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the RasterGeoespacial model
+   */
+  interface RasterGeoespacialFieldRefs {
+    readonly id: FieldRef<"RasterGeoespacial", 'Int'>
+    readonly nombre: FieldRef<"RasterGeoespacial", 'String'>
+    readonly coberturaStore: FieldRef<"RasterGeoespacial", 'String'>
+    readonly workspace: FieldRef<"RasterGeoespacial", 'String'>
+    readonly archivo: FieldRef<"RasterGeoespacial", 'String'>
+    readonly activo: FieldRef<"RasterGeoespacial", 'Boolean'>
+    readonly eliminado: FieldRef<"RasterGeoespacial", 'Boolean'>
+    readonly createdAt: FieldRef<"RasterGeoespacial", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * RasterGeoespacial findUnique
+   */
+  export type RasterGeoespacialFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RasterGeoespacial
+     */
+    select?: RasterGeoespacialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RasterGeoespacial
+     */
+    omit?: RasterGeoespacialOmit<ExtArgs> | null
+    /**
+     * Filter, which RasterGeoespacial to fetch.
+     */
+    where: RasterGeoespacialWhereUniqueInput
+  }
+
+  /**
+   * RasterGeoespacial findUniqueOrThrow
+   */
+  export type RasterGeoespacialFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RasterGeoespacial
+     */
+    select?: RasterGeoespacialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RasterGeoespacial
+     */
+    omit?: RasterGeoespacialOmit<ExtArgs> | null
+    /**
+     * Filter, which RasterGeoespacial to fetch.
+     */
+    where: RasterGeoespacialWhereUniqueInput
+  }
+
+  /**
+   * RasterGeoespacial findFirst
+   */
+  export type RasterGeoespacialFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RasterGeoespacial
+     */
+    select?: RasterGeoespacialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RasterGeoespacial
+     */
+    omit?: RasterGeoespacialOmit<ExtArgs> | null
+    /**
+     * Filter, which RasterGeoespacial to fetch.
+     */
+    where?: RasterGeoespacialWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RasterGeoespacials to fetch.
+     */
+    orderBy?: RasterGeoespacialOrderByWithRelationInput | RasterGeoespacialOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RasterGeoespacials.
+     */
+    cursor?: RasterGeoespacialWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RasterGeoespacials from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RasterGeoespacials.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RasterGeoespacials.
+     */
+    distinct?: RasterGeoespacialScalarFieldEnum | RasterGeoespacialScalarFieldEnum[]
+  }
+
+  /**
+   * RasterGeoespacial findFirstOrThrow
+   */
+  export type RasterGeoespacialFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RasterGeoespacial
+     */
+    select?: RasterGeoespacialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RasterGeoespacial
+     */
+    omit?: RasterGeoespacialOmit<ExtArgs> | null
+    /**
+     * Filter, which RasterGeoespacial to fetch.
+     */
+    where?: RasterGeoespacialWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RasterGeoespacials to fetch.
+     */
+    orderBy?: RasterGeoespacialOrderByWithRelationInput | RasterGeoespacialOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RasterGeoespacials.
+     */
+    cursor?: RasterGeoespacialWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RasterGeoespacials from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RasterGeoespacials.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RasterGeoespacials.
+     */
+    distinct?: RasterGeoespacialScalarFieldEnum | RasterGeoespacialScalarFieldEnum[]
+  }
+
+  /**
+   * RasterGeoespacial findMany
+   */
+  export type RasterGeoespacialFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RasterGeoespacial
+     */
+    select?: RasterGeoespacialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RasterGeoespacial
+     */
+    omit?: RasterGeoespacialOmit<ExtArgs> | null
+    /**
+     * Filter, which RasterGeoespacials to fetch.
+     */
+    where?: RasterGeoespacialWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RasterGeoespacials to fetch.
+     */
+    orderBy?: RasterGeoespacialOrderByWithRelationInput | RasterGeoespacialOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RasterGeoespacials.
+     */
+    cursor?: RasterGeoespacialWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RasterGeoespacials from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RasterGeoespacials.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RasterGeoespacials.
+     */
+    distinct?: RasterGeoespacialScalarFieldEnum | RasterGeoespacialScalarFieldEnum[]
+  }
+
+  /**
+   * RasterGeoespacial create
+   */
+  export type RasterGeoespacialCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RasterGeoespacial
+     */
+    select?: RasterGeoespacialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RasterGeoespacial
+     */
+    omit?: RasterGeoespacialOmit<ExtArgs> | null
+    /**
+     * The data needed to create a RasterGeoespacial.
+     */
+    data: XOR<RasterGeoespacialCreateInput, RasterGeoespacialUncheckedCreateInput>
+  }
+
+  /**
+   * RasterGeoespacial createMany
+   */
+  export type RasterGeoespacialCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RasterGeoespacials.
+     */
+    data: RasterGeoespacialCreateManyInput | RasterGeoespacialCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * RasterGeoespacial createManyAndReturn
+   */
+  export type RasterGeoespacialCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RasterGeoespacial
+     */
+    select?: RasterGeoespacialSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RasterGeoespacial
+     */
+    omit?: RasterGeoespacialOmit<ExtArgs> | null
+    /**
+     * The data used to create many RasterGeoespacials.
+     */
+    data: RasterGeoespacialCreateManyInput | RasterGeoespacialCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * RasterGeoespacial update
+   */
+  export type RasterGeoespacialUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RasterGeoespacial
+     */
+    select?: RasterGeoespacialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RasterGeoespacial
+     */
+    omit?: RasterGeoespacialOmit<ExtArgs> | null
+    /**
+     * The data needed to update a RasterGeoespacial.
+     */
+    data: XOR<RasterGeoespacialUpdateInput, RasterGeoespacialUncheckedUpdateInput>
+    /**
+     * Choose, which RasterGeoespacial to update.
+     */
+    where: RasterGeoespacialWhereUniqueInput
+  }
+
+  /**
+   * RasterGeoespacial updateMany
+   */
+  export type RasterGeoespacialUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RasterGeoespacials.
+     */
+    data: XOR<RasterGeoespacialUpdateManyMutationInput, RasterGeoespacialUncheckedUpdateManyInput>
+    /**
+     * Filter which RasterGeoespacials to update
+     */
+    where?: RasterGeoespacialWhereInput
+    /**
+     * Limit how many RasterGeoespacials to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * RasterGeoespacial updateManyAndReturn
+   */
+  export type RasterGeoespacialUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RasterGeoespacial
+     */
+    select?: RasterGeoespacialSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RasterGeoespacial
+     */
+    omit?: RasterGeoespacialOmit<ExtArgs> | null
+    /**
+     * The data used to update RasterGeoespacials.
+     */
+    data: XOR<RasterGeoespacialUpdateManyMutationInput, RasterGeoespacialUncheckedUpdateManyInput>
+    /**
+     * Filter which RasterGeoespacials to update
+     */
+    where?: RasterGeoespacialWhereInput
+    /**
+     * Limit how many RasterGeoespacials to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * RasterGeoespacial upsert
+   */
+  export type RasterGeoespacialUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RasterGeoespacial
+     */
+    select?: RasterGeoespacialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RasterGeoespacial
+     */
+    omit?: RasterGeoespacialOmit<ExtArgs> | null
+    /**
+     * The filter to search for the RasterGeoespacial to update in case it exists.
+     */
+    where: RasterGeoespacialWhereUniqueInput
+    /**
+     * In case the RasterGeoespacial found by the `where` argument doesn't exist, create a new RasterGeoespacial with this data.
+     */
+    create: XOR<RasterGeoespacialCreateInput, RasterGeoespacialUncheckedCreateInput>
+    /**
+     * In case the RasterGeoespacial was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RasterGeoespacialUpdateInput, RasterGeoespacialUncheckedUpdateInput>
+  }
+
+  /**
+   * RasterGeoespacial delete
+   */
+  export type RasterGeoespacialDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RasterGeoespacial
+     */
+    select?: RasterGeoespacialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RasterGeoespacial
+     */
+    omit?: RasterGeoespacialOmit<ExtArgs> | null
+    /**
+     * Filter which RasterGeoespacial to delete.
+     */
+    where: RasterGeoespacialWhereUniqueInput
+  }
+
+  /**
+   * RasterGeoespacial deleteMany
+   */
+  export type RasterGeoespacialDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RasterGeoespacials to delete
+     */
+    where?: RasterGeoespacialWhereInput
+    /**
+     * Limit how many RasterGeoespacials to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * RasterGeoespacial without action
+   */
+  export type RasterGeoespacialDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RasterGeoespacial
+     */
+    select?: RasterGeoespacialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RasterGeoespacial
+     */
+    omit?: RasterGeoespacialOmit<ExtArgs> | null
+  }
+
 
   /**
    * Model choloma
@@ -4251,2105 +8730,6 @@ export namespace Prisma {
 
 
   /**
-   * Model Usuario
-   */
-
-  export type AggregateUsuario = {
-    _count: UsuarioCountAggregateOutputType | null
-    _min: UsuarioMinAggregateOutputType | null
-    _max: UsuarioMaxAggregateOutputType | null
-  }
-
-  export type UsuarioMinAggregateOutputType = {
-    id: string | null
-    nombreCompleto: string | null
-    direccion: string | null
-    correo: string | null
-    contrasena: string | null
-    rol: string | null
-    activo: boolean | null
-    softDelete: boolean | null
-  }
-
-  export type UsuarioMaxAggregateOutputType = {
-    id: string | null
-    nombreCompleto: string | null
-    direccion: string | null
-    correo: string | null
-    contrasena: string | null
-    rol: string | null
-    activo: boolean | null
-    softDelete: boolean | null
-  }
-
-  export type UsuarioCountAggregateOutputType = {
-    id: number
-    nombreCompleto: number
-    direccion: number
-    correo: number
-    contrasena: number
-    rol: number
-    activo: number
-    softDelete: number
-    _all: number
-  }
-
-
-  export type UsuarioMinAggregateInputType = {
-    id?: true
-    nombreCompleto?: true
-    direccion?: true
-    correo?: true
-    contrasena?: true
-    rol?: true
-    activo?: true
-    softDelete?: true
-  }
-
-  export type UsuarioMaxAggregateInputType = {
-    id?: true
-    nombreCompleto?: true
-    direccion?: true
-    correo?: true
-    contrasena?: true
-    rol?: true
-    activo?: true
-    softDelete?: true
-  }
-
-  export type UsuarioCountAggregateInputType = {
-    id?: true
-    nombreCompleto?: true
-    direccion?: true
-    correo?: true
-    contrasena?: true
-    rol?: true
-    activo?: true
-    softDelete?: true
-    _all?: true
-  }
-
-  export type UsuarioAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Usuario to aggregate.
-     */
-    where?: UsuarioWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Usuarios to fetch.
-     */
-    orderBy?: UsuarioOrderByWithRelationInput | UsuarioOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: UsuarioWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Usuarios from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Usuarios.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Usuarios
-    **/
-    _count?: true | UsuarioCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: UsuarioMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: UsuarioMaxAggregateInputType
-  }
-
-  export type GetUsuarioAggregateType<T extends UsuarioAggregateArgs> = {
-        [P in keyof T & keyof AggregateUsuario]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateUsuario[P]>
-      : GetScalarType<T[P], AggregateUsuario[P]>
-  }
-
-
-
-
-  export type UsuarioGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UsuarioWhereInput
-    orderBy?: UsuarioOrderByWithAggregationInput | UsuarioOrderByWithAggregationInput[]
-    by: UsuarioScalarFieldEnum[] | UsuarioScalarFieldEnum
-    having?: UsuarioScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: UsuarioCountAggregateInputType | true
-    _min?: UsuarioMinAggregateInputType
-    _max?: UsuarioMaxAggregateInputType
-  }
-
-  export type UsuarioGroupByOutputType = {
-    id: string
-    nombreCompleto: string
-    direccion: string
-    correo: string
-    contrasena: string
-    rol: string
-    activo: boolean
-    softDelete: boolean
-    _count: UsuarioCountAggregateOutputType | null
-    _min: UsuarioMinAggregateOutputType | null
-    _max: UsuarioMaxAggregateOutputType | null
-  }
-
-  type GetUsuarioGroupByPayload<T extends UsuarioGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<UsuarioGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof UsuarioGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], UsuarioGroupByOutputType[P]>
-            : GetScalarType<T[P], UsuarioGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type UsuarioSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    nombreCompleto?: boolean
-    direccion?: boolean
-    correo?: boolean
-    contrasena?: boolean
-    rol?: boolean
-    activo?: boolean
-    softDelete?: boolean
-  }, ExtArgs["result"]["usuario"]>
-
-  export type UsuarioSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    nombreCompleto?: boolean
-    direccion?: boolean
-    correo?: boolean
-    contrasena?: boolean
-    rol?: boolean
-    activo?: boolean
-    softDelete?: boolean
-  }, ExtArgs["result"]["usuario"]>
-
-  export type UsuarioSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    nombreCompleto?: boolean
-    direccion?: boolean
-    correo?: boolean
-    contrasena?: boolean
-    rol?: boolean
-    activo?: boolean
-    softDelete?: boolean
-  }, ExtArgs["result"]["usuario"]>
-
-  export type UsuarioSelectScalar = {
-    id?: boolean
-    nombreCompleto?: boolean
-    direccion?: boolean
-    correo?: boolean
-    contrasena?: boolean
-    rol?: boolean
-    activo?: boolean
-    softDelete?: boolean
-  }
-
-  export type UsuarioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nombreCompleto" | "direccion" | "correo" | "contrasena" | "rol" | "activo" | "softDelete", ExtArgs["result"]["usuario"]>
-
-  export type $UsuarioPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Usuario"
-    objects: {}
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      nombreCompleto: string
-      direccion: string
-      correo: string
-      contrasena: string
-      rol: string
-      activo: boolean
-      softDelete: boolean
-    }, ExtArgs["result"]["usuario"]>
-    composites: {}
-  }
-
-  type UsuarioGetPayload<S extends boolean | null | undefined | UsuarioDefaultArgs> = $Result.GetResult<Prisma.$UsuarioPayload, S>
-
-  type UsuarioCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<UsuarioFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: UsuarioCountAggregateInputType | true
-    }
-
-  export interface UsuarioDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Usuario'], meta: { name: 'Usuario' } }
-    /**
-     * Find zero or one Usuario that matches the filter.
-     * @param {UsuarioFindUniqueArgs} args - Arguments to find a Usuario
-     * @example
-     * // Get one Usuario
-     * const usuario = await prisma.usuario.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends UsuarioFindUniqueArgs>(args: SelectSubset<T, UsuarioFindUniqueArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Usuario that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {UsuarioFindUniqueOrThrowArgs} args - Arguments to find a Usuario
-     * @example
-     * // Get one Usuario
-     * const usuario = await prisma.usuario.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends UsuarioFindUniqueOrThrowArgs>(args: SelectSubset<T, UsuarioFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Usuario that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UsuarioFindFirstArgs} args - Arguments to find a Usuario
-     * @example
-     * // Get one Usuario
-     * const usuario = await prisma.usuario.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends UsuarioFindFirstArgs>(args?: SelectSubset<T, UsuarioFindFirstArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Usuario that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UsuarioFindFirstOrThrowArgs} args - Arguments to find a Usuario
-     * @example
-     * // Get one Usuario
-     * const usuario = await prisma.usuario.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends UsuarioFindFirstOrThrowArgs>(args?: SelectSubset<T, UsuarioFindFirstOrThrowArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Usuarios that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UsuarioFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Usuarios
-     * const usuarios = await prisma.usuario.findMany()
-     * 
-     * // Get first 10 Usuarios
-     * const usuarios = await prisma.usuario.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const usuarioWithIdOnly = await prisma.usuario.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends UsuarioFindManyArgs>(args?: SelectSubset<T, UsuarioFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Usuario.
-     * @param {UsuarioCreateArgs} args - Arguments to create a Usuario.
-     * @example
-     * // Create one Usuario
-     * const Usuario = await prisma.usuario.create({
-     *   data: {
-     *     // ... data to create a Usuario
-     *   }
-     * })
-     * 
-     */
-    create<T extends UsuarioCreateArgs>(args: SelectSubset<T, UsuarioCreateArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Usuarios.
-     * @param {UsuarioCreateManyArgs} args - Arguments to create many Usuarios.
-     * @example
-     * // Create many Usuarios
-     * const usuario = await prisma.usuario.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends UsuarioCreateManyArgs>(args?: SelectSubset<T, UsuarioCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Usuarios and returns the data saved in the database.
-     * @param {UsuarioCreateManyAndReturnArgs} args - Arguments to create many Usuarios.
-     * @example
-     * // Create many Usuarios
-     * const usuario = await prisma.usuario.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Usuarios and only return the `id`
-     * const usuarioWithIdOnly = await prisma.usuario.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends UsuarioCreateManyAndReturnArgs>(args?: SelectSubset<T, UsuarioCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Usuario.
-     * @param {UsuarioDeleteArgs} args - Arguments to delete one Usuario.
-     * @example
-     * // Delete one Usuario
-     * const Usuario = await prisma.usuario.delete({
-     *   where: {
-     *     // ... filter to delete one Usuario
-     *   }
-     * })
-     * 
-     */
-    delete<T extends UsuarioDeleteArgs>(args: SelectSubset<T, UsuarioDeleteArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Usuario.
-     * @param {UsuarioUpdateArgs} args - Arguments to update one Usuario.
-     * @example
-     * // Update one Usuario
-     * const usuario = await prisma.usuario.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends UsuarioUpdateArgs>(args: SelectSubset<T, UsuarioUpdateArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Usuarios.
-     * @param {UsuarioDeleteManyArgs} args - Arguments to filter Usuarios to delete.
-     * @example
-     * // Delete a few Usuarios
-     * const { count } = await prisma.usuario.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends UsuarioDeleteManyArgs>(args?: SelectSubset<T, UsuarioDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Usuarios.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UsuarioUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Usuarios
-     * const usuario = await prisma.usuario.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends UsuarioUpdateManyArgs>(args: SelectSubset<T, UsuarioUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Usuarios and returns the data updated in the database.
-     * @param {UsuarioUpdateManyAndReturnArgs} args - Arguments to update many Usuarios.
-     * @example
-     * // Update many Usuarios
-     * const usuario = await prisma.usuario.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Usuarios and only return the `id`
-     * const usuarioWithIdOnly = await prisma.usuario.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends UsuarioUpdateManyAndReturnArgs>(args: SelectSubset<T, UsuarioUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Usuario.
-     * @param {UsuarioUpsertArgs} args - Arguments to update or create a Usuario.
-     * @example
-     * // Update or create a Usuario
-     * const usuario = await prisma.usuario.upsert({
-     *   create: {
-     *     // ... data to create a Usuario
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Usuario we want to update
-     *   }
-     * })
-     */
-    upsert<T extends UsuarioUpsertArgs>(args: SelectSubset<T, UsuarioUpsertArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Usuarios.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UsuarioCountArgs} args - Arguments to filter Usuarios to count.
-     * @example
-     * // Count the number of Usuarios
-     * const count = await prisma.usuario.count({
-     *   where: {
-     *     // ... the filter for the Usuarios we want to count
-     *   }
-     * })
-    **/
-    count<T extends UsuarioCountArgs>(
-      args?: Subset<T, UsuarioCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], UsuarioCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Usuario.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UsuarioAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends UsuarioAggregateArgs>(args: Subset<T, UsuarioAggregateArgs>): Prisma.PrismaPromise<GetUsuarioAggregateType<T>>
-
-    /**
-     * Group by Usuario.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UsuarioGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends UsuarioGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: UsuarioGroupByArgs['orderBy'] }
-        : { orderBy?: UsuarioGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, UsuarioGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUsuarioGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Usuario model
-   */
-  readonly fields: UsuarioFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Usuario.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__UsuarioClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the Usuario model
-   */
-  interface UsuarioFieldRefs {
-    readonly id: FieldRef<"Usuario", 'String'>
-    readonly nombreCompleto: FieldRef<"Usuario", 'String'>
-    readonly direccion: FieldRef<"Usuario", 'String'>
-    readonly correo: FieldRef<"Usuario", 'String'>
-    readonly contrasena: FieldRef<"Usuario", 'String'>
-    readonly rol: FieldRef<"Usuario", 'String'>
-    readonly activo: FieldRef<"Usuario", 'Boolean'>
-    readonly softDelete: FieldRef<"Usuario", 'Boolean'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * Usuario findUnique
-   */
-  export type UsuarioFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Usuario
-     */
-    select?: UsuarioSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Usuario
-     */
-    omit?: UsuarioOmit<ExtArgs> | null
-    /**
-     * Filter, which Usuario to fetch.
-     */
-    where: UsuarioWhereUniqueInput
-  }
-
-  /**
-   * Usuario findUniqueOrThrow
-   */
-  export type UsuarioFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Usuario
-     */
-    select?: UsuarioSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Usuario
-     */
-    omit?: UsuarioOmit<ExtArgs> | null
-    /**
-     * Filter, which Usuario to fetch.
-     */
-    where: UsuarioWhereUniqueInput
-  }
-
-  /**
-   * Usuario findFirst
-   */
-  export type UsuarioFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Usuario
-     */
-    select?: UsuarioSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Usuario
-     */
-    omit?: UsuarioOmit<ExtArgs> | null
-    /**
-     * Filter, which Usuario to fetch.
-     */
-    where?: UsuarioWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Usuarios to fetch.
-     */
-    orderBy?: UsuarioOrderByWithRelationInput | UsuarioOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Usuarios.
-     */
-    cursor?: UsuarioWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Usuarios from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Usuarios.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Usuarios.
-     */
-    distinct?: UsuarioScalarFieldEnum | UsuarioScalarFieldEnum[]
-  }
-
-  /**
-   * Usuario findFirstOrThrow
-   */
-  export type UsuarioFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Usuario
-     */
-    select?: UsuarioSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Usuario
-     */
-    omit?: UsuarioOmit<ExtArgs> | null
-    /**
-     * Filter, which Usuario to fetch.
-     */
-    where?: UsuarioWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Usuarios to fetch.
-     */
-    orderBy?: UsuarioOrderByWithRelationInput | UsuarioOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Usuarios.
-     */
-    cursor?: UsuarioWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Usuarios from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Usuarios.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Usuarios.
-     */
-    distinct?: UsuarioScalarFieldEnum | UsuarioScalarFieldEnum[]
-  }
-
-  /**
-   * Usuario findMany
-   */
-  export type UsuarioFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Usuario
-     */
-    select?: UsuarioSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Usuario
-     */
-    omit?: UsuarioOmit<ExtArgs> | null
-    /**
-     * Filter, which Usuarios to fetch.
-     */
-    where?: UsuarioWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Usuarios to fetch.
-     */
-    orderBy?: UsuarioOrderByWithRelationInput | UsuarioOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Usuarios.
-     */
-    cursor?: UsuarioWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Usuarios from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Usuarios.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Usuarios.
-     */
-    distinct?: UsuarioScalarFieldEnum | UsuarioScalarFieldEnum[]
-  }
-
-  /**
-   * Usuario create
-   */
-  export type UsuarioCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Usuario
-     */
-    select?: UsuarioSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Usuario
-     */
-    omit?: UsuarioOmit<ExtArgs> | null
-    /**
-     * The data needed to create a Usuario.
-     */
-    data: XOR<UsuarioCreateInput, UsuarioUncheckedCreateInput>
-  }
-
-  /**
-   * Usuario createMany
-   */
-  export type UsuarioCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Usuarios.
-     */
-    data: UsuarioCreateManyInput | UsuarioCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Usuario createManyAndReturn
-   */
-  export type UsuarioCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Usuario
-     */
-    select?: UsuarioSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Usuario
-     */
-    omit?: UsuarioOmit<ExtArgs> | null
-    /**
-     * The data used to create many Usuarios.
-     */
-    data: UsuarioCreateManyInput | UsuarioCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Usuario update
-   */
-  export type UsuarioUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Usuario
-     */
-    select?: UsuarioSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Usuario
-     */
-    omit?: UsuarioOmit<ExtArgs> | null
-    /**
-     * The data needed to update a Usuario.
-     */
-    data: XOR<UsuarioUpdateInput, UsuarioUncheckedUpdateInput>
-    /**
-     * Choose, which Usuario to update.
-     */
-    where: UsuarioWhereUniqueInput
-  }
-
-  /**
-   * Usuario updateMany
-   */
-  export type UsuarioUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Usuarios.
-     */
-    data: XOR<UsuarioUpdateManyMutationInput, UsuarioUncheckedUpdateManyInput>
-    /**
-     * Filter which Usuarios to update
-     */
-    where?: UsuarioWhereInput
-    /**
-     * Limit how many Usuarios to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Usuario updateManyAndReturn
-   */
-  export type UsuarioUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Usuario
-     */
-    select?: UsuarioSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Usuario
-     */
-    omit?: UsuarioOmit<ExtArgs> | null
-    /**
-     * The data used to update Usuarios.
-     */
-    data: XOR<UsuarioUpdateManyMutationInput, UsuarioUncheckedUpdateManyInput>
-    /**
-     * Filter which Usuarios to update
-     */
-    where?: UsuarioWhereInput
-    /**
-     * Limit how many Usuarios to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Usuario upsert
-   */
-  export type UsuarioUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Usuario
-     */
-    select?: UsuarioSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Usuario
-     */
-    omit?: UsuarioOmit<ExtArgs> | null
-    /**
-     * The filter to search for the Usuario to update in case it exists.
-     */
-    where: UsuarioWhereUniqueInput
-    /**
-     * In case the Usuario found by the `where` argument doesn't exist, create a new Usuario with this data.
-     */
-    create: XOR<UsuarioCreateInput, UsuarioUncheckedCreateInput>
-    /**
-     * In case the Usuario was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<UsuarioUpdateInput, UsuarioUncheckedUpdateInput>
-  }
-
-  /**
-   * Usuario delete
-   */
-  export type UsuarioDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Usuario
-     */
-    select?: UsuarioSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Usuario
-     */
-    omit?: UsuarioOmit<ExtArgs> | null
-    /**
-     * Filter which Usuario to delete.
-     */
-    where: UsuarioWhereUniqueInput
-  }
-
-  /**
-   * Usuario deleteMany
-   */
-  export type UsuarioDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Usuarios to delete
-     */
-    where?: UsuarioWhereInput
-    /**
-     * Limit how many Usuarios to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * Usuario without action
-   */
-  export type UsuarioDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Usuario
-     */
-    select?: UsuarioSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Usuario
-     */
-    omit?: UsuarioOmit<ExtArgs> | null
-  }
-
-
-  /**
-   * Model Log
-   */
-
-  export type AggregateLog = {
-    _count: LogCountAggregateOutputType | null
-    _avg: LogAvgAggregateOutputType | null
-    _sum: LogSumAggregateOutputType | null
-    _min: LogMinAggregateOutputType | null
-    _max: LogMaxAggregateOutputType | null
-  }
-
-  export type LogAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type LogSumAggregateOutputType = {
-    id: number | null
-  }
-
-  export type LogMinAggregateOutputType = {
-    id: number | null
-    timestamp: Date | null
-    usuario: string | null
-    accion: string | null
-    entidad: string | null
-    ip: string | null
-    detalles: string | null
-  }
-
-  export type LogMaxAggregateOutputType = {
-    id: number | null
-    timestamp: Date | null
-    usuario: string | null
-    accion: string | null
-    entidad: string | null
-    ip: string | null
-    detalles: string | null
-  }
-
-  export type LogCountAggregateOutputType = {
-    id: number
-    timestamp: number
-    usuario: number
-    accion: number
-    entidad: number
-    ip: number
-    detalles: number
-    _all: number
-  }
-
-
-  export type LogAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type LogSumAggregateInputType = {
-    id?: true
-  }
-
-  export type LogMinAggregateInputType = {
-    id?: true
-    timestamp?: true
-    usuario?: true
-    accion?: true
-    entidad?: true
-    ip?: true
-    detalles?: true
-  }
-
-  export type LogMaxAggregateInputType = {
-    id?: true
-    timestamp?: true
-    usuario?: true
-    accion?: true
-    entidad?: true
-    ip?: true
-    detalles?: true
-  }
-
-  export type LogCountAggregateInputType = {
-    id?: true
-    timestamp?: true
-    usuario?: true
-    accion?: true
-    entidad?: true
-    ip?: true
-    detalles?: true
-    _all?: true
-  }
-
-  export type LogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Log to aggregate.
-     */
-    where?: LogWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Logs to fetch.
-     */
-    orderBy?: LogOrderByWithRelationInput | LogOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: LogWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Logs from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Logs.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Logs
-    **/
-    _count?: true | LogCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: LogAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: LogSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: LogMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: LogMaxAggregateInputType
-  }
-
-  export type GetLogAggregateType<T extends LogAggregateArgs> = {
-        [P in keyof T & keyof AggregateLog]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateLog[P]>
-      : GetScalarType<T[P], AggregateLog[P]>
-  }
-
-
-
-
-  export type LogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: LogWhereInput
-    orderBy?: LogOrderByWithAggregationInput | LogOrderByWithAggregationInput[]
-    by: LogScalarFieldEnum[] | LogScalarFieldEnum
-    having?: LogScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: LogCountAggregateInputType | true
-    _avg?: LogAvgAggregateInputType
-    _sum?: LogSumAggregateInputType
-    _min?: LogMinAggregateInputType
-    _max?: LogMaxAggregateInputType
-  }
-
-  export type LogGroupByOutputType = {
-    id: number
-    timestamp: Date
-    usuario: string | null
-    accion: string
-    entidad: string | null
-    ip: string | null
-    detalles: string | null
-    _count: LogCountAggregateOutputType | null
-    _avg: LogAvgAggregateOutputType | null
-    _sum: LogSumAggregateOutputType | null
-    _min: LogMinAggregateOutputType | null
-    _max: LogMaxAggregateOutputType | null
-  }
-
-  type GetLogGroupByPayload<T extends LogGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<LogGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof LogGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], LogGroupByOutputType[P]>
-            : GetScalarType<T[P], LogGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type LogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    timestamp?: boolean
-    usuario?: boolean
-    accion?: boolean
-    entidad?: boolean
-    ip?: boolean
-    detalles?: boolean
-  }, ExtArgs["result"]["log"]>
-
-  export type LogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    timestamp?: boolean
-    usuario?: boolean
-    accion?: boolean
-    entidad?: boolean
-    ip?: boolean
-    detalles?: boolean
-  }, ExtArgs["result"]["log"]>
-
-  export type LogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    timestamp?: boolean
-    usuario?: boolean
-    accion?: boolean
-    entidad?: boolean
-    ip?: boolean
-    detalles?: boolean
-  }, ExtArgs["result"]["log"]>
-
-  export type LogSelectScalar = {
-    id?: boolean
-    timestamp?: boolean
-    usuario?: boolean
-    accion?: boolean
-    entidad?: boolean
-    ip?: boolean
-    detalles?: boolean
-  }
-
-  export type LogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "timestamp" | "usuario" | "accion" | "entidad" | "ip" | "detalles", ExtArgs["result"]["log"]>
-
-  export type $LogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Log"
-    objects: {}
-    scalars: $Extensions.GetPayloadResult<{
-      id: number
-      timestamp: Date
-      usuario: string | null
-      accion: string
-      entidad: string | null
-      ip: string | null
-      detalles: string | null
-    }, ExtArgs["result"]["log"]>
-    composites: {}
-  }
-
-  type LogGetPayload<S extends boolean | null | undefined | LogDefaultArgs> = $Result.GetResult<Prisma.$LogPayload, S>
-
-  type LogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<LogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: LogCountAggregateInputType | true
-    }
-
-  export interface LogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Log'], meta: { name: 'Log' } }
-    /**
-     * Find zero or one Log that matches the filter.
-     * @param {LogFindUniqueArgs} args - Arguments to find a Log
-     * @example
-     * // Get one Log
-     * const log = await prisma.log.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends LogFindUniqueArgs>(args: SelectSubset<T, LogFindUniqueArgs<ExtArgs>>): Prisma__LogClient<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Log that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {LogFindUniqueOrThrowArgs} args - Arguments to find a Log
-     * @example
-     * // Get one Log
-     * const log = await prisma.log.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends LogFindUniqueOrThrowArgs>(args: SelectSubset<T, LogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LogClient<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Log that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LogFindFirstArgs} args - Arguments to find a Log
-     * @example
-     * // Get one Log
-     * const log = await prisma.log.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends LogFindFirstArgs>(args?: SelectSubset<T, LogFindFirstArgs<ExtArgs>>): Prisma__LogClient<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Log that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LogFindFirstOrThrowArgs} args - Arguments to find a Log
-     * @example
-     * // Get one Log
-     * const log = await prisma.log.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends LogFindFirstOrThrowArgs>(args?: SelectSubset<T, LogFindFirstOrThrowArgs<ExtArgs>>): Prisma__LogClient<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Logs that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LogFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Logs
-     * const logs = await prisma.log.findMany()
-     * 
-     * // Get first 10 Logs
-     * const logs = await prisma.log.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const logWithIdOnly = await prisma.log.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends LogFindManyArgs>(args?: SelectSubset<T, LogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Log.
-     * @param {LogCreateArgs} args - Arguments to create a Log.
-     * @example
-     * // Create one Log
-     * const Log = await prisma.log.create({
-     *   data: {
-     *     // ... data to create a Log
-     *   }
-     * })
-     * 
-     */
-    create<T extends LogCreateArgs>(args: SelectSubset<T, LogCreateArgs<ExtArgs>>): Prisma__LogClient<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Logs.
-     * @param {LogCreateManyArgs} args - Arguments to create many Logs.
-     * @example
-     * // Create many Logs
-     * const log = await prisma.log.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends LogCreateManyArgs>(args?: SelectSubset<T, LogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Logs and returns the data saved in the database.
-     * @param {LogCreateManyAndReturnArgs} args - Arguments to create many Logs.
-     * @example
-     * // Create many Logs
-     * const log = await prisma.log.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Logs and only return the `id`
-     * const logWithIdOnly = await prisma.log.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends LogCreateManyAndReturnArgs>(args?: SelectSubset<T, LogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Log.
-     * @param {LogDeleteArgs} args - Arguments to delete one Log.
-     * @example
-     * // Delete one Log
-     * const Log = await prisma.log.delete({
-     *   where: {
-     *     // ... filter to delete one Log
-     *   }
-     * })
-     * 
-     */
-    delete<T extends LogDeleteArgs>(args: SelectSubset<T, LogDeleteArgs<ExtArgs>>): Prisma__LogClient<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Log.
-     * @param {LogUpdateArgs} args - Arguments to update one Log.
-     * @example
-     * // Update one Log
-     * const log = await prisma.log.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends LogUpdateArgs>(args: SelectSubset<T, LogUpdateArgs<ExtArgs>>): Prisma__LogClient<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Logs.
-     * @param {LogDeleteManyArgs} args - Arguments to filter Logs to delete.
-     * @example
-     * // Delete a few Logs
-     * const { count } = await prisma.log.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends LogDeleteManyArgs>(args?: SelectSubset<T, LogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Logs.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LogUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Logs
-     * const log = await prisma.log.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends LogUpdateManyArgs>(args: SelectSubset<T, LogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Logs and returns the data updated in the database.
-     * @param {LogUpdateManyAndReturnArgs} args - Arguments to update many Logs.
-     * @example
-     * // Update many Logs
-     * const log = await prisma.log.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Logs and only return the `id`
-     * const logWithIdOnly = await prisma.log.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends LogUpdateManyAndReturnArgs>(args: SelectSubset<T, LogUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Log.
-     * @param {LogUpsertArgs} args - Arguments to update or create a Log.
-     * @example
-     * // Update or create a Log
-     * const log = await prisma.log.upsert({
-     *   create: {
-     *     // ... data to create a Log
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Log we want to update
-     *   }
-     * })
-     */
-    upsert<T extends LogUpsertArgs>(args: SelectSubset<T, LogUpsertArgs<ExtArgs>>): Prisma__LogClient<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Logs.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LogCountArgs} args - Arguments to filter Logs to count.
-     * @example
-     * // Count the number of Logs
-     * const count = await prisma.log.count({
-     *   where: {
-     *     // ... the filter for the Logs we want to count
-     *   }
-     * })
-    **/
-    count<T extends LogCountArgs>(
-      args?: Subset<T, LogCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], LogCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Log.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends LogAggregateArgs>(args: Subset<T, LogAggregateArgs>): Prisma.PrismaPromise<GetLogAggregateType<T>>
-
-    /**
-     * Group by Log.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LogGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends LogGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: LogGroupByArgs['orderBy'] }
-        : { orderBy?: LogGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, LogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Log model
-   */
-  readonly fields: LogFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Log.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__LogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the Log model
-   */
-  interface LogFieldRefs {
-    readonly id: FieldRef<"Log", 'Int'>
-    readonly timestamp: FieldRef<"Log", 'DateTime'>
-    readonly usuario: FieldRef<"Log", 'String'>
-    readonly accion: FieldRef<"Log", 'String'>
-    readonly entidad: FieldRef<"Log", 'String'>
-    readonly ip: FieldRef<"Log", 'String'>
-    readonly detalles: FieldRef<"Log", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * Log findUnique
-   */
-  export type LogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Log
-     */
-    select?: LogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Log
-     */
-    omit?: LogOmit<ExtArgs> | null
-    /**
-     * Filter, which Log to fetch.
-     */
-    where: LogWhereUniqueInput
-  }
-
-  /**
-   * Log findUniqueOrThrow
-   */
-  export type LogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Log
-     */
-    select?: LogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Log
-     */
-    omit?: LogOmit<ExtArgs> | null
-    /**
-     * Filter, which Log to fetch.
-     */
-    where: LogWhereUniqueInput
-  }
-
-  /**
-   * Log findFirst
-   */
-  export type LogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Log
-     */
-    select?: LogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Log
-     */
-    omit?: LogOmit<ExtArgs> | null
-    /**
-     * Filter, which Log to fetch.
-     */
-    where?: LogWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Logs to fetch.
-     */
-    orderBy?: LogOrderByWithRelationInput | LogOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Logs.
-     */
-    cursor?: LogWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Logs from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Logs.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Logs.
-     */
-    distinct?: LogScalarFieldEnum | LogScalarFieldEnum[]
-  }
-
-  /**
-   * Log findFirstOrThrow
-   */
-  export type LogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Log
-     */
-    select?: LogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Log
-     */
-    omit?: LogOmit<ExtArgs> | null
-    /**
-     * Filter, which Log to fetch.
-     */
-    where?: LogWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Logs to fetch.
-     */
-    orderBy?: LogOrderByWithRelationInput | LogOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Logs.
-     */
-    cursor?: LogWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Logs from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Logs.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Logs.
-     */
-    distinct?: LogScalarFieldEnum | LogScalarFieldEnum[]
-  }
-
-  /**
-   * Log findMany
-   */
-  export type LogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Log
-     */
-    select?: LogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Log
-     */
-    omit?: LogOmit<ExtArgs> | null
-    /**
-     * Filter, which Logs to fetch.
-     */
-    where?: LogWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Logs to fetch.
-     */
-    orderBy?: LogOrderByWithRelationInput | LogOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Logs.
-     */
-    cursor?: LogWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Logs from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Logs.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Logs.
-     */
-    distinct?: LogScalarFieldEnum | LogScalarFieldEnum[]
-  }
-
-  /**
-   * Log create
-   */
-  export type LogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Log
-     */
-    select?: LogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Log
-     */
-    omit?: LogOmit<ExtArgs> | null
-    /**
-     * The data needed to create a Log.
-     */
-    data: XOR<LogCreateInput, LogUncheckedCreateInput>
-  }
-
-  /**
-   * Log createMany
-   */
-  export type LogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Logs.
-     */
-    data: LogCreateManyInput | LogCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Log createManyAndReturn
-   */
-  export type LogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Log
-     */
-    select?: LogSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Log
-     */
-    omit?: LogOmit<ExtArgs> | null
-    /**
-     * The data used to create many Logs.
-     */
-    data: LogCreateManyInput | LogCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Log update
-   */
-  export type LogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Log
-     */
-    select?: LogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Log
-     */
-    omit?: LogOmit<ExtArgs> | null
-    /**
-     * The data needed to update a Log.
-     */
-    data: XOR<LogUpdateInput, LogUncheckedUpdateInput>
-    /**
-     * Choose, which Log to update.
-     */
-    where: LogWhereUniqueInput
-  }
-
-  /**
-   * Log updateMany
-   */
-  export type LogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Logs.
-     */
-    data: XOR<LogUpdateManyMutationInput, LogUncheckedUpdateManyInput>
-    /**
-     * Filter which Logs to update
-     */
-    where?: LogWhereInput
-    /**
-     * Limit how many Logs to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Log updateManyAndReturn
-   */
-  export type LogUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Log
-     */
-    select?: LogSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Log
-     */
-    omit?: LogOmit<ExtArgs> | null
-    /**
-     * The data used to update Logs.
-     */
-    data: XOR<LogUpdateManyMutationInput, LogUncheckedUpdateManyInput>
-    /**
-     * Filter which Logs to update
-     */
-    where?: LogWhereInput
-    /**
-     * Limit how many Logs to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Log upsert
-   */
-  export type LogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Log
-     */
-    select?: LogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Log
-     */
-    omit?: LogOmit<ExtArgs> | null
-    /**
-     * The filter to search for the Log to update in case it exists.
-     */
-    where: LogWhereUniqueInput
-    /**
-     * In case the Log found by the `where` argument doesn't exist, create a new Log with this data.
-     */
-    create: XOR<LogCreateInput, LogUncheckedCreateInput>
-    /**
-     * In case the Log was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<LogUpdateInput, LogUncheckedUpdateInput>
-  }
-
-  /**
-   * Log delete
-   */
-  export type LogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Log
-     */
-    select?: LogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Log
-     */
-    omit?: LogOmit<ExtArgs> | null
-    /**
-     * Filter which Log to delete.
-     */
-    where: LogWhereUniqueInput
-  }
-
-  /**
-   * Log deleteMany
-   */
-  export type LogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Logs to delete
-     */
-    where?: LogWhereInput
-    /**
-     * Limit how many Logs to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * Log without action
-   */
-  export type LogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Log
-     */
-    select?: LogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Log
-     */
-    omit?: LogOmit<ExtArgs> | null
-  }
-
-
-  /**
    * Enums
    */
 
@@ -6361,6 +8741,65 @@ export namespace Prisma {
   };
 
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+  export const UsuarioScalarFieldEnum: {
+    id: 'id',
+    nombre: 'nombre',
+    apellidos: 'apellidos',
+    nombreCompleto: 'nombreCompleto',
+    direccion: 'direccion',
+    correo: 'correo',
+    contrasena: 'contrasena',
+    rol: 'rol',
+    telefono: 'telefono',
+    activo: 'activo',
+    softDelete: 'softDelete',
+    createdAt: 'createdAt'
+  };
+
+  export type UsuarioScalarFieldEnum = (typeof UsuarioScalarFieldEnum)[keyof typeof UsuarioScalarFieldEnum]
+
+
+  export const LogScalarFieldEnum: {
+    id: 'id',
+    timestamp: 'timestamp',
+    usuario: 'usuario',
+    accion: 'accion',
+    entidad: 'entidad',
+    ip: 'ip',
+    detalles: 'detalles'
+  };
+
+  export type LogScalarFieldEnum = (typeof LogScalarFieldEnum)[keyof typeof LogScalarFieldEnum]
+
+
+  export const CapaGeoespacialScalarFieldEnum: {
+    id: 'id',
+    nombre: 'nombre',
+    tableName: 'tableName',
+    workspace: 'workspace',
+    esquema: 'esquema',
+    activo: 'activo',
+    eliminado: 'eliminado',
+    createdAt: 'createdAt'
+  };
+
+  export type CapaGeoespacialScalarFieldEnum = (typeof CapaGeoespacialScalarFieldEnum)[keyof typeof CapaGeoespacialScalarFieldEnum]
+
+
+  export const RasterGeoespacialScalarFieldEnum: {
+    id: 'id',
+    nombre: 'nombre',
+    coberturaStore: 'coberturaStore',
+    workspace: 'workspace',
+    archivo: 'archivo',
+    activo: 'activo',
+    eliminado: 'eliminado',
+    createdAt: 'createdAt'
+  };
+
+  export type RasterGeoespacialScalarFieldEnum = (typeof RasterGeoespacialScalarFieldEnum)[keyof typeof RasterGeoespacialScalarFieldEnum]
 
 
   export const CholomaScalarFieldEnum: {
@@ -6390,33 +8829,6 @@ export namespace Prisma {
   export type Spatial_ref_sysScalarFieldEnum = (typeof Spatial_ref_sysScalarFieldEnum)[keyof typeof Spatial_ref_sysScalarFieldEnum]
 
 
-  export const UsuarioScalarFieldEnum: {
-    id: 'id',
-    nombreCompleto: 'nombreCompleto',
-    direccion: 'direccion',
-    correo: 'correo',
-    contrasena: 'contrasena',
-    rol: 'rol',
-    activo: 'activo',
-    softDelete: 'softDelete'
-  };
-
-  export type UsuarioScalarFieldEnum = (typeof UsuarioScalarFieldEnum)[keyof typeof UsuarioScalarFieldEnum]
-
-
-  export const LogScalarFieldEnum: {
-    id: 'id',
-    timestamp: 'timestamp',
-    usuario: 'usuario',
-    accion: 'accion',
-    entidad: 'entidad',
-    ip: 'ip',
-    detalles: 'detalles'
-  };
-
-  export type LogScalarFieldEnum = (typeof LogScalarFieldEnum)[keyof typeof LogScalarFieldEnum]
-
-
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -6431,15 +8843,6 @@ export namespace Prisma {
   };
 
   export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
-
-
-  export const JsonNullValueFilter: {
-    DbNull: typeof DbNull,
-    JsonNull: typeof JsonNull,
-    AnyNull: typeof AnyNull
-  };
-
-  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   export const QueryMode: {
@@ -6458,37 +8861,18 @@ export namespace Prisma {
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+
+
   /**
    * Field references
    */
-
-
-  /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Json'
-   */
-  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-  /**
-   * Reference to a field of type 'QueryMode'
-   */
-  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
-    
 
 
   /**
@@ -6527,6 +8911,34 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -6542,6 +8954,295 @@ export namespace Prisma {
    * Deep Input Types
    */
 
+
+  export type UsuarioWhereInput = {
+    AND?: UsuarioWhereInput | UsuarioWhereInput[]
+    OR?: UsuarioWhereInput[]
+    NOT?: UsuarioWhereInput | UsuarioWhereInput[]
+    id?: StringFilter<"Usuario"> | string
+    nombre?: StringNullableFilter<"Usuario"> | string | null
+    apellidos?: StringNullableFilter<"Usuario"> | string | null
+    nombreCompleto?: StringFilter<"Usuario"> | string
+    direccion?: StringNullableFilter<"Usuario"> | string | null
+    correo?: StringFilter<"Usuario"> | string
+    contrasena?: StringFilter<"Usuario"> | string
+    rol?: StringFilter<"Usuario"> | string
+    telefono?: StringNullableFilter<"Usuario"> | string | null
+    activo?: BoolFilter<"Usuario"> | boolean
+    softDelete?: BoolFilter<"Usuario"> | boolean
+    createdAt?: DateTimeFilter<"Usuario"> | Date | string
+  }
+
+  export type UsuarioOrderByWithRelationInput = {
+    id?: SortOrder
+    nombre?: SortOrderInput | SortOrder
+    apellidos?: SortOrderInput | SortOrder
+    nombreCompleto?: SortOrder
+    direccion?: SortOrderInput | SortOrder
+    correo?: SortOrder
+    contrasena?: SortOrder
+    rol?: SortOrder
+    telefono?: SortOrderInput | SortOrder
+    activo?: SortOrder
+    softDelete?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    correo?: string
+    AND?: UsuarioWhereInput | UsuarioWhereInput[]
+    OR?: UsuarioWhereInput[]
+    NOT?: UsuarioWhereInput | UsuarioWhereInput[]
+    nombre?: StringNullableFilter<"Usuario"> | string | null
+    apellidos?: StringNullableFilter<"Usuario"> | string | null
+    nombreCompleto?: StringFilter<"Usuario"> | string
+    direccion?: StringNullableFilter<"Usuario"> | string | null
+    contrasena?: StringFilter<"Usuario"> | string
+    rol?: StringFilter<"Usuario"> | string
+    telefono?: StringNullableFilter<"Usuario"> | string | null
+    activo?: BoolFilter<"Usuario"> | boolean
+    softDelete?: BoolFilter<"Usuario"> | boolean
+    createdAt?: DateTimeFilter<"Usuario"> | Date | string
+  }, "id" | "correo">
+
+  export type UsuarioOrderByWithAggregationInput = {
+    id?: SortOrder
+    nombre?: SortOrderInput | SortOrder
+    apellidos?: SortOrderInput | SortOrder
+    nombreCompleto?: SortOrder
+    direccion?: SortOrderInput | SortOrder
+    correo?: SortOrder
+    contrasena?: SortOrder
+    rol?: SortOrder
+    telefono?: SortOrderInput | SortOrder
+    activo?: SortOrder
+    softDelete?: SortOrder
+    createdAt?: SortOrder
+    _count?: UsuarioCountOrderByAggregateInput
+    _max?: UsuarioMaxOrderByAggregateInput
+    _min?: UsuarioMinOrderByAggregateInput
+  }
+
+  export type UsuarioScalarWhereWithAggregatesInput = {
+    AND?: UsuarioScalarWhereWithAggregatesInput | UsuarioScalarWhereWithAggregatesInput[]
+    OR?: UsuarioScalarWhereWithAggregatesInput[]
+    NOT?: UsuarioScalarWhereWithAggregatesInput | UsuarioScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Usuario"> | string
+    nombre?: StringNullableWithAggregatesFilter<"Usuario"> | string | null
+    apellidos?: StringNullableWithAggregatesFilter<"Usuario"> | string | null
+    nombreCompleto?: StringWithAggregatesFilter<"Usuario"> | string
+    direccion?: StringNullableWithAggregatesFilter<"Usuario"> | string | null
+    correo?: StringWithAggregatesFilter<"Usuario"> | string
+    contrasena?: StringWithAggregatesFilter<"Usuario"> | string
+    rol?: StringWithAggregatesFilter<"Usuario"> | string
+    telefono?: StringNullableWithAggregatesFilter<"Usuario"> | string | null
+    activo?: BoolWithAggregatesFilter<"Usuario"> | boolean
+    softDelete?: BoolWithAggregatesFilter<"Usuario"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Usuario"> | Date | string
+  }
+
+  export type LogWhereInput = {
+    AND?: LogWhereInput | LogWhereInput[]
+    OR?: LogWhereInput[]
+    NOT?: LogWhereInput | LogWhereInput[]
+    id?: IntFilter<"Log"> | number
+    timestamp?: DateTimeFilter<"Log"> | Date | string
+    usuario?: StringNullableFilter<"Log"> | string | null
+    accion?: StringFilter<"Log"> | string
+    entidad?: StringNullableFilter<"Log"> | string | null
+    ip?: StringNullableFilter<"Log"> | string | null
+    detalles?: StringNullableFilter<"Log"> | string | null
+  }
+
+  export type LogOrderByWithRelationInput = {
+    id?: SortOrder
+    timestamp?: SortOrder
+    usuario?: SortOrderInput | SortOrder
+    accion?: SortOrder
+    entidad?: SortOrderInput | SortOrder
+    ip?: SortOrderInput | SortOrder
+    detalles?: SortOrderInput | SortOrder
+  }
+
+  export type LogWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: LogWhereInput | LogWhereInput[]
+    OR?: LogWhereInput[]
+    NOT?: LogWhereInput | LogWhereInput[]
+    timestamp?: DateTimeFilter<"Log"> | Date | string
+    usuario?: StringNullableFilter<"Log"> | string | null
+    accion?: StringFilter<"Log"> | string
+    entidad?: StringNullableFilter<"Log"> | string | null
+    ip?: StringNullableFilter<"Log"> | string | null
+    detalles?: StringNullableFilter<"Log"> | string | null
+  }, "id">
+
+  export type LogOrderByWithAggregationInput = {
+    id?: SortOrder
+    timestamp?: SortOrder
+    usuario?: SortOrderInput | SortOrder
+    accion?: SortOrder
+    entidad?: SortOrderInput | SortOrder
+    ip?: SortOrderInput | SortOrder
+    detalles?: SortOrderInput | SortOrder
+    _count?: LogCountOrderByAggregateInput
+    _avg?: LogAvgOrderByAggregateInput
+    _max?: LogMaxOrderByAggregateInput
+    _min?: LogMinOrderByAggregateInput
+    _sum?: LogSumOrderByAggregateInput
+  }
+
+  export type LogScalarWhereWithAggregatesInput = {
+    AND?: LogScalarWhereWithAggregatesInput | LogScalarWhereWithAggregatesInput[]
+    OR?: LogScalarWhereWithAggregatesInput[]
+    NOT?: LogScalarWhereWithAggregatesInput | LogScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Log"> | number
+    timestamp?: DateTimeWithAggregatesFilter<"Log"> | Date | string
+    usuario?: StringNullableWithAggregatesFilter<"Log"> | string | null
+    accion?: StringWithAggregatesFilter<"Log"> | string
+    entidad?: StringNullableWithAggregatesFilter<"Log"> | string | null
+    ip?: StringNullableWithAggregatesFilter<"Log"> | string | null
+    detalles?: StringNullableWithAggregatesFilter<"Log"> | string | null
+  }
+
+  export type CapaGeoespacialWhereInput = {
+    AND?: CapaGeoespacialWhereInput | CapaGeoespacialWhereInput[]
+    OR?: CapaGeoespacialWhereInput[]
+    NOT?: CapaGeoespacialWhereInput | CapaGeoespacialWhereInput[]
+    id?: IntFilter<"CapaGeoespacial"> | number
+    nombre?: StringFilter<"CapaGeoespacial"> | string
+    tableName?: StringFilter<"CapaGeoespacial"> | string
+    workspace?: StringFilter<"CapaGeoespacial"> | string
+    esquema?: StringFilter<"CapaGeoespacial"> | string
+    activo?: BoolFilter<"CapaGeoespacial"> | boolean
+    eliminado?: BoolFilter<"CapaGeoespacial"> | boolean
+    createdAt?: DateTimeFilter<"CapaGeoespacial"> | Date | string
+  }
+
+  export type CapaGeoespacialOrderByWithRelationInput = {
+    id?: SortOrder
+    nombre?: SortOrder
+    tableName?: SortOrder
+    workspace?: SortOrder
+    esquema?: SortOrder
+    activo?: SortOrder
+    eliminado?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CapaGeoespacialWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    nombre?: string
+    AND?: CapaGeoespacialWhereInput | CapaGeoespacialWhereInput[]
+    OR?: CapaGeoespacialWhereInput[]
+    NOT?: CapaGeoespacialWhereInput | CapaGeoespacialWhereInput[]
+    tableName?: StringFilter<"CapaGeoespacial"> | string
+    workspace?: StringFilter<"CapaGeoespacial"> | string
+    esquema?: StringFilter<"CapaGeoespacial"> | string
+    activo?: BoolFilter<"CapaGeoespacial"> | boolean
+    eliminado?: BoolFilter<"CapaGeoespacial"> | boolean
+    createdAt?: DateTimeFilter<"CapaGeoespacial"> | Date | string
+  }, "id" | "nombre">
+
+  export type CapaGeoespacialOrderByWithAggregationInput = {
+    id?: SortOrder
+    nombre?: SortOrder
+    tableName?: SortOrder
+    workspace?: SortOrder
+    esquema?: SortOrder
+    activo?: SortOrder
+    eliminado?: SortOrder
+    createdAt?: SortOrder
+    _count?: CapaGeoespacialCountOrderByAggregateInput
+    _avg?: CapaGeoespacialAvgOrderByAggregateInput
+    _max?: CapaGeoespacialMaxOrderByAggregateInput
+    _min?: CapaGeoespacialMinOrderByAggregateInput
+    _sum?: CapaGeoespacialSumOrderByAggregateInput
+  }
+
+  export type CapaGeoespacialScalarWhereWithAggregatesInput = {
+    AND?: CapaGeoespacialScalarWhereWithAggregatesInput | CapaGeoespacialScalarWhereWithAggregatesInput[]
+    OR?: CapaGeoespacialScalarWhereWithAggregatesInput[]
+    NOT?: CapaGeoespacialScalarWhereWithAggregatesInput | CapaGeoespacialScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"CapaGeoespacial"> | number
+    nombre?: StringWithAggregatesFilter<"CapaGeoespacial"> | string
+    tableName?: StringWithAggregatesFilter<"CapaGeoespacial"> | string
+    workspace?: StringWithAggregatesFilter<"CapaGeoespacial"> | string
+    esquema?: StringWithAggregatesFilter<"CapaGeoespacial"> | string
+    activo?: BoolWithAggregatesFilter<"CapaGeoespacial"> | boolean
+    eliminado?: BoolWithAggregatesFilter<"CapaGeoespacial"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"CapaGeoespacial"> | Date | string
+  }
+
+  export type RasterGeoespacialWhereInput = {
+    AND?: RasterGeoespacialWhereInput | RasterGeoespacialWhereInput[]
+    OR?: RasterGeoespacialWhereInput[]
+    NOT?: RasterGeoespacialWhereInput | RasterGeoespacialWhereInput[]
+    id?: IntFilter<"RasterGeoespacial"> | number
+    nombre?: StringFilter<"RasterGeoespacial"> | string
+    coberturaStore?: StringFilter<"RasterGeoespacial"> | string
+    workspace?: StringFilter<"RasterGeoespacial"> | string
+    archivo?: StringFilter<"RasterGeoespacial"> | string
+    activo?: BoolFilter<"RasterGeoespacial"> | boolean
+    eliminado?: BoolFilter<"RasterGeoespacial"> | boolean
+    createdAt?: DateTimeFilter<"RasterGeoespacial"> | Date | string
+  }
+
+  export type RasterGeoespacialOrderByWithRelationInput = {
+    id?: SortOrder
+    nombre?: SortOrder
+    coberturaStore?: SortOrder
+    workspace?: SortOrder
+    archivo?: SortOrder
+    activo?: SortOrder
+    eliminado?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RasterGeoespacialWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    nombre?: string
+    AND?: RasterGeoespacialWhereInput | RasterGeoespacialWhereInput[]
+    OR?: RasterGeoespacialWhereInput[]
+    NOT?: RasterGeoespacialWhereInput | RasterGeoespacialWhereInput[]
+    coberturaStore?: StringFilter<"RasterGeoespacial"> | string
+    workspace?: StringFilter<"RasterGeoespacial"> | string
+    archivo?: StringFilter<"RasterGeoespacial"> | string
+    activo?: BoolFilter<"RasterGeoespacial"> | boolean
+    eliminado?: BoolFilter<"RasterGeoespacial"> | boolean
+    createdAt?: DateTimeFilter<"RasterGeoespacial"> | Date | string
+  }, "id" | "nombre">
+
+  export type RasterGeoespacialOrderByWithAggregationInput = {
+    id?: SortOrder
+    nombre?: SortOrder
+    coberturaStore?: SortOrder
+    workspace?: SortOrder
+    archivo?: SortOrder
+    activo?: SortOrder
+    eliminado?: SortOrder
+    createdAt?: SortOrder
+    _count?: RasterGeoespacialCountOrderByAggregateInput
+    _avg?: RasterGeoespacialAvgOrderByAggregateInput
+    _max?: RasterGeoespacialMaxOrderByAggregateInput
+    _min?: RasterGeoespacialMinOrderByAggregateInput
+    _sum?: RasterGeoespacialSumOrderByAggregateInput
+  }
+
+  export type RasterGeoespacialScalarWhereWithAggregatesInput = {
+    AND?: RasterGeoespacialScalarWhereWithAggregatesInput | RasterGeoespacialScalarWhereWithAggregatesInput[]
+    OR?: RasterGeoespacialScalarWhereWithAggregatesInput[]
+    NOT?: RasterGeoespacialScalarWhereWithAggregatesInput | RasterGeoespacialScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"RasterGeoespacial"> | number
+    nombre?: StringWithAggregatesFilter<"RasterGeoespacial"> | string
+    coberturaStore?: StringWithAggregatesFilter<"RasterGeoespacial"> | string
+    workspace?: StringWithAggregatesFilter<"RasterGeoespacial"> | string
+    archivo?: StringWithAggregatesFilter<"RasterGeoespacial"> | string
+    activo?: BoolWithAggregatesFilter<"RasterGeoespacial"> | boolean
+    eliminado?: BoolWithAggregatesFilter<"RasterGeoespacial"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"RasterGeoespacial"> | Date | string
+  }
 
   export type cholomaWhereInput = {
     AND?: cholomaWhereInput | cholomaWhereInput[]
@@ -6675,135 +9376,324 @@ export namespace Prisma {
     proj4text?: StringNullableWithAggregatesFilter<"spatial_ref_sys"> | string | null
   }
 
-  export type UsuarioWhereInput = {
-    AND?: UsuarioWhereInput | UsuarioWhereInput[]
-    OR?: UsuarioWhereInput[]
-    NOT?: UsuarioWhereInput | UsuarioWhereInput[]
-    id?: StringFilter<"Usuario"> | string
-    nombreCompleto?: StringFilter<"Usuario"> | string
-    direccion?: StringFilter<"Usuario"> | string
-    correo?: StringFilter<"Usuario"> | string
-    contrasena?: StringFilter<"Usuario"> | string
-    rol?: StringFilter<"Usuario"> | string
-    activo?: BoolFilter<"Usuario"> | boolean
-    softDelete?: BoolFilter<"Usuario"> | boolean
+  export type UsuarioCreateInput = {
+    id: string
+    nombre?: string | null
+    apellidos?: string | null
+    nombreCompleto: string
+    direccion?: string | null
+    correo: string
+    contrasena: string
+    rol: string
+    telefono?: string | null
+    activo?: boolean
+    softDelete?: boolean
+    createdAt?: Date | string
   }
 
-  export type UsuarioOrderByWithRelationInput = {
-    id?: SortOrder
-    nombreCompleto?: SortOrder
-    direccion?: SortOrder
-    correo?: SortOrder
-    contrasena?: SortOrder
-    rol?: SortOrder
-    activo?: SortOrder
-    softDelete?: SortOrder
+  export type UsuarioUncheckedCreateInput = {
+    id: string
+    nombre?: string | null
+    apellidos?: string | null
+    nombreCompleto: string
+    direccion?: string | null
+    correo: string
+    contrasena: string
+    rol: string
+    telefono?: string | null
+    activo?: boolean
+    softDelete?: boolean
+    createdAt?: Date | string
   }
 
-  export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    correo?: string
-    AND?: UsuarioWhereInput | UsuarioWhereInput[]
-    OR?: UsuarioWhereInput[]
-    NOT?: UsuarioWhereInput | UsuarioWhereInput[]
-    nombreCompleto?: StringFilter<"Usuario"> | string
-    direccion?: StringFilter<"Usuario"> | string
-    contrasena?: StringFilter<"Usuario"> | string
-    rol?: StringFilter<"Usuario"> | string
-    activo?: BoolFilter<"Usuario"> | boolean
-    softDelete?: BoolFilter<"Usuario"> | boolean
-  }, "id" | "correo">
-
-  export type UsuarioOrderByWithAggregationInput = {
-    id?: SortOrder
-    nombreCompleto?: SortOrder
-    direccion?: SortOrder
-    correo?: SortOrder
-    contrasena?: SortOrder
-    rol?: SortOrder
-    activo?: SortOrder
-    softDelete?: SortOrder
-    _count?: UsuarioCountOrderByAggregateInput
-    _max?: UsuarioMaxOrderByAggregateInput
-    _min?: UsuarioMinOrderByAggregateInput
+  export type UsuarioUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nombre?: NullableStringFieldUpdateOperationsInput | string | null
+    apellidos?: NullableStringFieldUpdateOperationsInput | string | null
+    nombreCompleto?: StringFieldUpdateOperationsInput | string
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    correo?: StringFieldUpdateOperationsInput | string
+    contrasena?: StringFieldUpdateOperationsInput | string
+    rol?: StringFieldUpdateOperationsInput | string
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
+    activo?: BoolFieldUpdateOperationsInput | boolean
+    softDelete?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UsuarioScalarWhereWithAggregatesInput = {
-    AND?: UsuarioScalarWhereWithAggregatesInput | UsuarioScalarWhereWithAggregatesInput[]
-    OR?: UsuarioScalarWhereWithAggregatesInput[]
-    NOT?: UsuarioScalarWhereWithAggregatesInput | UsuarioScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Usuario"> | string
-    nombreCompleto?: StringWithAggregatesFilter<"Usuario"> | string
-    direccion?: StringWithAggregatesFilter<"Usuario"> | string
-    correo?: StringWithAggregatesFilter<"Usuario"> | string
-    contrasena?: StringWithAggregatesFilter<"Usuario"> | string
-    rol?: StringWithAggregatesFilter<"Usuario"> | string
-    activo?: BoolWithAggregatesFilter<"Usuario"> | boolean
-    softDelete?: BoolWithAggregatesFilter<"Usuario"> | boolean
+  export type UsuarioUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nombre?: NullableStringFieldUpdateOperationsInput | string | null
+    apellidos?: NullableStringFieldUpdateOperationsInput | string | null
+    nombreCompleto?: StringFieldUpdateOperationsInput | string
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    correo?: StringFieldUpdateOperationsInput | string
+    contrasena?: StringFieldUpdateOperationsInput | string
+    rol?: StringFieldUpdateOperationsInput | string
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
+    activo?: BoolFieldUpdateOperationsInput | boolean
+    softDelete?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type LogWhereInput = {
-    AND?: LogWhereInput | LogWhereInput[]
-    OR?: LogWhereInput[]
-    NOT?: LogWhereInput | LogWhereInput[]
-    id?: IntFilter<"Log"> | number
-    timestamp?: DateTimeFilter<"Log"> | Date | string
-    usuario?: StringNullableFilter<"Log"> | string | null
-    accion?: StringFilter<"Log"> | string
-    entidad?: StringNullableFilter<"Log"> | string | null
-    ip?: StringNullableFilter<"Log"> | string | null
-    detalles?: StringNullableFilter<"Log"> | string | null
+  export type UsuarioCreateManyInput = {
+    id: string
+    nombre?: string | null
+    apellidos?: string | null
+    nombreCompleto: string
+    direccion?: string | null
+    correo: string
+    contrasena: string
+    rol: string
+    telefono?: string | null
+    activo?: boolean
+    softDelete?: boolean
+    createdAt?: Date | string
   }
 
-  export type LogOrderByWithRelationInput = {
-    id?: SortOrder
-    timestamp?: SortOrder
-    usuario?: SortOrderInput | SortOrder
-    accion?: SortOrder
-    entidad?: SortOrderInput | SortOrder
-    ip?: SortOrderInput | SortOrder
-    detalles?: SortOrderInput | SortOrder
+  export type UsuarioUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nombre?: NullableStringFieldUpdateOperationsInput | string | null
+    apellidos?: NullableStringFieldUpdateOperationsInput | string | null
+    nombreCompleto?: StringFieldUpdateOperationsInput | string
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    correo?: StringFieldUpdateOperationsInput | string
+    contrasena?: StringFieldUpdateOperationsInput | string
+    rol?: StringFieldUpdateOperationsInput | string
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
+    activo?: BoolFieldUpdateOperationsInput | boolean
+    softDelete?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type LogWhereUniqueInput = Prisma.AtLeast<{
+  export type UsuarioUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nombre?: NullableStringFieldUpdateOperationsInput | string | null
+    apellidos?: NullableStringFieldUpdateOperationsInput | string | null
+    nombreCompleto?: StringFieldUpdateOperationsInput | string
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    correo?: StringFieldUpdateOperationsInput | string
+    contrasena?: StringFieldUpdateOperationsInput | string
+    rol?: StringFieldUpdateOperationsInput | string
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
+    activo?: BoolFieldUpdateOperationsInput | boolean
+    softDelete?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LogCreateInput = {
+    timestamp?: Date | string
+    usuario?: string | null
+    accion: string
+    entidad?: string | null
+    ip?: string | null
+    detalles?: string | null
+  }
+
+  export type LogUncheckedCreateInput = {
     id?: number
-    AND?: LogWhereInput | LogWhereInput[]
-    OR?: LogWhereInput[]
-    NOT?: LogWhereInput | LogWhereInput[]
-    timestamp?: DateTimeFilter<"Log"> | Date | string
-    usuario?: StringNullableFilter<"Log"> | string | null
-    accion?: StringFilter<"Log"> | string
-    entidad?: StringNullableFilter<"Log"> | string | null
-    ip?: StringNullableFilter<"Log"> | string | null
-    detalles?: StringNullableFilter<"Log"> | string | null
-  }, "id">
-
-  export type LogOrderByWithAggregationInput = {
-    id?: SortOrder
-    timestamp?: SortOrder
-    usuario?: SortOrderInput | SortOrder
-    accion?: SortOrder
-    entidad?: SortOrderInput | SortOrder
-    ip?: SortOrderInput | SortOrder
-    detalles?: SortOrderInput | SortOrder
-    _count?: LogCountOrderByAggregateInput
-    _avg?: LogAvgOrderByAggregateInput
-    _max?: LogMaxOrderByAggregateInput
-    _min?: LogMinOrderByAggregateInput
-    _sum?: LogSumOrderByAggregateInput
+    timestamp?: Date | string
+    usuario?: string | null
+    accion: string
+    entidad?: string | null
+    ip?: string | null
+    detalles?: string | null
   }
 
-  export type LogScalarWhereWithAggregatesInput = {
-    AND?: LogScalarWhereWithAggregatesInput | LogScalarWhereWithAggregatesInput[]
-    OR?: LogScalarWhereWithAggregatesInput[]
-    NOT?: LogScalarWhereWithAggregatesInput | LogScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Log"> | number
-    timestamp?: DateTimeWithAggregatesFilter<"Log"> | Date | string
-    usuario?: StringNullableWithAggregatesFilter<"Log"> | string | null
-    accion?: StringWithAggregatesFilter<"Log"> | string
-    entidad?: StringNullableWithAggregatesFilter<"Log"> | string | null
-    ip?: StringNullableWithAggregatesFilter<"Log"> | string | null
-    detalles?: StringNullableWithAggregatesFilter<"Log"> | string | null
+  export type LogUpdateInput = {
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    usuario?: NullableStringFieldUpdateOperationsInput | string | null
+    accion?: StringFieldUpdateOperationsInput | string
+    entidad?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    detalles?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type LogUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    usuario?: NullableStringFieldUpdateOperationsInput | string | null
+    accion?: StringFieldUpdateOperationsInput | string
+    entidad?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    detalles?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type LogCreateManyInput = {
+    id?: number
+    timestamp?: Date | string
+    usuario?: string | null
+    accion: string
+    entidad?: string | null
+    ip?: string | null
+    detalles?: string | null
+  }
+
+  export type LogUpdateManyMutationInput = {
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    usuario?: NullableStringFieldUpdateOperationsInput | string | null
+    accion?: StringFieldUpdateOperationsInput | string
+    entidad?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    detalles?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type LogUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    usuario?: NullableStringFieldUpdateOperationsInput | string | null
+    accion?: StringFieldUpdateOperationsInput | string
+    entidad?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    detalles?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CapaGeoespacialCreateInput = {
+    nombre: string
+    tableName: string
+    workspace?: string
+    esquema?: string
+    activo?: boolean
+    eliminado?: boolean
+    createdAt?: Date | string
+  }
+
+  export type CapaGeoespacialUncheckedCreateInput = {
+    id?: number
+    nombre: string
+    tableName: string
+    workspace?: string
+    esquema?: string
+    activo?: boolean
+    eliminado?: boolean
+    createdAt?: Date | string
+  }
+
+  export type CapaGeoespacialUpdateInput = {
+    nombre?: StringFieldUpdateOperationsInput | string
+    tableName?: StringFieldUpdateOperationsInput | string
+    workspace?: StringFieldUpdateOperationsInput | string
+    esquema?: StringFieldUpdateOperationsInput | string
+    activo?: BoolFieldUpdateOperationsInput | boolean
+    eliminado?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CapaGeoespacialUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nombre?: StringFieldUpdateOperationsInput | string
+    tableName?: StringFieldUpdateOperationsInput | string
+    workspace?: StringFieldUpdateOperationsInput | string
+    esquema?: StringFieldUpdateOperationsInput | string
+    activo?: BoolFieldUpdateOperationsInput | boolean
+    eliminado?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CapaGeoespacialCreateManyInput = {
+    id?: number
+    nombre: string
+    tableName: string
+    workspace?: string
+    esquema?: string
+    activo?: boolean
+    eliminado?: boolean
+    createdAt?: Date | string
+  }
+
+  export type CapaGeoespacialUpdateManyMutationInput = {
+    nombre?: StringFieldUpdateOperationsInput | string
+    tableName?: StringFieldUpdateOperationsInput | string
+    workspace?: StringFieldUpdateOperationsInput | string
+    esquema?: StringFieldUpdateOperationsInput | string
+    activo?: BoolFieldUpdateOperationsInput | boolean
+    eliminado?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CapaGeoespacialUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nombre?: StringFieldUpdateOperationsInput | string
+    tableName?: StringFieldUpdateOperationsInput | string
+    workspace?: StringFieldUpdateOperationsInput | string
+    esquema?: StringFieldUpdateOperationsInput | string
+    activo?: BoolFieldUpdateOperationsInput | boolean
+    eliminado?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RasterGeoespacialCreateInput = {
+    nombre: string
+    coberturaStore: string
+    workspace?: string
+    archivo: string
+    activo?: boolean
+    eliminado?: boolean
+    createdAt?: Date | string
+  }
+
+  export type RasterGeoespacialUncheckedCreateInput = {
+    id?: number
+    nombre: string
+    coberturaStore: string
+    workspace?: string
+    archivo: string
+    activo?: boolean
+    eliminado?: boolean
+    createdAt?: Date | string
+  }
+
+  export type RasterGeoespacialUpdateInput = {
+    nombre?: StringFieldUpdateOperationsInput | string
+    coberturaStore?: StringFieldUpdateOperationsInput | string
+    workspace?: StringFieldUpdateOperationsInput | string
+    archivo?: StringFieldUpdateOperationsInput | string
+    activo?: BoolFieldUpdateOperationsInput | boolean
+    eliminado?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RasterGeoespacialUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nombre?: StringFieldUpdateOperationsInput | string
+    coberturaStore?: StringFieldUpdateOperationsInput | string
+    workspace?: StringFieldUpdateOperationsInput | string
+    archivo?: StringFieldUpdateOperationsInput | string
+    activo?: BoolFieldUpdateOperationsInput | boolean
+    eliminado?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RasterGeoespacialCreateManyInput = {
+    id?: number
+    nombre: string
+    coberturaStore: string
+    workspace?: string
+    archivo: string
+    activo?: boolean
+    eliminado?: boolean
+    createdAt?: Date | string
+  }
+
+  export type RasterGeoespacialUpdateManyMutationInput = {
+    nombre?: StringFieldUpdateOperationsInput | string
+    coberturaStore?: StringFieldUpdateOperationsInput | string
+    workspace?: StringFieldUpdateOperationsInput | string
+    archivo?: StringFieldUpdateOperationsInput | string
+    activo?: BoolFieldUpdateOperationsInput | boolean
+    eliminado?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RasterGeoespacialUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nombre?: StringFieldUpdateOperationsInput | string
+    coberturaStore?: StringFieldUpdateOperationsInput | string
+    workspace?: StringFieldUpdateOperationsInput | string
+    archivo?: StringFieldUpdateOperationsInput | string
+    activo?: BoolFieldUpdateOperationsInput | boolean
+    eliminado?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type cholomaCreateInput = {
@@ -6926,148 +9816,158 @@ export namespace Prisma {
     proj4text?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type UsuarioCreateInput = {
-    id: string
-    nombreCompleto: string
-    direccion: string
-    correo: string
-    contrasena: string
-    rol: string
-    activo?: boolean
-    softDelete?: boolean
+  export type StringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type UsuarioUncheckedCreateInput = {
-    id: string
-    nombreCompleto: string
-    direccion: string
-    correo: string
-    contrasena: string
-    rol: string
-    activo?: boolean
-    softDelete?: boolean
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type UsuarioUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nombreCompleto?: StringFieldUpdateOperationsInput | string
-    direccion?: StringFieldUpdateOperationsInput | string
-    correo?: StringFieldUpdateOperationsInput | string
-    contrasena?: StringFieldUpdateOperationsInput | string
-    rol?: StringFieldUpdateOperationsInput | string
-    activo?: BoolFieldUpdateOperationsInput | boolean
-    softDelete?: BoolFieldUpdateOperationsInput | boolean
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
-  export type UsuarioUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nombreCompleto?: StringFieldUpdateOperationsInput | string
-    direccion?: StringFieldUpdateOperationsInput | string
-    correo?: StringFieldUpdateOperationsInput | string
-    contrasena?: StringFieldUpdateOperationsInput | string
-    rol?: StringFieldUpdateOperationsInput | string
-    activo?: BoolFieldUpdateOperationsInput | boolean
-    softDelete?: BoolFieldUpdateOperationsInput | boolean
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type UsuarioCreateManyInput = {
-    id: string
-    nombreCompleto: string
-    direccion: string
-    correo: string
-    contrasena: string
-    rol: string
-    activo?: boolean
-    softDelete?: boolean
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
-  export type UsuarioUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nombreCompleto?: StringFieldUpdateOperationsInput | string
-    direccion?: StringFieldUpdateOperationsInput | string
-    correo?: StringFieldUpdateOperationsInput | string
-    contrasena?: StringFieldUpdateOperationsInput | string
-    rol?: StringFieldUpdateOperationsInput | string
-    activo?: BoolFieldUpdateOperationsInput | boolean
-    softDelete?: BoolFieldUpdateOperationsInput | boolean
+  export type UsuarioCountOrderByAggregateInput = {
+    id?: SortOrder
+    nombre?: SortOrder
+    apellidos?: SortOrder
+    nombreCompleto?: SortOrder
+    direccion?: SortOrder
+    correo?: SortOrder
+    contrasena?: SortOrder
+    rol?: SortOrder
+    telefono?: SortOrder
+    activo?: SortOrder
+    softDelete?: SortOrder
+    createdAt?: SortOrder
   }
 
-  export type UsuarioUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nombreCompleto?: StringFieldUpdateOperationsInput | string
-    direccion?: StringFieldUpdateOperationsInput | string
-    correo?: StringFieldUpdateOperationsInput | string
-    contrasena?: StringFieldUpdateOperationsInput | string
-    rol?: StringFieldUpdateOperationsInput | string
-    activo?: BoolFieldUpdateOperationsInput | boolean
-    softDelete?: BoolFieldUpdateOperationsInput | boolean
+  export type UsuarioMaxOrderByAggregateInput = {
+    id?: SortOrder
+    nombre?: SortOrder
+    apellidos?: SortOrder
+    nombreCompleto?: SortOrder
+    direccion?: SortOrder
+    correo?: SortOrder
+    contrasena?: SortOrder
+    rol?: SortOrder
+    telefono?: SortOrder
+    activo?: SortOrder
+    softDelete?: SortOrder
+    createdAt?: SortOrder
   }
 
-  export type LogCreateInput = {
-    timestamp?: Date | string
-    usuario?: string | null
-    accion: string
-    entidad?: string | null
-    ip?: string | null
-    detalles?: string | null
+  export type UsuarioMinOrderByAggregateInput = {
+    id?: SortOrder
+    nombre?: SortOrder
+    apellidos?: SortOrder
+    nombreCompleto?: SortOrder
+    direccion?: SortOrder
+    correo?: SortOrder
+    contrasena?: SortOrder
+    rol?: SortOrder
+    telefono?: SortOrder
+    activo?: SortOrder
+    softDelete?: SortOrder
+    createdAt?: SortOrder
   }
 
-  export type LogUncheckedCreateInput = {
-    id?: number
-    timestamp?: Date | string
-    usuario?: string | null
-    accion: string
-    entidad?: string | null
-    ip?: string | null
-    detalles?: string | null
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type LogUpdateInput = {
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-    usuario?: NullableStringFieldUpdateOperationsInput | string | null
-    accion?: StringFieldUpdateOperationsInput | string
-    entidad?: NullableStringFieldUpdateOperationsInput | string | null
-    ip?: NullableStringFieldUpdateOperationsInput | string | null
-    detalles?: NullableStringFieldUpdateOperationsInput | string | null
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type LogUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-    usuario?: NullableStringFieldUpdateOperationsInput | string | null
-    accion?: StringFieldUpdateOperationsInput | string
-    entidad?: NullableStringFieldUpdateOperationsInput | string | null
-    ip?: NullableStringFieldUpdateOperationsInput | string | null
-    detalles?: NullableStringFieldUpdateOperationsInput | string | null
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type LogCreateManyInput = {
-    id?: number
-    timestamp?: Date | string
-    usuario?: string | null
-    accion: string
-    entidad?: string | null
-    ip?: string | null
-    detalles?: string | null
-  }
-
-  export type LogUpdateManyMutationInput = {
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-    usuario?: NullableStringFieldUpdateOperationsInput | string | null
-    accion?: StringFieldUpdateOperationsInput | string
-    entidad?: NullableStringFieldUpdateOperationsInput | string | null
-    ip?: NullableStringFieldUpdateOperationsInput | string | null
-    detalles?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type LogUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-    usuario?: NullableStringFieldUpdateOperationsInput | string | null
-    accion?: StringFieldUpdateOperationsInput | string
-    entidad?: NullableStringFieldUpdateOperationsInput | string | null
-    ip?: NullableStringFieldUpdateOperationsInput | string | null
-    detalles?: NullableStringFieldUpdateOperationsInput | string | null
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -7079,6 +9979,142 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type LogCountOrderByAggregateInput = {
+    id?: SortOrder
+    timestamp?: SortOrder
+    usuario?: SortOrder
+    accion?: SortOrder
+    entidad?: SortOrder
+    ip?: SortOrder
+    detalles?: SortOrder
+  }
+
+  export type LogAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type LogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    timestamp?: SortOrder
+    usuario?: SortOrder
+    accion?: SortOrder
+    entidad?: SortOrder
+    ip?: SortOrder
+    detalles?: SortOrder
+  }
+
+  export type LogMinOrderByAggregateInput = {
+    id?: SortOrder
+    timestamp?: SortOrder
+    usuario?: SortOrder
+    accion?: SortOrder
+    entidad?: SortOrder
+    ip?: SortOrder
+    detalles?: SortOrder
+  }
+
+  export type LogSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type CapaGeoespacialCountOrderByAggregateInput = {
+    id?: SortOrder
+    nombre?: SortOrder
+    tableName?: SortOrder
+    workspace?: SortOrder
+    esquema?: SortOrder
+    activo?: SortOrder
+    eliminado?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CapaGeoespacialAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type CapaGeoespacialMaxOrderByAggregateInput = {
+    id?: SortOrder
+    nombre?: SortOrder
+    tableName?: SortOrder
+    workspace?: SortOrder
+    esquema?: SortOrder
+    activo?: SortOrder
+    eliminado?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CapaGeoespacialMinOrderByAggregateInput = {
+    id?: SortOrder
+    nombre?: SortOrder
+    tableName?: SortOrder
+    workspace?: SortOrder
+    esquema?: SortOrder
+    activo?: SortOrder
+    eliminado?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CapaGeoespacialSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type RasterGeoespacialCountOrderByAggregateInput = {
+    id?: SortOrder
+    nombre?: SortOrder
+    coberturaStore?: SortOrder
+    workspace?: SortOrder
+    archivo?: SortOrder
+    activo?: SortOrder
+    eliminado?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RasterGeoespacialAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type RasterGeoespacialMaxOrderByAggregateInput = {
+    id?: SortOrder
+    nombre?: SortOrder
+    coberturaStore?: SortOrder
+    workspace?: SortOrder
+    archivo?: SortOrder
+    activo?: SortOrder
+    eliminado?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RasterGeoespacialMinOrderByAggregateInput = {
+    id?: SortOrder
+    nombre?: SortOrder
+    coberturaStore?: SortOrder
+    workspace?: SortOrder
+    archivo?: SortOrder
+    activo?: SortOrder
+    eliminado?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RasterGeoespacialSumOrderByAggregateInput = {
+    id?: SortOrder
   }
   export type JsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -7104,11 +10140,6 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
-  }
-
   export type cholomaCountOrderByAggregateInput = {
     id?: SortOrder
     properties?: SortOrder
@@ -7128,22 +10159,6 @@ export namespace Prisma {
 
   export type cholomaSumOrderByAggregateInput = {
     id?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
   export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -7193,21 +10208,6 @@ export namespace Prisma {
     id?: SortOrder
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -7253,24 +10253,6 @@ export namespace Prisma {
     auth_srid?: SortOrder
   }
 
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -7287,146 +10269,20 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type StringFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringFilter<$PrismaModel> | string
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
-  export type UsuarioCountOrderByAggregateInput = {
-    id?: SortOrder
-    nombreCompleto?: SortOrder
-    direccion?: SortOrder
-    correo?: SortOrder
-    contrasena?: SortOrder
-    rol?: SortOrder
-    activo?: SortOrder
-    softDelete?: SortOrder
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
-  export type UsuarioMaxOrderByAggregateInput = {
-    id?: SortOrder
-    nombreCompleto?: SortOrder
-    direccion?: SortOrder
-    correo?: SortOrder
-    contrasena?: SortOrder
-    rol?: SortOrder
-    activo?: SortOrder
-    softDelete?: SortOrder
-  }
-
-  export type UsuarioMinOrderByAggregateInput = {
-    id?: SortOrder
-    nombreCompleto?: SortOrder
-    direccion?: SortOrder
-    correo?: SortOrder
-    contrasena?: SortOrder
-    rol?: SortOrder
-    activo?: SortOrder
-    softDelete?: SortOrder
-  }
-
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type LogCountOrderByAggregateInput = {
-    id?: SortOrder
-    timestamp?: SortOrder
-    usuario?: SortOrder
-    accion?: SortOrder
-    entidad?: SortOrder
-    ip?: SortOrder
-    detalles?: SortOrder
-  }
-
-  export type LogAvgOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type LogMaxOrderByAggregateInput = {
-    id?: SortOrder
-    timestamp?: SortOrder
-    usuario?: SortOrder
-    accion?: SortOrder
-    entidad?: SortOrder
-    ip?: SortOrder
-    detalles?: SortOrder
-  }
-
-  export type LogMinOrderByAggregateInput = {
-    id?: SortOrder
-    timestamp?: SortOrder
-    usuario?: SortOrder
-    accion?: SortOrder
-    entidad?: SortOrder
-    ip?: SortOrder
-    detalles?: SortOrder
-  }
-
-  export type LogSumOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -7437,10 +10293,6 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
   export type NullableIntFieldUpdateOperationsInput = {
     set?: number | null
     increment?: number
@@ -7449,16 +10301,65 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
+  export type NestedStringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -7470,6 +10371,56 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -7498,17 +10449,6 @@ export namespace Prisma {
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
   }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
   export type NestedJsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
@@ -7531,37 +10471,6 @@ export namespace Prisma {
     gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -7589,75 +10498,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedStringFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringFilter<$PrismaModel> | string
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
 

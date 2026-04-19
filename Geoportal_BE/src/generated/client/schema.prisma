@@ -7,7 +7,66 @@ generator client {
 datasource db {
   provider   = "postgresql"
   extensions = [postgis]
-  schemas    = ["geoespacial", "public"]
+  schemas    = ["public", "geoespacial"]
+}
+
+model Usuario {
+  id             String   @id @db.VarChar(20)
+  nombre         String?  @db.VarChar(100)
+  apellidos      String?  @db.VarChar(150)
+  nombreCompleto String
+  direccion      String?
+  correo         String   @unique @db.VarChar(150)
+  contrasena     String   @db.VarChar(255)
+  rol            String   @db.VarChar(20)
+  telefono       String?  @db.VarChar(20)
+  activo         Boolean  @default(true)
+  softDelete     Boolean  @default(false)
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  @@map("usuarios")
+  @@schema("public")
+}
+
+model Log {
+  id        Int      @id @default(autoincrement())
+  timestamp DateTime @default(now())
+  usuario   String?
+  accion    String
+  entidad   String?
+  ip        String?
+  detalles  String?  @db.Text
+
+  @@map("logs")
+  @@schema("public")
+}
+
+model CapaGeoespacial {
+  id        Int      @id @default(autoincrement())
+  nombre    String   @unique @db.VarChar(200)
+  tableName String   @db.VarChar(200)
+  workspace String   @default("geoportal") @db.VarChar(100)
+  esquema   String   @default("geoespacial") @db.VarChar(100)
+  activo    Boolean  @default(true)
+  eliminado Boolean  @default(false)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("capas_geoespaciales")
+  @@schema("geoespacial")
+}
+
+model RasterGeoespacial {
+  id             Int      @id @default(autoincrement())
+  nombre         String   @unique @db.VarChar(200)
+  coberturaStore String   @db.VarChar(200)
+  workspace      String   @default("geoportal") @db.VarChar(100)
+  archivo        String   @db.VarChar(500)
+  activo         Boolean  @default(true)
+  eliminado      Boolean  @default(false)
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  @@map("rasters_geoespaciales")
+  @@schema("geoespacial")
 }
 
 model choloma {
@@ -26,7 +85,6 @@ model shp_urrutias {
   @@schema("public")
 }
 
-/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model spatial_ref_sys {
   srid      Int     @id
   auth_name String? @db.VarChar(256)
@@ -34,32 +92,5 @@ model spatial_ref_sys {
   srtext    String? @db.VarChar(2048)
   proj4text String? @db.VarChar(2048)
 
-  @@schema("public")
-}
-
-model Usuario {
-  id             String  @id @db.VarChar(20)
-  nombreCompleto String
-  direccion      String
-  correo         String  @unique
-  contrasena     String
-  rol            String
-  activo         Boolean @default(true)
-  softDelete     Boolean @default(false)
-
-  @@map("usuarios")
-  @@schema("public")
-}
-
-model Log {
-  id        Int      @id @default(autoincrement())
-  timestamp DateTime @default(now())
-  usuario   String?
-  accion    String
-  entidad   String?
-  ip        String?
-  detalles  String?  @db.Text
-
-  @@map("logs")
   @@schema("public")
 }

@@ -120,6 +120,53 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.UsuarioScalarFieldEnum = {
+  id: 'id',
+  nombre: 'nombre',
+  apellidos: 'apellidos',
+  nombreCompleto: 'nombreCompleto',
+  direccion: 'direccion',
+  correo: 'correo',
+  contrasena: 'contrasena',
+  rol: 'rol',
+  telefono: 'telefono',
+  activo: 'activo',
+  softDelete: 'softDelete',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.LogScalarFieldEnum = {
+  id: 'id',
+  timestamp: 'timestamp',
+  usuario: 'usuario',
+  accion: 'accion',
+  entidad: 'entidad',
+  ip: 'ip',
+  detalles: 'detalles'
+};
+
+exports.Prisma.CapaGeoespacialScalarFieldEnum = {
+  id: 'id',
+  nombre: 'nombre',
+  tableName: 'tableName',
+  workspace: 'workspace',
+  esquema: 'esquema',
+  activo: 'activo',
+  eliminado: 'eliminado',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.RasterGeoespacialScalarFieldEnum = {
+  id: 'id',
+  nombre: 'nombre',
+  coberturaStore: 'coberturaStore',
+  workspace: 'workspace',
+  archivo: 'archivo',
+  activo: 'activo',
+  eliminado: 'eliminado',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.CholomaScalarFieldEnum = {
   id: 'id',
   properties: 'properties'
@@ -138,27 +185,6 @@ exports.Prisma.Spatial_ref_sysScalarFieldEnum = {
   proj4text: 'proj4text'
 };
 
-exports.Prisma.UsuarioScalarFieldEnum = {
-  id: 'id',
-  nombreCompleto: 'nombreCompleto',
-  direccion: 'direccion',
-  correo: 'correo',
-  contrasena: 'contrasena',
-  rol: 'rol',
-  activo: 'activo',
-  softDelete: 'softDelete'
-};
-
-exports.Prisma.LogScalarFieldEnum = {
-  id: 'id',
-  timestamp: 'timestamp',
-  usuario: 'usuario',
-  accion: 'accion',
-  entidad: 'entidad',
-  ip: 'ip',
-  detalles: 'detalles'
-};
-
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -167,12 +193,6 @@ exports.Prisma.SortOrder = {
 exports.Prisma.NullableJsonNullValueInput = {
   DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull
-};
-
-exports.Prisma.JsonNullValueFilter = {
-  DbNull: Prisma.DbNull,
-  JsonNull: Prisma.JsonNull,
-  AnyNull: Prisma.AnyNull
 };
 
 exports.Prisma.QueryMode = {
@@ -185,13 +205,21 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+
 
 exports.Prisma.ModelName = {
+  Usuario: 'Usuario',
+  Log: 'Log',
+  CapaGeoespacial: 'CapaGeoespacial',
+  RasterGeoespacial: 'RasterGeoespacial',
   choloma: 'choloma',
   shp_urrutias: 'shp_urrutias',
-  spatial_ref_sys: 'spatial_ref_sys',
-  Usuario: 'Usuario',
-  Log: 'Log'
+  spatial_ref_sys: 'spatial_ref_sys'
 };
 
 /**
