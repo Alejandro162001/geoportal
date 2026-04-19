@@ -5,8 +5,14 @@ const prisma = require('../db');
 const { setupGeoserver } = require('../services/geoserver_service');
 const path = require('path');
 require('dotenv').config();
+const fs = require('fs');
 
 const GEOSERVER_URL = process.env.GEOSERVER_URL || 'http://localhost:8080/geoserver';
+
+const rastersDir = path.join(__dirname, '..', '..', 'rasters');
+if (!fs.existsSync(rastersDir)) {
+    fs.mkdirSync(rastersDir, { recursive: true });
+}
 
 const publicarShapefile = async (req, res) => {
     // 1. Limpieza de variables de entrada
@@ -20,7 +26,7 @@ const publicarShapefile = async (req, res) => {
     }
 
     try {
-        // Asegurar Workspace y Datastore en GeoServer (Puerto 8081 configurado internamente)
+        // Asegurar Workspace y Datastore en GeoServer (Puerto 8080 configurado internamente)
         await setupGeoserver(workspace, datastore);
 
         // 2. Procesar Shapefile a GeoJSON
@@ -50,6 +56,7 @@ const publicarShapefile = async (req, res) => {
         }
 
         // 3. Preparar Base de Datos (Esquema y Tabla)
+        await prisma.$executeRawUnsafe(`CREATE EXTENSION IF NOT EXISTS postgis;`);
         await prisma.$executeRawUnsafe(`CREATE SCHEMA IF NOT EXISTS "${esquema}";`);
         
         await prisma.$executeRawUnsafe(`
@@ -73,7 +80,7 @@ const publicarShapefile = async (req, res) => {
             );
         }
 
-        // 5. Publicación en GeoServer (Puerto 8081)
+        // 5. Publicación en GeoServer
         const geoserverRestUrl = `${GEOSERVER_URL}/rest/workspaces/${workspace}/datastores/${datastore}/featuretypes`;
         
         await axios.post(geoserverRestUrl, {
@@ -85,7 +92,7 @@ const publicarShapefile = async (req, res) => {
                 enabled: true
             }
         }, {
-            auth: { username: 'admin', password: 'geoserver' },
+            auth: { username: 'admin', password: 'mi_password_seguro' }, //reemplaza con geoserver la contraseña todo depende de como corre goeserver 
             headers: { 'Content-Type': 'application/json' }
         });
 
@@ -95,11 +102,20 @@ const publicarShapefile = async (req, res) => {
             elementos: features.length
         });
 
+        await prisma.$executeRawUnsafe(
+            `INSERT INTO geoespacial.capas_geoespaciales (nombre, tableName, workspace, esquema) 
+             VALUES ($1, $2, $3, $4)
+             ON CONFLICT (nombre) DO UPDATE SET eliminado = false, activo = true`,
+            nombreCapa, tableName, workspace, esquema
+        );
+
     } catch (error) {
-        console.error("Error detallado en el proceso:", error.response ? error.response.data : error.message);
+        const errorMsg = error.response?.data || error.message || error.code || JSON.stringify(error);
+        console.error("Error detallado en el proceso:", errorMsg);
+        console.error("Stack:", error.stack);
         res.status(500).json({ 
             error: "Error en la automatización", 
-            detalle: error.message 
+            detalle: errorMsg 
         });
     }
 };
@@ -110,23 +126,47 @@ const publicarShapefile = async (req, res) => {
 // 1. Enlistar las capas (Desde la vista de metadatos de PostGIS)
 const enlistingCapasDB = async (req, res) => {
     try {
-        // Corregido: f_table_name en lugar de table_name
-        // Corregido: f_table_schema en lugar de table_schema
         const capas = await prisma.$queryRaw`
             SELECT 
-                f_table_name AS table_name, 
-                f_geometry_column, 
-                srid, 
-                type 
-            FROM geometry_columns 
-            WHERE f_table_schema = 'geoespacial'
+                c.tableName AS table_name, 
+                c.nombre,
+                c.workspace,
+                c.esquema,
+                c.activo,
+                c.created_at
+            FROM geoespacial.capas_geoespaciales c
+            WHERE c.eliminado = false
+            ORDER BY c.created_at DESC
         `;
+        
+        const capasConUrls = capas.map(capa => ({
+            ...capa,
+            wmsUrl: `http://localhost:8080/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=${capa.workspace}:${capa.table_name}&srs=EPSG:4326&bbox=-180,-90,180,90&width=768&height=384&format=image/png&transparent=true`,
+            wfsUrl: `http://localhost:8080/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=${capa.workspace}:${capa.table_name}&outputFormat=application/json`,
+            leafletWmsConfig: {
+                url: `http://localhost:8080/geoserver/wms`,
+                params: {
+                    layers: `${capa.workspace}:${capa.table_name}`,
+                    format: 'image/png',
+                    transparent: true,
+                    version: '1.1.0'
+                }
+            },
+            openLayersWmsConfig: {
+                url: `http://localhost:8080/geoserver/wms`,
+                params: {
+                    LAYERS: `${capa.workspace}:${capa.table_name}`,
+                    TILED: true
+                },
+                serverType: 'geoserver'
+            }
+        }));
         
         res.json({ 
             source: 'PostgreSQL/PostGIS', 
             esquema: 'geoespacial', 
-            total: capas.length, 
-            capas 
+            total: capasConUrls.length, 
+            capas: capasConUrls
         });
     } catch (error) {
         console.error("Error al enlistar capas:", error);
@@ -137,17 +177,125 @@ const enlistingCapasDB = async (req, res) => {
     }
 };
 
-// Obtener capas desde GeoServer (Puerto 8081)
+// Obtener capas desde GeoServer (Puerto 8080)
 const obtenerCapasGeoserver = async (req, res) => {
     try {
+        const capasDB = await prisma.$queryRaw`
+            SELECT tableName, nombre, workspace, esquema
+            FROM geoespacial.capas_geoespaciales
+            WHERE eliminado = false AND activo = true
+        `;
+
+        if (capasDB.length === 0) {
+            return res.json({ source: 'GeoServer REST API', total: 0, layers: [] });
+        }
+
         const url = `${GEOSERVER_URL}/rest/layers.json`;
         const response = await axios.get(url, {
-            auth: { username: 'admin', password: 'geoserver' }
+            auth: { username: 'admin', password: 'mi_password_seguro' },
         });
-        
+
+        const capasGeoServer = response.data.layers ? response.data.layers.layer : [];
+        const capasDBNames = capasDB.map(c => c.tableName.toLowerCase());
+
+        const capasFiltradas = capasGeoServer
+            .filter(capa => capasDBNames.includes(capa.name.toLowerCase()))
+            .map(capa => {
+                const dbInfo = capasDB.find(c => c.tableName.toLowerCase() === capa.name.toLowerCase());
+                const nombre = capa.name;
+                const workspace = dbInfo?.workspace || 'geoportal';
+                return {
+                    name: nombre,
+                    title: dbInfo?.nombre || capa.title || nombre,
+                    wmsUrl: `http://localhost:8080/geoserver/${workspace}/wms?service=WMS&version=1.1.0&request=GetMap&layers=${workspace}:${nombre}&srs=EPSG:4326&bbox=-180,-90,180,90&width=768&height=384&format=image/png&transparent=true`,
+                    wfsUrl: `http://localhost:8080/geoserver/${workspace}/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=${workspace}:${nombre}&outputFormat=application/json`,
+                    wmsGetCapabilities: `http://localhost:8080/geoserver/${workspace}/wms?service=WMS&version=1.1.0&request=GetCapabilities`,
+                    wfsGetCapabilities: `http://localhost:8080/geoserver/${workspace}/wfs?service=WFS&version=1.0.0&request=GetCapabilities`,
+                    leafletWmsConfig: {
+                        url: `http://localhost:8080/geoserver/${workspace}/wms`,
+                        params: {
+                            layers: `${workspace}:${nombre}`,
+                            format: 'image/png',
+                            transparent: true,
+                            version: '1.1.0'
+                        }
+                    },
+                    openLayersWmsConfig: {
+                        url: `http://localhost:8080/geoserver/${workspace}/wms`,
+                        params: {
+                            LAYERS: `${workspace}:${nombre}`,
+                            TILED: true
+                        },
+                        serverType: 'geoserver'
+                    }
+                };
+            });
+
         res.json({
             source: 'GeoServer REST API',
-            layers: response.data.layers ? response.data.layers.layer : []
+            total: capasFiltradas.length,
+            layers: capasFiltradas
+        });
+    } catch (error) {
+        res.status(500).json({ error: "Error al conectar con GeoServer", detalle: error.message });
+    }
+};
+
+const obtenerRastersGeoserver = async (req, res) => {
+    try {
+        const rastersDB = await prisma.$queryRaw`
+            SELECT coberturaStore, nombre, workspace
+            FROM geoespacial.rasters_geoespaciales
+            WHERE eliminado = false AND activo = true
+        `;
+
+        if (rastersDB.length === 0) {
+            return res.json({ source: 'GeoServer REST API', total: 0, rasters: [] });
+        }
+
+        const url = 'http://localhost:8080/geoserver/rest/coverages.json';
+        const response = await axios.get(url, {
+            auth: { username: 'admin', password: 'mi_password_seguro' },
+        });
+
+        const rastersGeoServer = response.data.coverages ? response.data.coverages.coverage : [];
+        const rastersDBNames = rastersDB.map(r => r.coberturaStore.toLowerCase());
+
+        const rastersFiltrados = rastersGeoServer
+            .filter(raster => rastersDBNames.includes(raster.name.toLowerCase()))
+            .map(raster => {
+                const dbInfo = rastersDB.find(r => r.coberturaStore.toLowerCase() === raster.name.toLowerCase());
+                const nombre = raster.name;
+                const workspace = dbInfo?.workspace || 'geoportal';
+                return {
+                    name: nombre,
+                    title: dbInfo?.nombre || raster.title || nombre,
+                    wmsUrl: `http://localhost:8080/geoserver/${workspace}/wms?service=WMS&version=1.1.0&request=GetMap&layers=${workspace}:${nombre}&srs=EPSG:4326&bbox=-180,-90,180,90&width=768&height=384&format=image/png&transparent=true`,
+                    wmsGetCapabilities: `http://localhost:8080/geoserver/${workspace}/wms?service=WMS&version=1.1.0&request=GetCapabilities`,
+                    leafletWmsConfig: {
+                        url: `http://localhost:8080/geoserver/${workspace}/wms`,
+                        params: {
+                            layers: `${workspace}:${nombre}`,
+                            format: 'image/png',
+                            transparent: true,
+                            version: '1.1.0'
+                        }
+                    },
+                    openLayersWmsConfig: {
+                        url: `http://localhost:8080/geoserver/${workspace}/wms`,
+                        params: {
+                            LAYERS: `${workspace}:${nombre}`,
+                            TILED: true
+                        },
+                        serverType: 'geoserver'
+                    }
+                };
+            });
+
+        res.json({
+            source: 'GeoServer REST API',
+            total: rastersFiltrados.length,
+            rasters: rastersFiltrados
         });
     } catch (error) {
         res.status(500).json({ error: "Error al conectar con GeoServer", detalle: error.message });
@@ -168,6 +316,19 @@ const descargarCapa = async (req, res) => {
     const tableName = nombreCapa.toLowerCase().replace(/\s+/g, '_');
     
     try {
+        const meta = await prisma.$queryRawUnsafe(
+            `SELECT id, activo FROM geoespacial.capas_geoespaciales WHERE tableName = $1 AND eliminado = false`,
+            tableName
+        );
+
+        if (meta.length === 0) {
+            return res.status(404).json({ error: "Capa no encontrada" });
+        }
+
+        if (!meta[0].activo) {
+            return res.status(403).json({ error: "Capa inactiva" });
+        }
+
         const datos = await prisma.$queryRawUnsafe(`
             SELECT 
                 json_build_object(
@@ -203,7 +364,7 @@ const descargarCapa = async (req, res) => {
             const geoserverUrl = `${GEOSERVER_URL}/wfs?request=GetFeature&version=1.0.0&typeName=${workspace}:${tableName}&outputFormat=shape-zip`;
             
             const response = await axios.get(geoserverUrl, {
-                auth: { username: 'admin', password: 'geoserver' },
+                auth: { username: 'admin', password: 'mi_password_seguro' }, //reemplaza con geoserver la contraseña todo depende de como corre goeserver 
                 responseType: 'arraybuffer'
             });
             
@@ -242,31 +403,248 @@ const publicarRaster = async (req, res) => {
     const coberturaStore = nombreCapa.replace(/\s+/g, '_').toLowerCase();
 
     try {
+        const rastersSubdir = path.join(rastersDir, coberturaStore);
+        if (!fs.existsSync(rastersSubdir)) {
+            fs.mkdirSync(rastersSubdir, { recursive: true });
+        }
+
+        const fileName = `${coberturaStore}${ext}`;
+        const finalPath = path.join(rastersSubdir, fileName);
+        const tempPath = req.file.path;
+
+        fs.renameSync(tempPath, finalPath);
+
         await setupGeoserver(workspace, coberturaStore, 'coveragestore');
 
         const uploadUrl = `${GEOSERVER_URL}/rest/workspaces/${workspace}/coveragestores/${coberturaStore}/file.geotiff`;
         
-        await axios.put(uploadUrl, req.file.buffer, {
-            auth: { username: 'admin', password: 'geoserver' },
+        const fileStream = fs.createReadStream(finalPath);
+        await axios.put(uploadUrl, fileStream, {
+            auth: { username: 'admin', password: 'mi_password_seguro' },
             headers: { 
                 'Content-Type': req.file.mimetype,
                 'Coverage-name': nombreCapa
-            }
+            },
+            maxContentLength: Infinity,
+            maxBodyLength: Infinity
         });
 
         res.json({ 
             mensaje: `Raster publicado con éxito`,
             nombre: nombreCapa,
             workspace: workspace,
-            coberturaStore: coberturaStore
+            coberturaStore: coberturaStore,
+            archivo: fileName
         });
 
+        await prisma.$executeRawUnsafe(
+            `INSERT INTO geoespacial.rasters_geoespaciales (nombre, coberturaStore, workspace, archivo) 
+             VALUES ($1, $2, $3, $4)
+             ON CONFLICT (nombre) DO UPDATE SET eliminado = false, activo = true`,
+            nombreCapa, coberturaStore, workspace, fileName
+        );
+
     } catch (error) {
-        console.error("Error al publicar raster:", error.response ? error.response.data : error.message);
+        if (req.file?.path && fs.existsSync(req.file.path)) {
+            fs.unlinkSync(req.file.path);
+        }
+        const errorMsg = error.response?.data || error.message || error.code || JSON.stringify(error);
+        console.error("Error al publicar raster:", errorMsg);
         res.status(500).json({ 
             error: "Error al publicar raster", 
-            detalle: error.message 
+            detalle: errorMsg 
         });
+    }
+};
+
+const enlistarRasters = async (req, res) => {
+    try {
+        const rasters = await prisma.$queryRaw`
+            SELECT 
+                r.nombre,
+                r.coberturaStore,
+                r.workspace,
+                r.archivo,
+                r.activo,
+                r.created_at
+            FROM geoespacial.rasters_geoespaciales r
+            WHERE r.eliminado = false
+            ORDER BY r.created_at DESC
+        `;
+        
+        const rastersConUrls = rasters.map(raster => ({
+            ...raster,
+            wmsUrl: `http://localhost:8080/geoserver/wms?service=WMS&version=1.1.0&request=GetMap&layers=${raster.workspace}:${raster.coberturaStore}&srs=EPSG:4326&bbox=-180,-90,180,90&width=768&height=384&format=image/png&transparent=true`,
+            leafletWmsConfig: {
+                url: `http://localhost:8080/geoserver/wms`,
+                params: {
+                    layers: `${raster.workspace}:${raster.coberturaStore}`,
+                    format: 'image/png',
+                    transparent: true,
+                    version: '1.1.0'
+                }
+            },
+            openLayersWmsConfig: {
+                url: `http://localhost:8080/geoserver/wms`,
+                params: {
+                    LAYERS: `${raster.workspace}:${raster.coberturaStore}`,
+                    TILED: true
+                },
+                serverType: 'geoserver'
+            }
+        }));
+        
+        res.json({ source: 'PostgreSQL/PostGIS', total: rastersConUrls.length, rasters: rastersConUrls });
+    } catch (error) {
+        console.error("Error al enlistar rasters:", error);
+        res.status(500).json({ error: "Error al enlistar rasters", detalle: error.message });
+    }
+};
+
+const descargarRaster = async (req, res) => {
+    const { nombreCapa } = req.params;
+
+    if (!nombreCapa) {
+        return res.status(400).json({ error: "Nombre de capa requerido" });
+    }
+
+    const coberturaStore = nombreCapa.toLowerCase().replace(/\s+/g, '_');
+    const rastersSubdir = path.join(rastersDir, coberturaStore);
+
+    try {
+        const meta = await prisma.$queryRawUnsafe(
+            `SELECT id, activo FROM geoespacial.rasters_geoespaciales WHERE coberturaStore = $1 AND eliminado = false`,
+            coberturaStore
+        );
+
+        if (meta.length === 0) {
+            return res.status(404).json({ error: "Raster no encontrado" });
+        }
+
+        if (!meta[0].activo) {
+            return res.status(403).json({ error: "Raster inactivo" });
+        }
+    } catch (error) {
+        return res.status(500).json({ error: "Error al verificar raster", detalle: error.message });
+    }
+
+    if (!fs.existsSync(rastersSubdir)) {
+        return res.status(404).json({ error: "Raster no encontrado" });
+    }
+
+    const files = fs.readdirSync(rastersSubdir);
+    const rasterFile = files.find(f => /\.(tif|tiff|geotiff|sid|img)$/i.test(f));
+
+    if (!rasterFile) {
+        return res.status(404).json({ error: "Archivo raster no encontrado" });
+    }
+
+    const filePath = path.join(rastersSubdir, rasterFile);
+    const ext = path.extname(rasterFile).toLowerCase();
+    const contentTypes = {
+        '.tif': 'image/tiff',
+        '.tiff': 'image/tiff',
+        '.geotiff': 'image/tiff',
+        '.sid': 'application/octet-stream',
+        '.img': 'application/octet-stream'
+    };
+
+    res.setHeader('Content-Type', contentTypes[ext] || 'application/octet-stream');
+    res.setHeader('Content-Disposition', `attachment; filename="${rasterFile}"`);
+    return res.sendFile(filePath);
+};
+
+const eliminarCapa = async (req, res) => {
+    const { nombreCapa } = req.params;
+    const tableName = nombreCapa.toLowerCase().replace(/\s+/g, '_');
+
+    try {
+        const result = await prisma.$executeRawUnsafe(
+            `UPDATE geoespacial.capas_geoespaciales SET eliminado = true WHERE tableName = $1 AND eliminado = false`,
+            tableName
+        );
+
+        if (result === 0) {
+            return res.status(404).json({ error: 'Capa no encontrada o ya eliminada' });
+        }
+
+        res.json({ mensaje: 'Capa eliminada correctamente' });
+    } catch (error) {
+        console.error('Error al eliminar capa:', error);
+        res.status(500).json({ error: 'Error al eliminar capa', detalle: error.message });
+    }
+};
+
+const toggleActivoCapa = async (req, res) => {
+    const { nombreCapa } = req.params;
+    const { activo } = req.body;
+    const tableName = nombreCapa.toLowerCase().replace(/\s+/g, '_');
+
+    if (activo === undefined || typeof activo !== 'boolean') {
+        return res.status(400).json({ error: 'El campo "activo" debe ser true o false' });
+    }
+
+    try {
+        const result = await prisma.$executeRawUnsafe(
+            `UPDATE geoespacial.capas_geoespaciales SET activo = $1 WHERE tableName = $2 AND eliminado = false`,
+            activo, tableName
+        );
+
+        if (result === 0) {
+            return res.status(404).json({ error: 'Capa no encontrada o eliminada' });
+        }
+
+        res.json({ mensaje: `Capa actualizada a ${activo ? 'activa' : 'inactiva'}` });
+    } catch (error) {
+        console.error('Error al cambiar estado de la capa:', error);
+        res.status(500).json({ error: 'Error al cambiar estado de la capa', detalle: error.message });
+    }
+};
+
+const eliminarRaster = async (req, res) => {
+    const { nombreCapa } = req.params;
+    const coberturaStore = nombreCapa.toLowerCase().replace(/\s+/g, '_');
+
+    try {
+        const result = await prisma.$executeRawUnsafe(
+            `UPDATE geoespacial.rasters_geoespaciales SET eliminado = true WHERE coberturaStore = $1 AND eliminado = false`,
+            coberturaStore
+        );
+
+        if (result === 0) {
+            return res.status(404).json({ error: 'Raster no encontrado o ya eliminado' });
+        }
+
+        res.json({ mensaje: 'Raster eliminado correctamente' });
+    } catch (error) {
+        console.error('Error al eliminar raster:', error);
+        res.status(500).json({ error: 'Error al eliminar raster', detalle: error.message });
+    }
+};
+
+const toggleActivoRaster = async (req, res) => {
+    const { nombreCapa } = req.params;
+    const { activo } = req.body;
+    const coberturaStore = nombreCapa.toLowerCase().replace(/\s+/g, '_');
+
+    if (activo === undefined || typeof activo !== 'boolean') {
+        return res.status(400).json({ error: 'El campo "activo" debe ser true o false' });
+    }
+
+    try {
+        const result = await prisma.$executeRawUnsafe(
+            `UPDATE geoespacial.rasters_geoespaciales SET activo = $1 WHERE coberturaStore = $2 AND eliminado = false`,
+            activo, coberturaStore
+        );
+
+        if (result === 0) {
+            return res.status(404).json({ error: 'Raster no encontrado o eliminado' });
+        }
+
+        res.json({ mensaje: `Raster actualizado a ${activo ? 'activo' : 'inactivo'}` });
+    } catch (error) {
+        console.error('Error al cambiar estado del raster:', error);
+        res.status(500).json({ error: 'Error al cambiar estado del raster', detalle: error.message });
     }
 };
 
@@ -275,5 +653,12 @@ module.exports = {
     publicarRaster,
     enlistingCapasDB,
     obtenerCapasGeoserver,
-    descargarCapa
+    obtenerRastersGeoserver,
+    descargarCapa,
+    descargarRaster,
+    enlistarRasters,
+    eliminarCapa,
+    toggleActivoCapa,
+    eliminarRaster,
+    toggleActivoRaster
 };
