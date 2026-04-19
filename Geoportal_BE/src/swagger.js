@@ -16,6 +16,10 @@ const options = {
         {
             name : 'USUARIOS',
             description : 'Gestión de usuarios y autenticación.'
+        },
+        {
+            name : 'AUDITORIA',
+            description : 'Bitácora de actividades y eventos del sistema.'
         }
     ],
         
@@ -144,9 +148,62 @@ const options = {
         },
         get: {
           tags: ['USUARIOS'],
-          summary: 'Listar todos los usuarios',
+          summary: 'Listar todos los usuarios (Excluyendo eliminados)',
           responses: {
             200: { description: 'Lista de usuarios' }
+          }
+        }
+      },
+      '/api/usuarios/{id}': {
+        patch: {
+          tags: ['USUARIOS'],
+          summary: 'Editar campos de un usuario específico',
+          parameters: [
+            {
+              name: 'id',
+              in: 'path',
+              required: true,
+              schema: { type: 'string' },
+              description: 'ID de 20 dígitos del usuario'
+            }
+          ],
+          requestBody: {
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    nombreCompleto: { type: 'string' },
+                    direccion: { type: 'string' },
+                    correo: { type: 'string' },
+                    contrasena: { type: 'string' },
+                    rol: { type: 'string' },
+                    activo: { type: 'boolean' }
+                  }
+                }
+              }
+            }
+          },
+          responses: {
+            200: { description: 'Usuario actualizado' },
+            400: { description: 'Error en la actualización' }
+          }
+        },
+        delete: {
+          tags: ['USUARIOS'],
+          summary: 'Eliminar usuario (Soft Delete)',
+          parameters: [
+            {
+              name: 'id',
+              in: 'path',
+              required: true,
+              schema: { type: 'string' },
+              description: 'ID de 20 dígitos del usuario'
+            }
+          ],
+          responses: {
+            200: { description: 'Usuario marcado como eliminado' },
+            400: { description: 'Error al eliminar' }
           }
         }
       },
@@ -170,6 +227,15 @@ const options = {
           responses: {
             200: { description: 'Login exitoso' },
             401: { description: 'Credenciales inválidas' }
+          }
+        }
+      },
+      '/api/logs': {
+        get: {
+          tags: ['AUDITORIA'],
+          summary: 'Obtener bitácora de actividades',
+          responses: {
+            200: { description: 'Lista de eventos del sistema' }
           }
         }
       }

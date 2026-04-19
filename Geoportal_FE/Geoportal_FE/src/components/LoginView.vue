@@ -3,20 +3,21 @@
     <!-- Header Logo -->
     <div class="header-logo pa-6">
       <div class="d-flex align-center text-white">
-        <v-icon icon="mdi-compass-outline" size="32" class="mr-2"></v-icon>
-        <span class="text-h5 font-weight-bold">GeoPortal Precision</span>
+        <img src="/Logo IP 2026 Azul_2.png" height="40" class="mr-3" />
+        <span class="text-h5 font-weight-bold">GeoPortal IP</span>
       </div>
     </div>
 
     <!-- Contenedor del Login con Centrado Absoluto -->
     <div class="login-wrapper">
-      <v-card width="450" class="login-card rounded-lg pa-4" elevation="12">
+      <v-card width="450" class="login-card rounded-lg pa-6" elevation="12">
         <v-card-text>
-          <div class="text-center mb-6">
-            <v-avatar color="primary" size="64" class="mb-4">
-              <v-icon icon="mdi-compass" size="36" color="white"></v-icon>
-            </v-avatar>
-            <h1 class="text-h4 font-weight-bold color-deep-blue">GeoPortal Precision</h1>
+          <div class="text-center mb-8">
+            <img src="/Logo IP Presidencial 2026.png" width="240" class="mb-6" />
+            <h1 class="text-h4 font-weight-black color-deep-blue">GEOPORTAL</h1>
+            <div class="text-caption font-weight-bold text-grey-darken-1 text-uppercase letter-spacing-1 mt-1">
+              Unidad de Fortalecimiento Tecnológico
+            </div>
             
             <v-alert
               v-if="errorMessage"
@@ -89,27 +90,14 @@
 
           <v-divider class="mb-6"></v-divider>
 
-          <div class="d-flex justify-center ga-2">
-            <v-chip size="small" variant="tonal" class="rounded-pill px-4" color="info">
-              TERMINAL SEGURO
-            </v-chip>
-            <v-chip size="small" variant="tonal" class="rounded-pill px-4" color="grey">
-              AES-256 ENABLED
-            </v-chip>
-          </div>
         </v-card-text>
       </v-card>
     </div>
 
     <!-- Footer -->
     <div class="footer pa-4">
-      <div class="d-flex justify-center ga-4 text-white text-caption text-uppercase mb-2">
-        <a href="#" class="text-white text-decoration-none">Protocolos de Seguridad</a>
-        <a href="#" class="text-white text-decoration-none">Soporte Técnico</a>
-        <a href="#" class="text-white text-decoration-none">Arquitectura de Red</a>
-      </div>
       <div class="text-center text-white text-caption opacity-60">
-        © 2024 GEOPORTAL PRECISION. GEOSPATIAL INTELLIGENCE DIVISION.
+        © 2026 UNIDAD DE FORTALECIMIENTO TECNOLOGICO. UFT.
       </div>
     </div>
   </div>
@@ -117,24 +105,18 @@
 
 <script setup>
 import { ref } from 'vue'
-import axios from 'axios'
+import api from '../api'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const email = ref('')
 const password = ref('')
 const remember = ref(false)
 const loading = ref(false)
 
-const emit = defineEmits(['login-success'])
-
 const errorMessage = ref('')
-const apiUrl = import.meta.env.VITE_API_URL
 
 const handleLogin = async () => {
-    if (!apiUrl) {
-        console.error('ERROR: VITE_API_URL no está definida en el archivo .env')
-        errorMessage.value = 'Configuración del servidor incompleta.'
-        return
-    }
     if (!email.value || !password.value) {
         errorMessage.value = 'Por favor, completa todos los campos.'
         return
@@ -144,7 +126,8 @@ const handleLogin = async () => {
     errorMessage.value = ''
 
     try {
-        const response = await axios.post(`${apiUrl}${import.meta.env.VITE_API_LOGIN}`, {
+        // Usar la instancia central y la variable de entorno para el login
+        const response = await api.post(import.meta.env.VITE_API_LOGIN, {
             correo: email.value,
             contrasena: password.value
         })
@@ -152,7 +135,7 @@ const handleLogin = async () => {
         loading.value = false
         // Guardamos el usuario en localStorage si es necesario
         localStorage.setItem('user', JSON.stringify(response.data))
-        emit('login-success')
+        router.push('/admin/dashboard')
     } catch (error) {
         loading.value = false
         console.error('Error en login:', error)
@@ -209,6 +192,7 @@ const handleLogin = async () => {
 .opacity-60 { opacity: 0.6; }
 .ga-2 { gap: 8px; }
 .ga-4 { gap: 16px; }
+.letter-spacing-1 { letter-spacing: 1px !important; }
 
 :deep(.v-field__input) {
   padding-top: 12px;

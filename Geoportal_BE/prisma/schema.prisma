@@ -1,5 +1,6 @@
 generator client {
   provider        = "prisma-client-js"
+  output          = "../src/generated/client"
   previewFeatures = ["multiSchema", "postgresqlExtensions"]
 }
 
@@ -37,13 +38,28 @@ model spatial_ref_sys {
 }
 
 model Usuario {
-  id             String @id @db.VarChar(20)
+  id             String  @id @db.VarChar(20)
   nombreCompleto String
   direccion      String
-  correo         String @unique
+  correo         String  @unique
   contrasena     String
   rol            String
+  activo         Boolean @default(true)
+  softDelete     Boolean @default(false)
 
   @@map("usuarios")
+  @@schema("public")
+}
+
+model Log {
+  id           Int      @id @default(autoincrement())
+  timestamp    DateTime @default(now())
+  usuario      String?
+  accion       String
+  entidad      String?
+  ip           String?
+  detalles     String?  @db.Text
+
+  @@map("logs")
   @@schema("public")
 }

@@ -1,9 +1,58 @@
-/* Cleaned up for Vuetify */
-html, body {
+/* 
+  SISTEMA DE DISEÑO GEOPORTAL (MERIDIAN)
+  Este archivo contiene los estilos globales y variables compartidas.
+*/
+
+:root {
+  --meridian-blue-dark: #0D2149;
+  --meridian-blue-mid: #1A3673;
+  --meridian-blue-light: #F8F9FF;
+  --meridian-grey: #5F6368;
+  --meridian-bg: #F4F6F8;
+}
+
+/* Tipografía */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+html, body, #app, .v-application {
+  font-family: 'Inter', sans-serif !important;
+  background-color: var(--meridian-bg) !important;
+  height: 100vh !important;
+  width: 100vw !important;
   margin: 0;
   padding: 0;
-  height: 100%;
+  overflow: hidden; /* Mantenemos hidden aquí para que solo scrollee la zona de contenido */
 }
-#app {
-  height: 100%;
+
+/* Clases de Utilidad Globales */
+.color-meridian {
+  color: var(--meridian-blue-dark) !important;
+}
+
+.bg-meridian-light {
+  background-color: var(--meridian-blue-light) !important;
+}
+
+.font-weight-black {
+  font-weight: 800 !important;
+}
+
+/* Ajustes de Vuetify */
+.v-navigation-drawer {
+  border-right: 1px solid rgba(0,0,0,0.05) !important;
+}
+
+/* Personalización de Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.1);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0,0,0,0.2);
 }
