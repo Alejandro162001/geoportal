@@ -95,10 +95,17 @@ const login = async (correo, contrasena, meta = { ip: 'unknown' }) => {
     return infoUsuario;
 };
 
+const logout = async (nombreCompleto, ip = 'unknown') => {
+    // Registrar cierre de sesión en la bitácora
+    await logService.registrarLog(nombreCompleto, 'LOGOUT', 'Sistema', ip);
+    return { message: 'Sesión cerrada y registrada en bitácora' };
+};
+
 module.exports = {
     crearUsuario,
     listarUsuarios,
     editarUsuario,
     eliminarUsuario,
-    login
+    login,
+    logout
 };

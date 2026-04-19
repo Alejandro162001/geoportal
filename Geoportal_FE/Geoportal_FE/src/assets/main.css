@@ -4,8 +4,12 @@
 */
 
 :root {
-  --meridian-blue-dark: #0D2149;
-  --meridian-blue-mid: #1A3673;
+  --ip-blue-dark: #17305b;
+  --ip-blue-mid: #344fa2;
+  --ip-gold: #AE8200;
+  --meridian-blue-dark: var(--ip-blue-dark);
+  --meridian-blue-mid: var(--ip-blue-mid);
+  --meridian-gold: var(--ip-gold);
   --meridian-blue-light: #F8F9FF;
   --meridian-grey: #5F6368;
   --meridian-bg: #F4F6F8;

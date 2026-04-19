@@ -80,7 +80,7 @@
           </tr>
         </thead>
         <tbody class="color-meridian">
-          <tr v-for="(log, i) in filteredLogs" :key="i" class="border-b">
+          <tr v-for="(log, i) in paginatedLogs" :key="i" class="border-b">
             <td class="py-6 px-6">
               <div class="font-weight-black">{{ log.date }}</div>
               <div class="text-caption text-grey font-weight-bold">{{ log.time }}</div>
@@ -94,8 +94,8 @@
               </div>
             </td>
             <td class="text-center">
-              <v-chip size="x-small" label class="font-weight-black rounded-sm px-4" 
-                      :color="log.actionColor + '-darken-4 text-white'" 
+              <v-chip size="x-small" label class="font-weight-black rounded-sm px-4 text-white" 
+                      :color="log.actionColor" 
                       variant="flat">
                 {{ log.accion.toUpperCase() }}
               </v-chip>
@@ -121,8 +121,15 @@
       </v-table>
       
       <div class="pa-6 border-t d-flex justify-space-between align-center">
-        <span class="text-caption text-grey font-weight-bold">Total Events: {{ rawLogs.length }}</span>
-        <v-pagination :length="1" density="compact" total-visible="4" color="indigo-darken-4" active-color="indigo-darken-4"></v-pagination>
+        <span class="text-caption text-grey font-weight-bold">Total Events: {{ filteredLogs.length }}</span>
+        <v-pagination 
+          v-model="page" 
+          :length="Math.ceil(filteredLogs.length / itemsPerPage)" 
+          density="compact" 
+          total-visible="4" 
+          color="indigo-darken-4" 
+          active-color="indigo-darken-4"
+        ></v-pagination>
       </div>
     </v-card>
   </v-container>
@@ -144,7 +151,6 @@ const loading = ref(false)
 const fetchLogs = async () => {
   loading.value = true
   try {
-    // Usar la variable de entorno para el endpoint de logs
     const response = await api.get(import.meta.env.VITE_API_LOGS)
     rawLogs.value = response.data
   } catch (error) {
@@ -154,7 +160,19 @@ const fetchLogs = async () => {
   }
 }
 
+const page = ref(1)
+const itemsPerPage = 8 // Cambiado a 8 para que se vea mejor en la captura
+
+const paginatedLogs = computed(() => {
+  const start = (page.value - 1) * itemsPerPage
+  const end = start + itemsPerPage
+  return filteredLogs.value.slice(start, end)
+})
+
 const filteredLogs = computed(() => {
+  // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+  page.value = 1 
+  
   return rawLogs.value.filter(log => {
     // Filtro por Acción
     if (filters.value.actionType !== 'All Actions') {
@@ -170,7 +188,7 @@ const filteredLogs = computed(() => {
        if (filters.value.role === 'System' && log.usuario !== 'Sistema') return false
     }
 
-    // Filtro por Tiempo (Simplificado para el demo)
+    // Filtro por Tiempo
     if (filters.value.dateRange === 'Last 24 Hours') {
         const yesterday = new Date(Date.now() - 24 * 60 * 60 * 1000)
         if (new Date(log.timestamp) < yesterday) return false
@@ -183,7 +201,10 @@ const filteredLogs = computed(() => {
           ...log,
           date: dt.toISOString().split('T')[0],
           time: dt.toLocaleTimeString(),
-          actionColor: log.accion.includes('DELETED') ? 'red' : (log.accion.includes('CREATED') ? 'indigo' : 'amber'),
+          actionColor: log.accion.includes('DELETED') ? '#d32f2f' : 
+                       (log.accion.includes('LOGIN') ? '#344fa2' : 
+                       (log.accion.includes('LOGOUT') ? '#AE8200' : 
+                       (log.accion.includes('CREATED') ? '#17305b' : '#344fa2'))),
           avatar: `https://ui-avatars.com/api/?name=${log.usuario}&background=random`
       }
   })
@@ -195,7 +216,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.color-meridian { color: #0D2149; }
+.color-meridian { color: #17305b; }
 .logs-table th {
   height: 64px !important;
   font-size: 11px !important;
@@ -208,5 +229,5 @@ code {
   font-family: 'Roboto Mono', monospace;
   font-size: 11px !important;
 }
-.bg-indigo-darken-1 { background-color: #1A3673 !important; }
+.bg-indigo-darken-1 { background-color: #344fa2 !important; }
 </style>

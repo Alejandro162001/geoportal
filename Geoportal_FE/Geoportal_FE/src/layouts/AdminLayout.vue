@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import api from '../api'
 
 const router = useRouter()
 const route = useRoute()
@@ -8,14 +9,27 @@ const drawer = ref(true)
 
 const navigationItems = [
   { title: 'Dashboard', icon: 'mdi-view-dashboard-outline', path: '/admin/dashboard' },
-  { title: 'Users', icon: 'mdi-account-group-outline', path: '/admin/users' },
-  { title: 'Layers', icon: 'mdi-layers-outline', path: '/admin/layers' },
-  { title: 'Activity Log', icon: 'mdi-history', path: '/admin/activity' }
+  { title: 'Usuarios', icon: 'mdi-account-group-outline', path: '/admin/users' },
+  { title: 'Capas', icon: 'mdi-layers-outline', path: '/admin/layers' },
+  { title: 'Bitácora', icon: 'mdi-history', path: '/admin/activity' }
 ]
 
-const logout = () => {
-  localStorage.removeItem('user')
-  router.push('/login')
+const logout = async () => {
+  try {
+    const userStr = localStorage.getItem('user')
+    if (userStr) {
+      const user = JSON.parse(userStr)
+      // Avisar al backend para guardar el log de salida
+      await api.post(import.meta.env.VITE_API_LOGOUT, { 
+        nombreCompleto: user.nombreCompleto 
+      })
+    }
+  } catch (error) {
+    console.error('Error al registrar logout:', error)
+  } finally {
+    localStorage.removeItem('user')
+    router.push('/login')
+  }
 }
 </script>
 
@@ -35,14 +49,14 @@ const logout = () => {
       <div class="px-6 mb-6">
          <v-btn 
           block 
-          color="indigo-darken-4" 
+          color="#AE8200" 
           prepend-icon="mdi-map-search" 
-          class="text-none font-weight-bold rounded-lg py-6"
+          class="text-none font-weight-black rounded-lg py-6 text-white"
           size="large"
           to="/geoportal"
-          elevation="2"
+          elevation="4"
          >
-           Go to Geoportal
+           Visor Geográfico
          </v-btn>
       </div>
 
@@ -99,8 +113,8 @@ const logout = () => {
 
       <v-btn icon="mdi-bell-outline" class="mr-2"></v-btn>
       <v-btn icon="mdi-cog-outline" class="mr-4"></v-btn>
-      <v-avatar color="grey-lighten-3" size="38" class="mr-2 border cursor-pointer">
-         <v-img src="https://cdn.vuetifyjs.com/images/john.jpg"></v-img>
+      <v-avatar color="#F4F6F8" size="38" class="mr-2 border cursor-pointer">
+         <v-icon color="#17305b" size="24">mdi-account</v-icon>
       </v-avatar>
     </v-app-bar>
 

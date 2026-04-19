@@ -186,11 +186,11 @@ let measureLayer = new VectorLayer({
   style: [
     new Style({ stroke: new Stroke({ color: 'white', width: 6 }) }),
     new Style({
-      fill: new Fill({ color: 'rgba(13, 33, 73, 0.25)' }),
-      stroke: new Stroke({ color: '#0D2149', width: 3 }),
+      fill: new Fill({ color: 'rgba(23, 48, 91, 0.25)' }),
+      stroke: new Stroke({ color: '#17305b', width: 3 }),
       image: new CircleStyle({ 
         radius: 6, 
-        stroke: new Stroke({ color: '#0D2149', width: 2.5 }),
+        stroke: new Stroke({ color: '#17305b', width: 2.5 }),
         fill: new Fill({ color: 'white' }) 
       })
     })
@@ -278,9 +278,9 @@ const startMeasure = (type) => {
     style: [
       new Style({ stroke: new Stroke({ color: 'white', width: 5 }) }),
       new Style({
-        fill: new Fill({ color: 'rgba(13, 33, 73, 0.2)' }),
-        stroke: new Stroke({ color: '#0D2149', lineDash: [10, 10], width: 2.5 }),
-        image: new CircleStyle({ radius: 6, stroke: new Stroke({ color: '#0D2149', width: 2 }), fill: new Fill({ color: 'white' }) })
+        fill: new Fill({ color: 'rgba(23, 48, 91, 0.2)' }),
+        stroke: new Stroke({ color: '#17305b', lineDash: [10, 10], width: 2.5 }),
+        image: new CircleStyle({ radius: 6, stroke: new Stroke({ color: '#17305b', width: 2 }), fill: new Fill({ color: 'white' }) })
       })
     ]
   })
@@ -354,7 +354,7 @@ const formatArea = (polygon) => (Math.round(getArea(polygon) * 100) / 100) + ' m
 .geoportal-layout { height: 100vh; overflow: hidden; }
 .map-main { position: relative; display: flex; flex-direction: column; }
 .map-view { flex-grow: 1; width: 100%; }
-.color-meridian { color: #0D2149; }
+.color-meridian { color: #17305b; }
 .search-container-map { width: 100%; max-width: 400px; }
 .map-tools-container { position: absolute; top: 100px; right: 20px; z-index: 1000; display: flex; flex-direction: column; }
 .map-footer { height: 32px; z-index: 1000; opacity: 0.9; }
@@ -369,7 +369,7 @@ const formatArea = (polygon) => (Math.round(getArea(polygon) * 100) / 100) + ' m
 :deep(.ol-tooltip) {
   position: relative; background: rgba(13, 33, 73, 0.9); border-radius: 4px; color: white; padding: 4px 10px; font-size: 11px; font-weight: 800; pointer-events: none;
 }
-:deep(.ol-tooltip-static) { background-color: #0D2149; border: 1px solid white; }
+:deep(.ol-tooltip-static) { background-color: #17305b; border: 1px solid white; }
 .cursor-pointer { cursor: pointer; }
 .ga-2 { gap: 8px; }
 .ga-4 { gap: 16px; }

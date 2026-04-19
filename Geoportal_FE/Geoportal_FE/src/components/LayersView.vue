@@ -291,8 +291,9 @@
             </td>
             <td class="text-center">
               <v-chip size="x-small" label class="font-weight-black rounded-sm px-4" 
-                      :color="layer.type === 'RASTER' ? 'amber-lighten-4' : 'indigo-lighten-4'" 
-                      :text-color="layer.type === 'RASTER' ? 'amber-darken-4' : 'indigo-darken-4'">
+                      color="#AE8200" 
+                      variant="flat" 
+                      style="background-color: #FFF8E1 !important; color: #AE8200 !important; border: 1px solid #FFECB3 !important;">
                 {{ layer.type }}
               </v-chip>
             </td>
@@ -302,7 +303,7 @@
             </td>
             <td class="text-center font-weight-bold">{{ layer.size }}</td>
             <td class="text-center">
-              <v-switch v-model="layer.visible" color="amber-darken-2" hide-details density="compact" class="d-inline-flex"></v-switch>
+              <v-switch v-model="layer.visible" color="#AE8200" hide-details density="compact" class="d-inline-flex"></v-switch>
             </td>
             <td class="text-right pe-4">
                <v-menu transition="scale-transition">
@@ -341,9 +342,9 @@
     <!-- Footer Alerts -->
     <v-row class="mt-8 ga-4">
       <v-col cols="12" md="6">
-        <v-alert color="white" border="start" border-color="amber-darken-4" class="rounded-xl pa-8 border-start-4" elevation="0">
+        <v-alert color="#FFF8E1" border="start" border-color="#AE8200" class="rounded-xl pa-8 border-start-4" elevation="0">
           <template v-slot:prepend>
-            <v-avatar color="amber-darken-4" size="24" class="mr-4">
+            <v-avatar color="#AE8200" size="24" class="mr-4">
                 <span class="text-white font-weight-bold" style="font-size: 14px">i</span>
               </v-avatar>
           </template>
@@ -585,7 +586,7 @@ const handleUpload = async () => {
 </script>
 
 <style scoped>
-.color-meridian { color: #0D2149; }
+.color-meridian { color: #17305b; }
 .max-width-600 { max-width: 600px; }
 .last-col-no-border:last-of-type { border-right: none !important; }
 .layers-table th {

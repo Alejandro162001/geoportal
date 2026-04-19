@@ -178,7 +178,7 @@ const handleLogin = async () => {
 }
 
 .color-deep-blue {
-  color: #1A3673;
+  color: #17305b;
 }
 
 .footer {

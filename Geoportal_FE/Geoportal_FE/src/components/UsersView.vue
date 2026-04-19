@@ -22,7 +22,7 @@
     <v-dialog v-model="userDialog" max-width="600" persistent transition="dialog-bottom-transition">
       <v-card class="rounded-xl pa-2" elevation="12">
         <v-card-title class="pa-6 d-flex align-center">
-          <v-avatar :color="isEditing ? 'amber-darken-3' : 'indigo-darken-4'" size="40" class="mr-4">
+          <v-avatar :color="isEditing ? '#AE8200' : 'indigo-darken-4'" size="40" class="mr-4">
             <v-icon :icon="isEditing ? 'mdi-account-edit' : 'mdi-account-plus'" color="white"></v-icon>
           </v-avatar>
           <div>
@@ -141,7 +141,7 @@
           <v-spacer></v-spacer>
           <v-btn variant="text" class="text-none font-weight-black" color="grey" @click="closeUserDialog">Cancelar</v-btn>
           <v-btn 
-            :color="isEditing ? 'amber-darken-3' : 'indigo-darken-4'" 
+            :color="isEditing ? '#AE8200' : 'indigo-darken-4'" 
             class="text-none font-weight-black rounded-lg px-8" 
             size="large"
             :loading="loading"
@@ -188,7 +188,7 @@
             <div class="text-caption text-grey-darken-1 font-weight-black mb-1 opacity-70 text-uppercase">{{ stat.title }}</div>
             <div class="d-flex align-center justify-space-between mt-2">
               <div class="text-h3 font-weight-black color-meridian">{{ stat.value }}</div>
-              <v-icon v-if="stat.icon" :icon="stat.icon" color="grey-lighten-2" size="40"></v-icon>
+              <v-icon v-if="stat.icon" :icon="stat.icon" color="#17305b" size="40"></v-icon>
             </div>
           </v-card-text>
         </v-card>
@@ -212,8 +212,8 @@
           <tr v-for="user in users" :key="user.id">
             <td class="py-4">
               <div class="d-flex align-center">
-                <v-avatar :color="user.avatarColor + '-lighten-4'" rounded="lg" size="36" class="mr-3">
-                  <span class="text-caption font-weight-black" :class="'text-' + user.avatarColor + '-darken-4'">{{ user.initials }}</span>
+                <v-avatar color="#F4F6F8" rounded="lg" size="36" class="mr-3 border">
+                  <v-icon color="#17305b" size="20">mdi-account</v-icon>
                 </v-avatar>
                 <span class="font-weight-bold">{{ user.name }}</span>
               </div>
@@ -221,16 +221,22 @@
             <td>{{ user.email }}</td>
             <td class="text-center">
               <v-chip size="x-small" label class="font-weight-black rounded-sm px-4" 
-                      :color="user.roleColor + '-lighten-4'" 
-                      :text-color="user.roleColor + '-darken-4'">
+                      color="#AE8200" 
+                      variant="flat" 
+                      style="background-color: #FFF8E1 !important; color: #AE8200 !important; border: 1px solid #FFECB3 !important;">
                 {{ user.role }}
               </v-chip>
             </td>
             <td class="text-center">
               <div class="d-flex align-center justify-center ga-2">
-                <div :class="'bg-' + (user.status === 'Active' ? 'amber-darken-2' : 'grey-lighten-1')" 
-                     style="width: 8px; height: 8px; border-radius: 50%;"></div>
-                <span class="text-caption font-weight-bold" :class="user.status === 'Active' ? 'text-amber-darken-2' : 'text-grey'">{{ user.status }}</span>
+                <div :style="{ 
+                        backgroundColor: user.status === 'Active' ? '#344fa2' : '#9E9E9E', 
+                        width: '8px', height: '8px', borderRadius: '50%' 
+                      }"></div>
+                <span class="text-caption font-weight-bold" 
+                      :style="{ color: user.status === 'Active' ? '#344fa2' : '#9E9E9E' }">
+                  {{ user.status }}
+                </span>
               </div>
             </td>
             <td class="text-right pe-4">
@@ -273,8 +279,8 @@
       <v-col cols="12" md="6">
         <v-card class="rounded-xl border-0 bg-white" elevation="0">
           <v-row no-gutters>
-            <v-col cols="auto" class="pa-8 d-flex align-center br-amber">
-              <v-avatar color="amber-darken-4" rounded="lg" size="56" elevation="2">
+            <v-col cols="auto" class="pa-8 d-flex align-center br-gold">
+              <v-avatar color="#AE8200" rounded="lg" size="56" elevation="2">
                 <v-icon icon="mdi-hub-outline" color="white" size="32"></v-icon>
               </v-avatar>
             </v-col>
@@ -283,7 +289,7 @@
                <p class="text-caption text-grey-darken-1 font-weight-medium line-height-relaxed mb-4">
                  Structure users by department or regional branch to streamline large-scale geospatial data distribution and access.
                </p>
-               <v-btn variant="text" class="text-none font-weight-black px-0" color="amber-darken-4" append-icon="mdi-arrow-right">MANAGE TEAMS</v-btn>
+               <v-btn variant="text" class="text-none font-weight-black px-0" color="#AE8200" append-icon="mdi-arrow-right">MANAGE TEAMS</v-btn>
             </v-col>
           </v-row>
         </v-card>
@@ -297,9 +303,9 @@ import { ref, reactive, onMounted } from 'vue'
 import api from '../api'
 
 const stats = reactive([
-  { title: 'Total Active', value: '0', color: '#0D2149' },
-  { title: 'Admin Roles', value: '0', color: '#D49B35' },
-  { title: 'Editors', value: '0', color: '#1A3673' },
+  { title: 'Total Active', value: '0', color: '#17305b' },
+  { title: 'Admin Roles', value: '0', color: '#AE8200' },
+  { title: 'Editors', value: '0', color: '#344fa2' },
   { title: 'Avg Security Score', value: '98%', color: '#E0E0E0', icon: 'mdi-shield-check-outline' }
 ])
 
@@ -460,7 +466,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.color-meridian { color: #0D2149; }
+.color-meridian { color: #17305b; }
 .meridian-table th {
   height: 56px !important;
   font-size: 11px !important;
@@ -474,6 +480,6 @@ onMounted(() => {
 .br-indigo { border-right: 0px solid #E0E0E0; position: relative; }
 /* Secciones de color en el lado izquierdo de los módulos inferiores */
 .br-indigo::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 40%; background: #F8F9FF; z-index: 0; border-radius: 24px 0 0 24px; }
-.br-amber::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 40%; background: #FFF9F0; z-index: 0; border-radius: 24px 0 0 24px; }
+.br-gold::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 40%; background: #FFF9F0; z-index: 0; border-radius: 24px 0 0 24px; }
 .v-avatar { z-index: 1; }
 </style>

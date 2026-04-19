@@ -32,6 +32,16 @@ const login = async (req, res) => {
     }
 };
 
+const logout = async (req, res) => {
+    try {
+        const { nombreCompleto } = req.body;
+        const result = await usuarioService.logout(nombreCompleto, req.ip);
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 const editarUsuario = async (req, res) => {
     try {
         const meta = { ip: req.ip, requester: 'Administrador' };
@@ -59,5 +69,6 @@ module.exports = {
     listarUsuarios,
     editarUsuario,
     eliminarUsuario,
-    login
+    login,
+    logout
 };
